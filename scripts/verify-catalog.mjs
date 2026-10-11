@@ -249,7 +249,7 @@ try{
  assert.equal(fresh.latestGuides[0].slug,'qa-guide-fixture');assert.equal(results.toolResults('QA Catalogue Fixture').items[0].slug,'qa-catalogue-fixture');assert.ok(results.categoryOptions.some(c=>c.slug==='qa-fixture-category'));
  // The exact sitemap generator must include every newly published entity.
  const sitemapSource=fs.readFileSync('app/sitemap.ts','utf8').replaceAll('@/lib/','./');
- for(const [file,source] of [['services',fs.readFileSync('lib/services.ts','utf8')],['sitemap',sitemapSource]])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
+ for(const [file,source] of [['services',fs.readFileSync('lib/services.ts','utf8')],['site-index',fs.readFileSync('lib/site-index.ts','utf8')],['sitemap',sitemapSource]])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  fs.writeFileSync(path.join(tmp,'cms-public.js'),"exports.publicPages=async()=>require('./content-index').contentPages;");
  const entries=await require(path.join(tmp,'sitemap.js')).default();for(const a of communityAnswers)assert.ok(entries.some(e=>e.url.endsWith('/community/'+a.slug))); for(const suffix of ['/everything-ai','/tools/qa-catalogue-fixture','/alternatives/qa-catalogue-fixture','/categories/qa-fixture-category','/guides/qa-guide-fixture'])assert.ok(entries.some(e=>e.url.endsWith(suffix)),suffix);
  assert.equal(new Set(entries.map(e=>e.url)).size,entries.length);
