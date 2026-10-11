@@ -1,4 +1,4 @@
-import { BlobNotFoundError,get,head,put } from '@vercel/blob';
+import { BlobNotFoundError,get,head,put } from './private-storage';
 import { unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import 'server-only';
