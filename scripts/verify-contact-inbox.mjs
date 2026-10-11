@@ -32,7 +32,7 @@ export async function list({prefix}) {
   return {blobs:[],hasMore:false};
 }
 export async function get(path) {
-  const i=Number(path.match(/message-(\\d+)/)?.[1]);
+  const i=Number(path.split('message-')[1]?.split('.')[0]);
   if(!Number.isFinite(i)) return null;
   return {statusCode:200,stream:new Response(JSON.stringify(globalThis.testInboxMessages[i])).body};
 }
@@ -64,7 +64,7 @@ export async function put(path,body) { globalThis.testSubmittedPath=path;globalT
   assert.equal(result.messages[1].message, incoming[0].message, 'Full text must be preserved.');
   const exported = await inbox.GET(new Request('https://trutool.co/api/admin/enquiries?export=csv'));
   assert.equal(exported.status, 200);
-  assert.match(exported.headers.get('content-type') || '', /text\\/csv/);
+  assert.ok((exported.headers.get('content-type') || '').includes('text/csv'));
   const csv = await exported.text();
   assert.ok(csv.includes(incoming[0].email) && csv.includes(incoming[1].message));
   globalThis.testInboxFailure = true;
