@@ -83,6 +83,16 @@ try {
   assert.ok(article.includes('isGuide ? <>') && article.includes('<ArticleToc items={toc}/>'), 'CMS guides must use the standard clickable TOC');
   assert.ok(article.includes('<AuthorProfile author={author} compact/>') && article.includes('<AuthorProfile author={author}/>'), 'Both author contexts must render');
   assert.ok(article.includes('className="tldr"') && article.includes('className="tt-article-hero-media"'), 'CMS guide must show TLDR and cover in header');
+  const cmsGuideHeader = article.split('{isGuide ? <>')[1]?.split('</header>')[0] || '';
+  assert.ok(cmsGuideHeader.includes('<h1>{c.title}</h1>'), 'CMS guide title must remain');
+  assert.ok(cmsGuideHeader.includes('<p>{c.description}</p>'), 'CMS guide must preserve answer-first summary in its TLDR');
+  assert.ok(!cmsGuideHeader.includes('className="article-deck"'), 'Do not repeat the answer-first summary beneath the CMS guide title');
+  const toc = fs.readFileSync('components/article-toc.tsx', 'utf8');
+  const css = fs.readFileSync('app/globals.css', 'utf8');
+  assert.ok(toc.includes("data-section-id={item.id}") && toc.includes('nav.scrollTo('), 'TOC must scroll its own panel to the active heading');
+  assert.ok(toc.includes("window.addEventListener('scroll', queue"), 'TOC must follow the reader while scrolling');
+  assert.ok(css.includes('max-height:calc(100dvh - 112px)') && css.includes('overflow-y:auto'), 'Desktop TOC must stay inside viewport and remain scrollable');
+  assert.ok(css.includes('overflow-x:auto') && css.includes('overflow-y:hidden'), 'Phone TOC remains horizontal and scrollable');
   assert.ok(guides.includes('<CmsGuideCard') && guides.includes('<GuideCard') && !guides.includes('<CmsList'), 'Built-in and published guides must be in one grid');
   assert.ok(home.includes('homeGuides.map(') && home.includes('<CmsGuideCard'), 'Homepage must feature newly published guides');
   assert.ok(sitemap.includes("dynamic='force-dynamic'") && sitemap.includes('publicPages()'), 'Sitemap must incorporate current published CMS URLs');
