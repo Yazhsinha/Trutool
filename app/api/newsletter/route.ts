@@ -1,6 +1,8 @@
 import {createHmac,randomUUID,timingSafeEqual} from 'node:crypto';
 import {get,list,put,BlobPreconditionFailedError} from '@/lib/private-storage';
 import {validateSubscription} from '@/lib/newsletter';
+import {welcomeEventId} from '@/lib/dispatch-welcome';
+import {deliverPendingWelcome,newsletterSecret} from '@/lib/newsletter-delivery';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const respond=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store'}});
@@ -13,7 +15,7 @@ export async function POST(request:Request){
  const action=value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:null;
  const subscription=action?.action==='unsubscribe'?null:validateSubscription(value);
  if(!subscription&&action?.action!=='unsubscribe')return respond({error:'Enter a valid email, choose a topic, and agree to receive the newsletter.'},400);
- const secret=process.env.BLOB_READ_WRITE_TOKEN;if(!secret)return respond({error:'Subscriptions are temporarily unavailable. Please try again shortly.'},503);
+ const secret=newsletterSecret();if(!secret)return respond({error:'Subscriptions are temporarily unavailable. Please try again shortly.'},503);
  try{
   if(action?.action==='unsubscribe'){
    const token=typeof action.token==='string'?action.token:'',parts=token.split('.'),[id,sig]=parts;
@@ -30,11 +32,15 @@ export async function POST(request:Request){
   const id=createHmac('sha256',secret).update('newsletter-email:'+email).digest('hex'),path='newsletter/subscribers/'+id+'.json',token=id+'.'+sign(id,secret);
   const existing=await load(path);
   if(existing?.data.status==='subscribed')return respond({ok:true,already:true,manageUrl:'/newsletter?unsubscribe='+token});
-  const record={email,topics,source,status:'subscribed',consentVersion:'newsletter-v1',consentedAt:new Date().toISOString(),createdAt:existing?.data.createdAt||new Date().toISOString()};
+  const consentedAt=new Date().toISOString();
+  const record={email,topics,source,status:'subscribed',consentVersion:'newsletter-v1',consentedAt,createdAt:existing?.data.createdAt||consentedAt,welcomeEventId:welcomeEventId(id,consentedAt)};
   try{await put(path,JSON.stringify(record),{access:'private',contentType:'application/json',addRandomSuffix:false,...(existing?{ifMatch:existing.etag}:{allowOverwrite:false})});}
   catch(error){if(error instanceof BlobPreconditionFailedError||(await load(path))?.data.status==='subscribed'){
    if((await load(path))?.data.status==='subscribed')return respond({ok:true,already:true,manageUrl:'/newsletter?unsubscribe='+token});
   }throw error;}
+  // The opt-in has already been saved. A failed provider request must not undo consent.
+  // The protected daily retry job picks up any unsent welcome records.
+  try{await deliverPendingWelcome(path);}catch{console.error('Welcome email queued for retry');}
   return respond({ok:true,manageUrl:'/newsletter?unsubscribe='+token});
  }catch{console.error('Newsletter request could not be saved');return respond({error:'We could not save your request. Your email is still here; please try again.'},503);}
 }

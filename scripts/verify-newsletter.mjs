@@ -6,12 +6,14 @@ import {createRequire} from 'node:module';
 import ts from 'typescript';
 
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'trutool-newsletter-'));
-const previous=process.env.BLOB_READ_WRITE_TOKEN;
+const previous=process.env.BLOB_READ_WRITE_TOKEN, previousAdmin=process.env.ADMIN_SESSION_SECRET;
 try{
  fs.writeFileSync(path.join(temp,'package.json'),'{"type":"commonjs"}');
  const compile=(source,file)=>fs.writeFileSync(path.join(temp,file),ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  compile(fs.readFileSync('lib/newsletter.ts','utf8'),'newsletter.js');
- compile(fs.readFileSync('app/api/newsletter/route.ts','utf8').replace('@vercel/blob','./blob').replace('@/lib/private-storage','./blob').replace('@/lib/newsletter','./newsletter'),'route.js');
+ compile(fs.readFileSync('app/api/newsletter/route.ts','utf8').replace('@vercel/blob','./blob').replace('@/lib/private-storage','./blob').replace('@/lib/newsletter-delivery','./welcome-delivery').replace('@/lib/dispatch-welcome','./welcome-template').replace('@/lib/newsletter','./newsletter'),'route.js');
+ fs.writeFileSync(path.join(temp,'welcome-template.js'),"module.exports={welcomeEventId:()=> 'mock-welcome-event'};");
+ fs.writeFileSync(path.join(temp,'welcome-delivery.js'),"module.exports={newsletterSecret:()=>process.env.BLOB_READ_WRITE_TOKEN || process.env.ADMIN_SESSION_SECRET,deliverPendingWelcome:async()=> 'pending'};");
  fs.writeFileSync(path.join(temp,'blob.js'),`
  const records=new Map();let fail=false,version=0;
  class BlobPreconditionFailedError extends Error{}
@@ -42,6 +44,6 @@ try{
  for(let i=0;i<10;i++)assert.equal((await POST(request({...subscription,email:'rate'+i+'@example.com'},{ip:'192.0.2.3'}))).status,200);
  assert.equal((await POST(request({...subscription,email:'overflow@example.com'},{ip:'192.0.2.3'}))).status,429);assert.ok(!rows().some(row=>row.data.email==='overflow@example.com'));
  blob.setFailure(true);assert.equal((await POST(request(subscription,{ip:'192.0.2.4'}))).status,503);blob.setFailure(false);
- delete process.env.BLOB_READ_WRITE_TOKEN;assert.equal((await POST(request(subscription))).status,503);
+ delete process.env.BLOB_READ_WRITE_TOKEN;delete process.env.ADMIN_SESSION_SECRET;assert.equal((await POST(request(subscription))).status,503);
  console.log('PASS: newsletter validation, consent, origin, payload limits, private storage, deduplication, concurrent signups, signed unsubscribe, resubscribe, rate limiting, and failure handling.');
-}finally{if(previous===undefined)delete process.env.BLOB_READ_WRITE_TOKEN;else process.env.BLOB_READ_WRITE_TOKEN=previous;fs.rmSync(temp,{recursive:true,force:true});}
+}finally{if(previous===undefined)delete process.env.BLOB_READ_WRITE_TOKEN;else process.env.BLOB_READ_WRITE_TOKEN=previous;if(previousAdmin===undefined)delete process.env.ADMIN_SESSION_SECRET;else process.env.ADMIN_SESSION_SECRET=previousAdmin;fs.rmSync(temp,{recursive:true,force:true});}
