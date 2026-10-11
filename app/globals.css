@@ -772,3 +772,28 @@ main :is(.prose,.article-content,.tool-profile-content,.answer-block,.compare-ta
  .cms-guide .cms-prose>h2{font-size:25px}
  .cms-guide .cms-prose .cms-table-wrap{max-width:calc(100vw - 40px)}
 }
+
+
+/* Long guide TOC: sticky panel scrolls internally, keeping the current heading in view. */
+@media (min-width:761px) {
+  .article-layout .article-toc {
+    max-height:calc(100vh - 112px);
+    max-height:calc(100dvh - 112px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+    scrollbar-width:thin;
+    scrollbar-color:#cbd8c2 transparent;
+  }
+  .article-layout .article-toc>a[data-section-id] {scroll-margin-block:44px}
+}
+@media (max-width:760px) {
+  .article-layout .article-toc {
+    max-height:none;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+  }
+}
+.cms-guide .tt-article-hero-copy .article-meta {margin-top:12px}
