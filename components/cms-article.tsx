@@ -1,10 +1,123 @@
 /* eslint-disable @next/next/no-img-element -- User-uploaded covers are resized on upload. */
-import { authors } from '@/lib/authors';
-import { SITE,categories } from '@/lib/catalog';
-import { cmsAuthorName,cmsSchema,publicTools } from '@/lib/cms-public';
+import { authors, authorFor } from '@/lib/authors';
+import { SITE, categories } from '@/lib/catalog';
+import { cmsAuthorName, cmsSchema, publicTools } from '@/lib/cms-public';
+import { cmsHeadings } from '@/lib/cms-markdown-structure';
 import { getPublished } from '@/lib/cms-store';
-import { contentPath,type CmsContent } from '@/lib/cms-types';
+import { contentPath, type CmsContent } from '@/lib/cms-types';
+import { coverFor, coverAlt } from '@/lib/covers';
 import { serializeSchema } from '@/lib/structured-data';
 import Link from 'next/link';
+import { ArticleToc } from './article-toc';
+import { AuthorProfile } from './author-profile';
 import { CmsMarkdown } from './cms-markdown';
-export async function CmsArticle({content:c,preview=false}:{content:CmsContent;preview?:boolean}){const author=authors.find(a=>a.slug===c.authorSlug),category=categories.find(x=>x.slug===c.category),related=(await publicTools()).filter(t=>c.toolSlugs.includes(t.slug));return <main id="main" className="shell cms-article"><div className="breadcrumb"><Link href="/">Home</Link><span>/</span><Link href={c.kind==='news'?'/everything-ai':contentPath(c).split('/').slice(0,2).join('/')}>{c.kind==='news'?'Everything AI':c.kind==='answer'?'Community':c.kind}</Link></div>{preview&&<div className="cms-preview-notice">Private preview · This draft is not public.</div>}<header className={"cms-article-heading"+(c.image?" tt-cms-hero":"")}><div className="tt-cms-hero-copy"><span className="eyebrow">{category?.name||'TRUTOOL EDITORIAL'}</span><h1>{c.title}</h1><p>{c.description}</p><div className="cms-article-byline"><Link href={'/authors/'+c.authorSlug}>By {cmsAuthorName(c)}</Link>{c.updatedAt&&<span>Updated {new Date(c.updatedAt).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</span>}</div></div>{c.image&&<figure className="cms-cover tt-article-hero-media"><img src={c.image} alt={c.imageAlt?.trim() || c.title + " cover image"}/></figure>}</header><div className="cms-article-columns"><article>{c.kind==='tool'&&c.tool&&<div className="cms-tool-facts"><h2>Who is it for?</h2><p>{c.tool.fit}</p><h2>Key features</h2><ul>{c.tool.features.map(f=><li key={f}>{f}</li>)}</ul><h2>Before you choose</h2><p>{c.tool.caution}</p><h2>Pricing</h2><p>{c.tool.pricing}</p><a className="button dark" href={c.tool.pricingUrl||c.tool.url} target="_blank" rel="noopener noreferrer">Check vendor pricing</a></div>}<CmsMarkdown body={c.body}/>{related.length>0&&<section><h2>Tools mentioned</h2><div className="cms-related-tools">{related.map(t=><Link key={t.slug} href={'/tools/'+t.slug}><strong>{t.name}</strong><p>{t.summary}</p></Link>)}</div></section>}{c.sourceUrl&&<section className="cms-sources"><h2>Source</h2><a href={c.sourceUrl} target="_blank" rel="noopener noreferrer">{c.sourceLabel||'Original source'}</a></section>}{c.kind==='author'&&<section><h2>Published work</h2><div className="cms-related-tools">{(await getPublished()).filter(p=>p.authorSlug===c.slug&&p.kind!=='author').map(p=><Link key={p.id} href={contentPath(p)}>{p.title}</Link>)}</div></section>}</article><aside><span className="eyebrow">{c.kind==='tool'?'OFFICIAL WEBSITE':'THE EDITORIAL TEAM'}</span><h3>{c.kind==='tool'?c.title:author?.name}</h3><p>{c.kind==='tool'?c.tool?.fit:author?.bio}</p>{c.kind==='tool'&&c.tool?<a className="button dark" href={c.tool.url} target="_blank" rel="noopener noreferrer">Visit official site</a>:<Link className="text-link" href={'/authors/'+c.authorSlug}>View author profile</Link>}<hr/><h3>Make a clearer choice.</h3><Link href="/diagnostic">Open the Decision Studio</Link><Link href="/newsletter">Subscribe to TruTool Dispatch</Link><Link href="/editorial-policy">Our editorial policy</Link></aside></div>{!preview&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeSchema(cmsSchema(c))}}/>}<link rel="alternate" type="text/markdown" href={SITE+contentPath(c)+'.md'}/></main>;}
+
+export async function CmsArticle({ content: c, preview = false }: { content: CmsContent; preview?: boolean }) {
+  const author = authorFor({ authorSlug: c.authorSlug, category: c.category });
+  const category = categories.find(x => x.slug === c.category);
+  const related = (await publicTools()).filter(tool => c.toolSlugs.includes(tool.slug));
+  const isGuide = c.kind === 'guide';
+  const edited = c.updatedAt || c.publishedAt;
+  const editedLabel = edited && !Number.isNaN(Date.parse(edited))
+    ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(edited))
+    : '';
+  const readMinutes = Math.max(1, Math.ceil(c.body.trim().split(/\s+/).length / 220));
+  const headings = cmsHeadings(c.body);
+  const tocHeadings = headings.some(h => h.level === 2) ? headings.filter(h => h.level === 2) : headings;
+  const toc = [...tocHeadings.map(h => ({ id: h.id, label: h.label })), { id: 'cms-author-and-sources', label: 'Author & sources' }];
+
+  const articleBody = <>
+    {c.kind === 'tool' && c.tool && <div className="cms-tool-facts">
+      <h2>Who is it for?</h2><p>{c.tool.fit}</p>
+      <h2>Key features</h2><ul>{c.tool.features.map(feature => <li key={feature}>{feature}</li>)}</ul>
+      <h2>Before you choose</h2><p>{c.tool.caution}</p>
+      <h2>Pricing</h2><p>{c.tool.pricing}</p>
+      <a className="button dark" href={c.tool.pricingUrl || c.tool.url} target="_blank" rel="noopener noreferrer">Check vendor pricing</a>
+    </div>}
+    <CmsMarkdown body={c.body}/>
+    {related.length > 0 && <section>
+      <h2>Tools mentioned</h2>
+      <div className="cms-related-tools">{related.map(tool => <Link key={tool.slug} href={'/tools/' + tool.slug}><strong>{tool.name}</strong><p>{tool.summary}</p></Link>)}</div>
+    </section>}
+    {isGuide && <section id="cms-author-and-sources" className="cms-guide-author-section">
+      <h2>Author & sources</h2>
+      <AuthorProfile author={author}/>
+      {c.sourceUrl && <p>Original reference: <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer">{c.sourceLabel || c.sourceUrl}</a></p>}
+      <p className="editor-note"><Link href="/editorial-policy">Read our editorial policy.</Link> This guide presents editorial evaluation criteria, not independently verified product-performance claims.</p>
+      <Link className="text-link" href="/contact?topic=correction">Suggest a correction</Link>
+    </section>}
+    {!isGuide && c.sourceUrl && <section className="cms-sources"><h2>Source</h2>
+      <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer">{c.sourceLabel || 'Original source'}</a>
+    </section>}
+    {c.kind === 'author' && <section><h2>Published work</h2><div className="cms-related-tools">
+      {(await getPublished()).filter(item => item.authorSlug === c.slug && item.kind !== 'author').map(item => <Link key={item.id} href={contentPath(item)}>{item.title}</Link>)}
+    </div></section>}
+  </>;
+
+  return <main id="main" className={'shell cms-article' + (isGuide ? ' cms-guide article-page' : '')}>
+    <div className="breadcrumb">
+      <Link href="/">Home</Link><span>/</span>
+      <Link href={c.kind === 'news' ? '/everything-ai' : contentPath(c).split('/').slice(0, 2).join('/')}>
+        {c.kind === 'news' ? 'Everything AI' : isGuide ? 'Buying guides' : c.kind === 'answer' ? 'Community' : c.kind}
+      </Link>
+    </div>
+    {preview && <div className="cms-preview-notice">Private preview · This draft is not public.</div>}
+    {isGuide ? <>
+      <header className="article-header tt-guide-header cms-guide-header">
+        <div className="tt-article-hero">
+          <div className="tt-article-hero-copy">
+            <span className="eyebrow">THE TRUTOOL FIELD GUIDE</span>
+            <h1>{c.title}</h1>
+            <p className="article-deck">{c.description}</p>
+            <div className="article-meta">
+              <AuthorProfile author={author} compact/>
+              <div>{edited && <time dateTime={edited}>Updated {editedLabel}</time>}<span>Editorial buying guide · {readMinutes} minute read</span></div>
+            </div>
+            <div className="tldr">
+              <span>TL;DR</span>
+              <p>{c.description}</p>
+              <a href={'#' + (tocHeadings[0]?.id || 'cms-author-and-sources')}>Jump to the guide ↓</a>
+            </div>
+          </div>
+          <figure className="tt-article-hero-media">
+            <img src={c.image || coverFor(c.category)} alt={c.image ? c.imageAlt?.trim() || c.title + ' cover image' : coverAlt(c.category)}/>
+          </figure>
+        </div>
+      </header>
+      <div className="article-layout cms-guide-layout">
+        <aside><ArticleToc items={toc}/></aside>
+        <article className="article-content cms-guide-content">{articleBody}</article>
+      </div>
+    </> : <>
+      <header className={'cms-article-heading' + (c.image ? ' tt-cms-hero' : '')}>
+        <div className="tt-cms-hero-copy">
+          <span className="eyebrow">{category?.name || 'TRUTOOL EDITORIAL'}</span>
+          <h1>{c.title}</h1>
+          <p>{c.description}</p>
+          <div className="cms-article-byline">
+            <Link href={'/authors/' + c.authorSlug}>By {cmsAuthorName(c)}</Link>
+            {edited && <span>Updated {editedLabel}</span>}
+          </div>
+        </div>
+        {c.image && <figure className="cms-cover tt-article-hero-media"><img src={c.image} alt={c.imageAlt?.trim() || c.title + ' cover image'}/></figure>}
+      </header>
+      <div className="cms-article-columns">
+        <article>{articleBody}</article>
+        <aside>
+          <span className="eyebrow">{c.kind === 'tool' ? 'OFFICIAL WEBSITE' : 'THE EDITORIAL TEAM'}</span>
+          <h3>{c.kind === 'tool' ? c.title : authors.find(a => a.slug === c.authorSlug)?.name || cmsAuthorName(c)}</h3>
+          <p>{c.kind === 'tool' ? c.tool?.fit : author.bio}</p>
+          {c.kind === 'tool' && c.tool
+            ? <a className="button dark" href={c.tool.url} target="_blank" rel="noopener noreferrer">Visit official site</a>
+            : <Link className="text-link" href={'/authors/' + c.authorSlug}>View author profile</Link>}
+          <hr/><h3>Make a clearer choice.</h3>
+          <Link href="/diagnostic">Open the Decision Studio</Link>
+          <Link href="/newsletter">Subscribe to TruTool</Link>
+          <Link href="/editorial-policy">Our editorial policy</Link>
+        </aside>
+      </div>
+    </>}
+    {!preview && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeSchema(cmsSchema(c)) }}/>}
+    <link rel="alternate" type="text/markdown" href={SITE + contentPath(c) + '.md'}/>
+  </main>;
+}
