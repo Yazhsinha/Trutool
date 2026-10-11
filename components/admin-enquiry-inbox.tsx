@@ -22,11 +22,11 @@ const topicLabel: Record<Message['topic'], string> = {
 const displayDate = (value: string) =>
   Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : 'Date unavailable';
 
-export function AdminEnquiryInbox() {
+export function AdminEnquiryInbox({ onlyTools = false }: { onlyTools?: boolean }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [selectedId, setSelectedId] = useState('');
   const [search, setSearch] = useState('');
-  const [topic, setTopic] = useState('all');
+  const [topic, setTopic] = useState(onlyTools ? 'suggestion' : 'all');
   const [busy, setBusy] = useState(true);
   const [error, setError] = useState('');
   const [truncated, setTruncated] = useState(false);
@@ -58,10 +58,10 @@ export function AdminEnquiryInbox() {
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
     return messages.filter(m =>
-      (topic === 'all' || m.topic === topic) &&
+      (!onlyTools || Boolean(m.product)) && (topic === 'all' || m.topic === topic) &&
       (!query || [m.name, m.email, m.topic, m.message, m.product?.name || '', m.id]
         .some(value => value.toLowerCase().includes(query))));
-  }, [messages, search, topic]);
+  }, [messages, search, topic, onlyTools]);
   const selected = filtered.find(m => m.id === selectedId) || filtered[0];
   const replyTo = selected && 'mailto:' + selected.email + '?subject=' +
     encodeURIComponent('Re: Your TruTool message (' + selected.id.slice(0, 8) + ')');
@@ -69,8 +69,8 @@ export function AdminEnquiryInbox() {
   return <>
     <div className="studio-page-heading">
       <div><span className="studio-kicker">PRIVATE TEAM INBOX</span>
-        <h1>Messages from your readers.</h1>
-        <p>Every successful submission from the TruTool contact form is saved privately and appears here.</p>
+        <h1>{onlyTools ? 'Tool listing requests.' : 'Messages from your readers.'}</h1>
+        <p>{onlyTools ? 'Every product submitted for consideration, with official URL, category, and contact details.' : 'Every successful submission from the TruTool contact form is saved privately and appears here.'}</p>
       </div>
       <div className="studio-inbox-actions">
         <button type="button" className="studio-btn studio-outline" onClick={() => void refresh()} disabled={busy}>
@@ -80,7 +80,7 @@ export function AdminEnquiryInbox() {
       </div>
     </div>
     <div className="studio-stat-grid studio-two-stats">
-      <div className="studio-stat"><span>Messages received</span><strong>{messages.length}</strong><small>Saved contact submissions</small></div>
+      <div className="studio-stat"><span>{onlyTools ? 'Tool submissions' : 'Messages received'}</span><strong>{onlyTools ? messages.filter(m => Boolean(m.product)).length : messages.length}</strong><small>Saved {onlyTools ? 'listing requests' : 'contact submissions'}</small></div>
       <div className="studio-stat"><span>Showing</span><strong>{filtered.length}</strong><small>Matching your current filters</small></div>
     </div>
     {error && <div className="studio-error studio-global-error" role="alert">{error}</div>}
@@ -94,13 +94,12 @@ export function AdminEnquiryInbox() {
         <label className="studio-inbox-topic">
           <span className="sr-only">Filter by message topic</span>
           <select value={topic} onChange={event => setTopic(event.target.value)}>
-            <option value="all">All topics</option>
-            {Object.entries(topicLabel).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
+            {onlyTools ? <option value="suggestion">Tool listing requests</option> : <><option value="all">All topics</option>{Object.entries(topicLabel).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</>}
           </select>
         </label>
       </div>
       {busy && !messages.length ? <div className="studio-empty"><LoaderCircle className="studio-spin" size={28}/><p>Loading private messages…</p></div>
-        : messages.length === 0 ? <div className="studio-empty"><Inbox size={34}/><h2>Your contact inbox is ready.</h2><p>New messages submitted through the contact page will appear here.</p></div>
+        : messages.length === 0 ? <div className="studio-empty"><Inbox size={34}/><h2>{onlyTools ? 'Your listing queue is ready.' : 'Your contact inbox is ready.'}</h2><p>{onlyTools ? 'Requests from the List your product form will appear here.' : 'New messages submitted through the contact page will appear here.'}</p></div>
         : filtered.length === 0 ? <div className="studio-empty"><Search size={30}/><h2>No messages match your filters.</h2><p>Clear the search or choose another topic.</p></div>
         : <div className="studio-inbox-grid">
           <div className="studio-inbox-list" aria-label="Received messages">
