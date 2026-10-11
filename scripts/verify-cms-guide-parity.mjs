@@ -71,7 +71,7 @@ try {
   const html = renderToStaticMarkup(React.createElement(CmsMarkdown, { body }));
   assert.ok(html.includes('id="key-takeaways"') && html.includes('id="review-stages-2"'));
   assert.ok(html.includes('<ul><li>Keep location data correct.</li><li>Review publisher changes.</li></ul>'), 'Unicode bullets must group into a list across blank lines');
-  assert.ok(html.includes('<ol><li>Check current records</li><li>Confirm corrections</li><li>Audit public listings</li></ol>'), 'Numbered steps must be sequential real list elements');
+  assert.match(html, /<ol(?: start="1")?><li>Check current records<\/li><li>Confirm corrections<\/li><li>Audit public listings<\/li><\/ol>/, 'Numbered steps must be sequential real list elements');
   assert.ok(html.includes('<a href="https://synup.com/" target="_blank" rel="noopener noreferrer"><strong>Synup</strong></a>'), 'Markdown bold inside links must not show asterisks');
   assert.ok(!html.includes('**'), 'No raw bold markdown residue should appear in rendered HTML');
   assert.ok(html.includes('<table>') && html.includes('<tbody>'), 'Tables must be semantic');
