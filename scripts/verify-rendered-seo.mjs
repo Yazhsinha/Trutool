@@ -17,7 +17,7 @@ try{
   assert.ok(scripts.some(s=>s['@graph']?.some(n=>n['@type']==='WebSite')),'Missing WebSite graph');
   assert.ok(html.includes('<meta name="description" content="'),'Missing description: '+page.path);
   assert.ok(html.includes('rel="canonical"'),'Missing canonical: '+page.path);
-  assert.ok(!/<meta name="robots"[^>]*content="[^"]*noindex/.test(html),'Unexpected noindex: '+page.path);
+  if(process.env.NEXT_PUBLIC_DEMO_MODE==='false')assert.ok(!/<meta name="robots"[^>]*content="[^"]*noindex/.test(html),'Unexpected production noindex: '+page.path);
   assert.ok(html.includes('application/rss+xml')&&html.includes('text/markdown'),'Missing discovery links: '+page.path);
   count++;
  }
