@@ -9,6 +9,10 @@ try{
   const file=path.join('.next/server/app',page.path?page.path.slice(1)+'.html':'index.html');
   if(!fs.existsSync(file))continue; // Query-driven directories render at request time and are checked over HTTP.
   const html=fs.readFileSync(file,'utf8'),scripts=[...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m=>JSON.parse(m[1]));
+  for(const match of html.matchAll(/<img\\b[^>]*>/gi)){
+   const tag=match[0],alt=tag.match(/\\balt\\s*=\\s*(["'])(.*?)\\1/i);
+   assert.ok(alt&&alt[2].trim().length>0,'Missing or empty rendered image alt: '+page.path+' '+tag.slice(0,200));
+  }
   assert.ok(scripts.some(s=>s['@graph']?.some(n=>n.url===index.absolute(page.path||'/')&&['WebPage','CollectionPage','Article','ProfilePage','ContactPage','AboutPage'].includes(n['@type']))),'Missing rendered page graph: '+page.path);
   assert.ok(scripts.some(s=>s['@graph']?.some(n=>n['@type']==='WebSite')),'Missing WebSite graph');
   assert.ok(html.includes('<meta name="description" content="'),'Missing description: '+page.path);
