@@ -20,76 +20,51 @@ export function welcomeEventId(subscriberId: string, consentedAt: string) {
 
 export function welcomeEmail(subscription: WelcomeSubscription) {
   const unsubscribe = link(subscription.manageUrl);
-  const selected = newsletterTopics.filter(t => subscription.topics.includes(t.id));
-  const preferences = selected.map(t => t.label).join(' · ');
-  const topicNames = selected.map(t => escapeHtml(t.label)).join(' &nbsp; · &nbsp; ');
+  const selected = newsletterTopics.filter(topic => subscription.topics.includes(topic.id));
+  const preferences = selected.map(topic => topic.label).join(' · ');
+  const topicNames = selected.map(topic => escapeHtml(topic.label)).join(' &nbsp; · &nbsp; ');
+
+  // A brief, useful welcome confirmation instead of a multi-section marketing newsletter.
+  // Gmail decides inbox categories; no email template can guarantee placement in Primary.
   const html = `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#f1f4ef;color:#172b31;font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%;">
-<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">You're on the list. Thoughtful tools, useful guides, and the AI updates worth your time.</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f4ef;"><tr><td align="center" style="padding:32px 16px 42px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #dce5d8;border-radius:18px;overflow:hidden;">
-<tr><td style="background:#132932;padding:30px 38px 0;color:#ffffff;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="font-size:22px;letter-spacing:-1px;font-weight:800;color:#ffffff;">tru<span style="color:#d6ef82;">tool</span><span style="font-size:9px;letter-spacing:2px;font-weight:700;color:#b0c4ad;"> &nbsp; / &nbsp; DISPATCH</span></td>
-  <td align="right" style="font-size:10px;letter-spacing:1.6px;color:#d6ef82;font-weight:700;">WELCOME EDITION &nbsp; ✳</td></tr></table>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f6f8f4;color:#243335;font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#f6f8f4;"><tr><td align="center" style="padding:32px 16px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="560" style="width:100%;max-width:560px;background:#fff;border:1px solid #e4e9e1;">
+<tr><td style="padding:26px 34px 20px;border-top:4px solid #749c59;">
+  <p style="font-size:21px;font-weight:800;letter-spacing:-.7px;color:#173338;margin:0;">tru<span style="color:#6e9352;">tool</span> <span style="font-size:11px;font-weight:600;color:#7a8e83;letter-spacing:1.3px;">DISPATCH</span></p>
 </td></tr>
-<tr><td style="background:#132932;padding:44px 38px 41px;color:#ffffff;">
-  <div style="height:3px;width:60px;background:#d6ef82;border-radius:3px;margin-bottom:23px;"></div>
-  <div style="font-size:12px;letter-spacing:2.8px;font-weight:700;color:#d6ef82;margin-bottom:17px;">YOU'RE OFFICIALLY IN</div>
-  <h1 style="font-size:clamp(34px,7vw,50px);line-height:1.08;letter-spacing:-2px;font-weight:700;margin:0 0 21px;color:#ffffff;">Less noise.<br><span style="color:#d6ef82;">Better discoveries.</span></h1>
-  <p style="font-size:16px;line-height:1.7;color:#d1dedb;margin:0;max-width:470px;">Welcome to TruTool Dispatch — a thoughtful place for useful software, meaningful AI developments, and smarter decisions.</p>
-  <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:30px;"><tr>
-  <td style="padding:10px 16px;background:#d6ef82;border-radius:8px;color:#183126;font-size:11px;font-weight:800;letter-spacing:1.2px;">YOUR SUBSCRIPTION IS ACTIVE</td>
-  </tr></table>
+<tr><td style="padding:4px 34px 30px;">
+  <h1 style="font-size:28px;line-height:1.2;letter-spacing:-.7px;font-weight:700;color:#162d34;margin:12px 0 16px;">Welcome to TruTool Dispatch.</h1>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0 0 14px;">Hello,</p>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0 0 14px;">Thanks for subscribing. This is a quick note to confirm you're on the TruTool Dispatch list.</p>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0 0 14px;">Less noise. Better discoveries. We'll share thoughtful software recommendations, useful guides, and AI developments that are worth understanding.</p>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0 0 20px;">You chose to hear about: <strong>${topicNames}</strong>.</p>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0 0 22px;">In the meantime, you can <a href="${link('/tools')}" style="color:#355d39;font-weight:700;text-decoration:underline;">browse the tools on TruTool</a> whenever you like.</p>
+  <p style="font-size:15px;line-height:1.8;color:#334649;margin:0;">Thanks for being here,<br><strong>The TruTool team</strong></p>
 </td></tr>
-<tr><td style="padding:35px 38px 13px;">
-  <p style="font-size:11px;letter-spacing:2px;font-weight:800;color:#5c7e45;margin:0 0 11px;">A NOTE FROM THE EDITORS</p>
-  <h2 style="font-size:27px;letter-spacing:-1px;line-height:1.25;color:#142b31;margin:0 0 16px;">The internet has enough lists.<br>We'd rather send you perspective.</h2>
-  <p style="font-size:15px;line-height:1.85;color:#526468;margin:0;">We'll share the tools worth evaluating, the shifts in AI worth understanding, and straightforward guides to help you choose what actually works. Nothing to catch up on. Just useful discoveries when they matter.</p>
-</td></tr>
-<tr><td style="padding:19px 38px 8px;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e0e9dc;border-radius:12px;overflow:hidden;">
-<tr><td style="background:#f7faf3;padding:19px 21px;border-bottom:1px solid #e0e9dc;">
-  <div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#729252;margin-bottom:5px;">01 / DISCOVER</div>
-  <div style="font-size:17px;font-weight:700;color:#193035;">Find tools that earn their place.</div>
-  <div style="font-size:13px;line-height:1.65;color:#647677;margin-top:5px;">Explore useful software by category and practical use case.</div>
-</td></tr>
-<tr><td style="background:#ffffff;padding:19px 21px;border-bottom:1px solid #e0e9dc;">
-  <div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#729252;margin-bottom:5px;">02 / UNDERSTAND</div>
-  <div style="font-size:17px;font-weight:700;color:#193035;">Make sense of what AI changes.</div>
-  <div style="font-size:13px;line-height:1.65;color:#647677;margin-top:5px;">Clear context without hype, with links to explore further.</div>
-</td></tr>
-<tr><td style="background:#f7faf3;padding:19px 21px;">
-  <div style="font-size:11px;font-weight:800;letter-spacing:1.4px;color:#729252;margin-bottom:5px;">03 / DECIDE</div>
-  <div style="font-size:17px;font-weight:700;color:#193035;">Choose with more confidence.</div>
-  <div style="font-size:13px;line-height:1.65;color:#647677;margin-top:5px;">Comparisons, guides, and practical questions worth asking.</div>
-</td></tr></table>
-</td></tr>
-<tr><td align="center" style="padding:26px 38px 26px;">
-  <a href="${link('/tools')}" style="display:inline-block;padding:16px 30px;border-radius:9px;background:#162e34;color:#ffffff;text-decoration:none;font-size:14px;font-weight:800;letter-spacing:.2px;">Explore TruTool &nbsp; →</a>
-  <p style="font-size:12px;color:#778784;margin:17px 0 0;">Curious already? That's a good place to start.</p>
-</td></tr>
-<tr><td style="padding:19px 38px 29px;background:#f3f7ed;border-top:1px solid #e0e9dc;">
-  <p style="font-size:11px;font-weight:800;letter-spacing:1.5px;color:#587740;margin:0 0 9px;">YOUR DISPATCH TOPICS</p>
-  <p style="font-size:13px;line-height:1.65;color:#50635b;margin:0;">${topicNames}</p>
-  <p style="font-size:12px;line-height:1.7;color:#6b7a70;margin:19px 0 0;">You're receiving this because you subscribed at TruTool. You can <a href="${escapeHtml(unsubscribe)}" style="color:#355f30;text-decoration:underline;">unsubscribe at any time</a>.</p>
+<tr><td style="border-top:1px solid #e7ebe5;background:#f9faf7;padding:20px 34px;">
+  <p style="font-size:12px;line-height:1.7;color:#61716a;margin:0 0 10px;">You received this confirmation because you subscribed to TruTool Dispatch. You can <a href="${escapeHtml(unsubscribe)}" style="color:#355d39;text-decoration:underline;">unsubscribe at any time</a>.</p>
+  <p style="font-size:11px;color:#73827b;margin:0;">TruTool · ${ROOT} · <a href="${ROOT}/privacy" style="color:#61716a;">Privacy policy</a></p>
 </td></tr>
 </table>
-<p style="font-size:11px;color:#849188;line-height:1.8;margin:18px 0;">TruTool Dispatch · ${ROOT} · Independent software discovery<br><a href="${ROOT}/privacy" style="color:#698367;text-decoration:underline;">Privacy policy</a> &nbsp; · &nbsp; <a href="${escapeHtml(unsubscribe)}" style="color:#698367;text-decoration:underline;">Unsubscribe</a></p>
-</td></tr></table></body></html>`;
+</td></tr></table>
+</body></html>`;
   const text = [
-    'WELCOME TO TRUTOOL DISPATCH', '',
-    'Less noise. Better discoveries.', '',
-    "You're officially on the list. Thanks for subscribing to TruTool Dispatch.",
-    "We'll share useful tools, meaningful AI developments, and practical buying guides — with context rather than hype.", '',
-    '01 / DISCOVER: Useful software by category. ' + link('/tools'),
-    '02 / UNDERSTAND: AI developments that matter. ' + link('/everything-ai'),
-    '03 / DECIDE: Practical buying guides. ' + link('/guides'), '',
-    'Your topics: ' + preferences, '',
-    'Unsubscribe whenever you like: ' + unsubscribe, '',
-    'TruTool Dispatch · ' + ROOT
+    'Welcome to TruTool Dispatch.', '',
+    'Hello,', '',
+    "Thanks for subscribing. This is a quick note to confirm you're on the TruTool Dispatch list.", '',
+    'Less noise. Better discoveries.',
+    "We'll share thoughtful software recommendations, useful guides, and AI developments worth understanding.", '',
+    'You chose to hear about: ' + preferences, '',
+    'Browse the tools on TruTool: ' + link('/tools'), '',
+    'Thanks for being here,',
+    'The TruTool team', '',
+    'You received this confirmation because you subscribed to TruTool Dispatch.',
+    'Unsubscribe at any time: ' + unsubscribe, '',
+    'TruTool · ' + ROOT
   ].join('\n');
-  return { subject: "You're in. Welcome to TruTool Dispatch.", html, text };
+  return { subject: 'Welcome to TruTool Dispatch', html, text };
 }
 
 export async function sendDispatchWelcome(subscription: WelcomeSubscription): Promise<'sent' | 'pending'> {
