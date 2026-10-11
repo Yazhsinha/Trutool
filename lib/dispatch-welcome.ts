@@ -32,14 +32,10 @@ export function welcomeEmail(subscription: WelcomeSubscription) {
 <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">A little less noise, a lot more clarity. Welcome to TruTool.</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f1f4f0;"><tr><td align="center" style="padding:32px 14px 36px;">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border:1px solid #e0e6df;border-radius:16px;overflow:hidden;">
-<tr><td style="background:#142f31;padding:26px 34px 10px;">
-  <p style="font-size:25px;font-weight:800;letter-spacing:-1.1px;color:#ffffff;margin:0;">tru<span style="color:#c8e78b;">tool</span> <span style="font-size:9px;letter-spacing:1.3px;font-weight:700;color:#b4ccc7;">&nbsp;/&nbsp; AI &amp; SOFTWARE DISCOVERY</span></p>
-</td></tr>
-<tr><td style="background:#142f31;padding:24px 34px 40px;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="54" height="4" style="background:#c8e78b;font-size:1px;line-height:1px;">&nbsp;</td><td width="8">&nbsp;</td><td width="16" height="4" style="background:#6c9871;font-size:1px;line-height:1px;">&nbsp;</td></tr></table>
-  <p style="margin:26px 0 12px;font-size:11px;font-weight:800;letter-spacing:2px;color:#c8e78b;">WELCOME TO TRUTOOL</p>
-  <h1 style="margin:0 0 16px;font-size:36px;line-height:1.15;letter-spacing:-1.4px;font-weight:800;color:#ffffff;">Less noise.<br><span style="color:#c8e78b;">Better discoveries.</span></h1>
-  <p style="margin:0;font-size:15px;line-height:1.7;color:#d4e1db;">Your space for good tools, useful ideas, and the things worth knowing.</p>
+<tr><td style="padding:0;background:#062c2b;">
+  <img src="${ROOT}/email/trutool-welcome-banner.jpg" width="600" height="338"
+       alt="TruTool — Welcome to TruTool. Less noise. Better discoveries."
+       style="display:block;width:100%;max-width:600px;height:auto;border:0;outline:none;text-decoration:none;">
 </td></tr>
 <tr><td style="padding:36px 34px 14px;">
   <p style="margin:0 0 16px;font-size:16px;font-weight:700;color:#183337;">Hello there,</p>
