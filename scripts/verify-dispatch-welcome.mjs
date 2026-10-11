@@ -49,7 +49,7 @@ async list({prefix,limit,cursor}){const arr=[...entries.keys()].filter(p=>p.star
   assert.equal(JSON.parse(records.get(subscriberPath).body).welcomeSentAt,undefined);
   const template=dispatch.welcomeEmail({email,topics:['ai','tools'],manageUrl:'/newsletter?unsubscribe=token',eventId});
   assert.ok(template.html.includes('Less noise.') && template.html.includes('Better discoveries.'));
-  assert.ok(template.html.includes('Everything AI') && template.html.includes('New & useful tools'));
+  assert.ok(template.html.includes('Everything AI') && template.html.includes('New &amp; useful tools'));
   assert.ok(template.html.includes('https://trutool.co/newsletter?unsubscribe=token'));
   assert.ok(template.html.includes('<table') && template.text.includes('Unsubscribe'));
   assert.ok(!template.html.includes('undefined'));
