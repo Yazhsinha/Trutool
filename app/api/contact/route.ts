@@ -1,6 +1,6 @@
 import {categories} from '@/lib/catalog';
 import {createHash,randomUUID} from 'node:crypto';
-import {list,put} from '@vercel/blob';
+import {list,put} from '@/lib/private-storage';
 export const runtime='nodejs';
 export async function POST(request:Request){
  if(request.headers.get('origin')!==new URL(request.url).origin)return Response.json({error:'Please submit this form from the website.'},{status:403});
