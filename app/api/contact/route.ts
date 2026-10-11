@@ -1,6 +1,6 @@
 import {categories} from '@/lib/catalog';
 import {createHash,randomUUID} from 'node:crypto';
-import {list,put} from '@/lib/private-storage';
+import {list,put,usingSupabaseStorage} from '@/lib/private-storage';
 export const runtime='nodejs';
 export async function POST(request:Request){
  if(request.headers.get('origin')!==new URL(request.url).origin)return Response.json({error:'Please submit this form from the website.'},{status:403});
@@ -23,8 +23,10 @@ export async function POST(request:Request){
   if(!['https:','http:'].includes(url.protocol)||!url.hostname||url.username||url.password)return Response.json({error:'Enter a valid official website starting with https:// or http://.'},{status:400});
   product={name:productName,url:url.href,category};
  }
- if(!process.env.BLOB_READ_WRITE_TOKEN)throw new Error('Contact inbox is not configured');
- const hour=new Date().toISOString().slice(0,13);const key=createHash('sha256').update(email+process.env.BLOB_READ_WRITE_TOKEN).digest('hex');const prefix=`enquiries/${hour}/${key}/`;
+ if(!usingSupabaseStorage()&&!process.env.BLOB_READ_WRITE_TOKEN)throw new Error('Contact inbox is not configured');
+ const rateLimitSecret=process.env.ADMIN_SESSION_SECRET||process.env.BLOB_READ_WRITE_TOKEN;
+ if(!rateLimitSecret)throw new Error('Contact security is not configured');
+ const hour=new Date().toISOString().slice(0,13);const key=createHash('sha256').update(email+rateLimitSecret).digest('hex');const prefix=`enquiries/${hour}/${key}/`;
  const recent=await list({prefix,limit:5});if(recent.blobs.length>=5)return Response.json({error:'You have sent several messages recently. Please try again later.'},{status:429});
  const id=randomUUID(),createdAt=new Date().toISOString();
  await put(prefix+id+'.json',JSON.stringify({id,name,email,topic,message,createdAt,...(product?{product}:{})}),{access:'private',contentType:'application/json',addRandomSuffix:false});
