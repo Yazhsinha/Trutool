@@ -8,6 +8,10 @@ export function invalidateDiscovery(){
  revalidateTag('cms',{expire:0});
  // All public archives, article metadata, related content and Markdown representations share this inventory.
  revalidatePath('/','layout');
+ // Explicitly refresh public editorial directories after every admin publish, rather than
+ // relying solely on the broad layout invalidation and the 30-second page TTL.
+ for(const archive of ['/guides','/tools','/compare','/alternatives','/community','/everything-ai','/services','/authors'])revalidatePath(archive);
+ revalidatePath('/guides/[slug]','page');
  revalidatePath('/api/content-markdown/[...resource]','page');
  for(const path of visibilityPaths)revalidatePath(path);
 }
