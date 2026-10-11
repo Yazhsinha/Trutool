@@ -45,13 +45,17 @@ export function ArticleToc({ items }: { items: TocItem[] }) {
     const navRect = nav.getBoundingClientRect();
     const linkRect = link.getBoundingClientRect();
     const edge = 38;
-    if (linkRect.top < navRect.top + edge || linkRect.bottom > navRect.bottom - edge) {
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      if (linkRect.left < navRect.left + edge || linkRect.right > navRect.right - edge) {
+        const next = nav.scrollLeft + (linkRect.left - navRect.left)
+          - (nav.clientWidth - linkRect.width) / 2;
+        nav.scrollTo({ left: Math.max(0, next), behavior });
+      }
+    } else if (linkRect.top < navRect.top + edge || linkRect.bottom > navRect.bottom - edge) {
       const next = nav.scrollTop + (linkRect.top - navRect.top)
         - (nav.clientHeight - linkRect.height) / 2;
-      nav.scrollTo({
-        top: Math.max(0, next),
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-      });
+      nav.scrollTo({ top: Math.max(0, next), behavior });
     }
   }, [active]);
 
