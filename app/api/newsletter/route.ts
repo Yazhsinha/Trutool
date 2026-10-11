@@ -1,5 +1,5 @@
 import {createHmac,randomUUID,timingSafeEqual} from 'node:crypto';
-import {get,list,put,BlobPreconditionFailedError} from '@vercel/blob';
+import {get,list,put,BlobPreconditionFailedError} from '@/lib/private-storage';
 import {validateSubscription} from '@/lib/newsletter';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
