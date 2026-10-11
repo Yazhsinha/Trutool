@@ -68,7 +68,6 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
           <div className="tt-article-hero-copy">
             <span className="eyebrow">THE TRUTOOL FIELD GUIDE</span>
             <h1>{c.title}</h1>
-            <p className="article-deck">{c.description}</p>
             <div className="article-meta">
               <AuthorProfile author={author} compact/>
               <div>{edited && <time dateTime={edited}>Updated {editedLabel}</time>}<span>Editorial buying guide · {readMinutes} minute read</span></div>
