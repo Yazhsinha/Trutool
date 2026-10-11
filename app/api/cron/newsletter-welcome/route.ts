@@ -32,10 +32,10 @@ export async function GET(request: Request) {
         processed++;
         if (status === 'sent') sent++;
         else pending++;
-        if (processed >= 20) break; // Protect the Hobby runtime and Resend limits.
+        if (processed >= 8) break; // Protect the Hobby runtime and Resend limits.
       }
       cursor = batch.hasMore ? batch.cursor : undefined;
-    } while (cursor && processed < 20 && scanned < 10000);
+    } while (cursor && processed < 8 && scanned < 1000);
     return privateResponse({ ready: true, scanned, processed, sent, pending });
   } catch {
     console.error('Dispatch retry job failed');
