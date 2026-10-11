@@ -11,7 +11,7 @@ try{
  fs.writeFileSync(path.join(temp,'package.json'),'{"type":"commonjs"}');
  const compile=(source,file)=>fs.writeFileSync(path.join(temp,file),ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  compile(fs.readFileSync('lib/newsletter.ts','utf8'),'newsletter.js');
- compile(fs.readFileSync('app/api/newsletter/route.ts','utf8').replace('@vercel/blob','./blob').replace('@/lib/newsletter','./newsletter'),'route.js');
+ compile(fs.readFileSync('app/api/newsletter/route.ts','utf8').replace('@vercel/blob','./blob').replace('@/lib/private-storage','./blob').replace('@/lib/newsletter','./newsletter'),'route.js');
  fs.writeFileSync(path.join(temp,'blob.js'),`
  const records=new Map();let fail=false,version=0;
  class BlobPreconditionFailedError extends Error{}

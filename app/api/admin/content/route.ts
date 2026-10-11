@@ -3,7 +3,7 @@ import { adminData,baseContent } from '@/lib/cms-admin';
 import { readStore,writeStore } from '@/lib/cms-store';
 import { contentPath,publishIssues,effectivePublished } from '@/lib/cms-types';
 import { cmsInput } from '@/lib/cms-validation';
-import { BlobPreconditionFailedError } from '@vercel/blob';
+import { BlobPreconditionFailedError } from '@/lib/private-storage';
 import { invalidateDiscovery } from '@/lib/visibility-refresh';
 import { randomUUID } from 'node:crypto';
 export const dynamic='force-dynamic';

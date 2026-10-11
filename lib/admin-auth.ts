@@ -1,4 +1,4 @@
-import { BlobNotFoundError,BlobPreconditionFailedError,get,head,put } from '@vercel/blob';
+import { BlobNotFoundError,BlobPreconditionFailedError,get,head,put } from './private-storage';
 import { cookies } from 'next/headers';
 import { createHmac,randomUUID,scryptSync,timingSafeEqual } from 'node:crypto';
 import 'server-only';

@@ -1,2 +1,2 @@
-import { get } from '@vercel/blob';
+import { get } from '@/lib/private-storage';
 export async function GET(_request:Request,{params}:{params:Promise<{id:string}>}){const {id}=await params;if(!/^[a-f0-9-]{36}\.webp$/.test(id))return new Response('Not found',{status:404});try{const image=await get('cms/media/'+id,{access:'private'});if(!image||image.statusCode!==200)return new Response('Not found',{status:404});return new Response(image.stream,{headers:{'Content-Type':'image/webp','Cache-Control':'public, max-age=31536000, immutable','X-Content-Type-Options':'nosniff'}});}catch{return new Response('Image unavailable',{status:503});}}

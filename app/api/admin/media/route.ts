@@ -1,5 +1,5 @@
 import { authenticated,privateResponse,sameOrigin } from '@/lib/admin-auth';
-import { list,put } from '@vercel/blob';
+import { list,put } from '@/lib/private-storage';
 import { randomUUID } from 'node:crypto';
 import sharp from 'sharp';
 export const dynamic='force-dynamic';
