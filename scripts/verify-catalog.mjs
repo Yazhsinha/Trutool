@@ -126,7 +126,7 @@ try{
  delete process.env.BLOB_READ_WRITE_TOKEN;assert.equal((await helpful.POST(voteRequest(otherSlug,cookie))).status,503);
  if(priorToken===undefined)delete process.env.BLOB_READ_WRITE_TOKEN;else process.env.BLOB_READ_WRITE_TOKEN=priorToken;
  console.log('PASS: helpful votes persist once per browser/answer, concurrent duplicate clicks do not inflate totals, reload preserves state, and invalid submissions cannot write.');
- const communitySource=fs.readFileSync('app/api/community/route.ts','utf8').replace('@/lib/catalog','./catalog').replace('@/lib/community-answers','./community-answers').replace('@vercel/blob','./helpful-blob');
+ const communitySource=fs.readFileSync('app/api/community/route.ts','utf8').replace('@/lib/catalog','./catalog').replace('@/lib/community-answers','./community-answers').replace('@/lib/private-storage','./helpful-blob').replace('@/lib/cms-store','./cms-store');
  fs.writeFileSync(path.join(tmp,'community-route.js'),ts.transpileModule(communitySource,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  const community=require(path.join(tmp,'community-route.js')),communityUrl='https://trutool-directory.vercel.app/api/community';
  const communityRequest=(body,origin='https://trutool-directory.vercel.app')=>new Request(communityUrl,{method:'POST',headers:{Origin:origin},body:JSON.stringify(body)});
