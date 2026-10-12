@@ -3,7 +3,7 @@ export const contentTypes = [
  {id:'tool',label:'Tools',singular:'Tool',prefix:'/tools',hint:'Product profiles, official links, features, and pricing.'},
  {id:'comparison',label:'Comparisons',singular:'Comparison',prefix:'/compare',hint:'Editorial comparisons of two or more products.'},
  {id:'alternatives',label:'Alternatives',singular:'Alternatives page',prefix:'/alternatives',hint:'Sourced alternative shortlists and buyer-fit guidance.'},
- {id:'answer',label:'Community answers',singular:'Answer',prefix:'/community',hint:'Questions, answers, and practical checklists.'},
+ {id:'answer',label:'Community Q&A',singular:'Community Q&A',prefix:'/community',hint:'Create questions and their answers. Published Q&As appear in the Community grid, sitemap, and feeds.'},
  {id:'news',label:'AI news',singular:'News story',prefix:'/news',hint:'Sourced updates for Everything AI and the news feed.'},
  {id:'service',label:'Services',singular:'Service',prefix:'/services',hint:'Provider directories and service selection advice.'},
  {id:'author',label:'Authors',singular:'Author profile',prefix:'/authors',hint:'Author bios, focus areas, and profile pages.'},

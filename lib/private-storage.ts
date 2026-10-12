@@ -103,7 +103,7 @@ export async function put(
   },
 ) {
   if (!usingSupabaseStorage()) return blobPut(path, body, options);
-  if (!path.startsWith('cms/') && !path.startsWith('newsletter/') && !path.startsWith('enquiries/')) {
+  if (!path.startsWith('cms/') && !path.startsWith('newsletter/') && !path.startsWith('enquiries/') && !path.startsWith('community-submissions/')) {
     throw new Error('Unsupported storage path');
   }
   if (path.startsWith('cms/media/')) {
