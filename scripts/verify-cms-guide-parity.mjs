@@ -80,6 +80,8 @@ try {
   const guides = fs.readFileSync('app/guides/page.tsx', 'utf8');
   const home = fs.readFileSync('app/page.tsx', 'utf8');
   const sitemap = fs.readFileSync('app/sitemap.ts', 'utf8');
+  const category = fs.readFileSync('app/categories/[slug]/page.tsx', 'utf8');
+  const index = fs.readFileSync('app/site-index/[section]/[page]/page.tsx', 'utf8');
   assert.ok(article.includes('isGuide ? <>') && article.includes('<ArticleToc items={toc}/>'), 'CMS guides must use the standard clickable TOC');
   assert.ok(article.includes('<AuthorProfile author={author} compact/>') && article.includes('<AuthorProfile author={author}/>'), 'Both author contexts must render');
   assert.ok(article.includes('className="tldr"') && article.includes('className="tt-article-hero-media"'), 'CMS guide must show TLDR and cover in header');
@@ -96,6 +98,8 @@ try {
   assert.ok(guides.includes('<CmsGuideCard') && guides.includes('<GuideCard') && !guides.includes('<CmsList'), 'Built-in and published guides must be in one grid');
   assert.ok(home.includes('homeGuides.map(') && home.includes('<CmsGuideCard'), 'Homepage must feature newly published guides');
   assert.ok(sitemap.includes("dynamic='force-dynamic'") && sitemap.includes('publicPages()'), 'Sitemap must incorporate current published CMS URLs');
+  assert.ok(category.includes("getPublished()") && category.includes("item.kind==='guide'&&item.category===slug") && category.includes("href={'/guides/'+item.slug}"), 'Every CMS guide must gain a relevant category referring page automatically');
+  assert.ok(index.includes('groupSiteIndex(await publicPages())') && index.includes('href={item.path ||'), 'All published CMS URLs must remain linked from HTML site index');
   console.log('PASS: CMS guide hero, TOC, author, unified cards, fresh sitemap, Unicode bullets, table links, numbering and inline Markdown.');
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
