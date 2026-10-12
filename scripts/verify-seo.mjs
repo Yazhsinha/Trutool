@@ -28,5 +28,8 @@ try{
  const feed=discovery.jsonFeed();assert.equal(new Set(feed.items.map(i=>i.id)).size,feed.items.length);assert.ok(feed.items.length===100);for(const i of feed.items)assert.ok(paths.has(new URL(i.url).pathname));
  assert.ok(discovery.rss().includes('<rss version="2.0"'));assert.ok(discovery.atom().includes('http://www.w3.org/2005/Atom'));assert.ok(discovery.llmsIndex().startsWith('# TruTool\n'));
  for(const match of discovery.llmsIndex().matchAll(/\]\((https?:\/\/[^)]+)\)/g)){const url=new URL(match[1]);assert.equal(url.origin,new URL(index.absolute('/')).origin);if(url.pathname.endsWith('.md'))assert.ok(index.getContentPage(url.pathname==='/index.md'?'':url.pathname.slice(0,-3)),url.href)}
+ const alternativesSource=fs.readFileSync('app/alternatives/[slug]/page.tsx','utf8');
+ assert.ok(alternativesSource.includes("href={'/compare?tools='+encodeURIComponent(t.slug+','+x.slug)}"),'Alternatives must link to the canonical comparison builder.');
+ assert.ok(!alternativesSource.includes("href={'/compare/'+t.slug+'-vs-'+x.slug}"),'Do not generate thousands of uncurated crawlable comparison URLs.');
  console.log(`SEO verification passed: ${index.contentPages.length} canonical pages have valid schema graphs, dates, breadcrumbs, and Markdown references. RSS, Atom, JSON Feed, and llms.txt checked.`);
 }finally{cleanup()}
