@@ -13,3 +13,11 @@ The main branch deploys through the linked Vercel project. Set `NEXT_PUBLIC_SITE
 ## Content
 
 Profiles, guides, and comparison data are in `lib/catalog.ts`. Vendor logos and article covers are served locally from `public`. Brand provenance is recorded in `asset-sources/brand-logos.json`.
+
+After changing catalog data or page copy, run `pnpm content:history` and commit
+`lib/content-history.json` alongside the edit. Unchanged pages retain their dates.
+For a historical correction, use `pnpm content:history --date <ISO timestamp>`
+with the actual revision date. Builds only check this committed history and fail
+if it is stale; they never stamp pages with the deployment time. Published CMS
+records supply their saved publication/update dates to the relevant collections,
+including the sitemap, Markdown, and server-rendered structured data.

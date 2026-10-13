@@ -21275,434 +21275,434 @@
   "modified": "2026-10-08T16:04:55.459Z"
  },
  "/categories/local-listings": {
-  "hash": "cdd4d0f955a2b82bed1037a57d7cb32c",
+  "hash": "1449c31c64ad368e5241f58d9fc6e64f",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/rfp-software": {
-  "hash": "d180b86eaef32fa084e02eeced843db7",
+  "hash": "5b20149ca66efed7ea46a880da234f8a",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/communication": {
-  "hash": "c6beae28205669ba47ebd621b0c17430",
+  "hash": "c49312b63f20a45ef101c2c769fd56a3",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/edtech": {
-  "hash": "1743ee7eddad6b70d31cadccc88e6278",
+  "hash": "9733f833964d6cc3aecf3f5817e551bf",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai": {
-  "hash": "ab6d839e8e6065e1decb79db4b29c4bf",
+  "hash": "685b4b747352472ade048aaf3467728c",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-image": {
-  "hash": "5c758c9b6bf062e2c529de5de9ba6be6",
+  "hash": "238ac86ab2e4e0c99a358b5aaae6804b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-video": {
-  "hash": "23993b672442b4a38b09445da53f7b31",
+  "hash": "8604a21d2766b552babbf10ebceafd21",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-audio": {
-  "hash": "a7f61a6edeb3644f8bd014b68b2f7bb4",
+  "hash": "86a2ae5de510853bd219672c61386546",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-writing": {
-  "hash": "929fafab384f672c1525cfa9872229b4",
+  "hash": "233057f129be684d13d37456c3eb08dc",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-coding": {
-  "hash": "0742eca8fad0d940802f50dcdd004fc9",
+  "hash": "e78f109921f2d1877a7daa95d5da75d0",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/automation": {
-  "hash": "3d7c5573f17c55818889b75eb57c0096",
+  "hash": "988d3dfed7023ab3c40c690f57e520c1",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/productivity": {
-  "hash": "b6f164ae8df6b83b618eb12dce564f1f",
+  "hash": "0e87d61f77065eb3f1b66d9dc4e78016",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/project-management": {
-  "hash": "7ac577c0f11ecf66c54607b88f2725ce",
+  "hash": "1ad4e8608f503783ca9ecdaffbb9573f",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/design": {
-  "hash": "33c21b9731f1ebcf640a240db61dc295",
+  "hash": "2d9cf5afd71163f510284d1ad8521419",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/web-design": {
-  "hash": "7f83180dc1383f1f21f487dd8455530c",
+  "hash": "8f26000d66d8097ea403bb8e44c079e0",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/marketing": {
-  "hash": "cda8e7fe27914cd194d44b7feb19e276",
+  "hash": "d92dfab690e044166464c10398c31205",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/seo": {
-  "hash": "d12562c9727f70fd0d1ce915db515b4d",
+  "hash": "e171bbf55481df6ac1b337d2aa05936b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/social-media": {
-  "hash": "f75bc78071709d7e448d7a6df512e347",
+  "hash": "e7b834f32aa170c734c38e8d10428f7c",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/email-marketing": {
-  "hash": "2cec101d96785a4e85931182bb4ae5e2",
+  "hash": "ca6df3e8972b176a7f18975b4ce0cd2d",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/crm": {
-  "hash": "58bd87f026a8ab6cb976f831da195f81",
+  "hash": "1bd5370f369598641624b1adf0b422d3",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/sales": {
-  "hash": "2c7fbc3348fdf0397b8e319e1b6fd896",
+  "hash": "30b8415e1db10e746c123d6a52f70bc4",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/customer-support": {
-  "hash": "a3259a87e5a6a8ee32ba398ca1b8e985",
+  "hash": "2fb4fbaff6f8f0c18127607b79e3f1f1",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/analytics": {
-  "hash": "207ace9bf5b2d7f4fa7f3a1839bb955e",
+  "hash": "3cfa38547b961fc69a975747c9d2834a",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/developer-tools": {
-  "hash": "d83d07dfa967407fb620e4cd2b258efb",
+  "hash": "bdc1f34b16e20b8c1408ebab41252f98",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/cloud": {
-  "hash": "28f085451de13b1584c3d4e3b6022740",
+  "hash": "da6487006954a60498199198aef01c29",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/databases": {
-  "hash": "da9f62e7be21d0fdc2fc7d1313d43cf6",
+  "hash": "cdb0b72e2e1bab372979bf044908f788",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/devops": {
-  "hash": "d222aa4735661225f69f1a9914958f9d",
+  "hash": "41837dfbd17b310894107930bb0bfbdd",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/cybersecurity": {
-  "hash": "62dc764f324ef6c02aa99cd16f959ff3",
+  "hash": "a49fa9082e4445a8a45470810074e61a",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/passwords": {
-  "hash": "aa4cdd57ec928b0d0f7eaa4ad5b75239",
+  "hash": "09ce331d629a8d05a6af3e586ff52ffe",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/no-code": {
-  "hash": "b5f46ba8bd703c32a27ace8f1c8c24a7",
+  "hash": "acc991158b944a492e99ca06be95c613",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/forms": {
-  "hash": "a1521fd1ec43960363875c3f4a6538bc",
+  "hash": "a0e17ec8415827f8791a6a47288932b7",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/meeting-notes": {
-  "hash": "3a5796662da8b89f1486da170873b810",
+  "hash": "9c4c5a8c3a736f659ea9ad26427f2110",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/knowledge": {
-  "hash": "a8ac0b49e43e5d347f5fc9a1cfcc9f99",
+  "hash": "427516adc316583d0a38207091ff0ba4",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/cloud-storage": {
-  "hash": "aab0664ab2eaed1420744683ec45ff45",
+  "hash": "70d69c746e445e6bc941a0c9ddd1d91b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/scheduling": {
-  "hash": "0f4ff2d9d0525adb0a8e7ad05fef2c72",
+  "hash": "ea424f3288eb3dc06abd91254ee17823",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/time-tracking": {
-  "hash": "2da1db77bab1a67812c829215afac8e5",
+  "hash": "ad41c7fc37aeeb851a3c899533f904f1",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/finance": {
-  "hash": "39026d486365c4b412dca12326878543",
+  "hash": "83f63e065dba76f0161b0df957a7c686",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/accounting": {
-  "hash": "99e7d028ff4673c6b8da4066bb83de95",
+  "hash": "c9166c39718b7ecd2d8522434973f2c4",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/payments": {
-  "hash": "e151b15f381e3d461911fee91da2f2b1",
+  "hash": "01d714603267997253a2693d98b33aaf",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ecommerce": {
-  "hash": "57640540bffadedc0ae45361b25af7c5",
+  "hash": "747e26f197d3f9a0e1445839e3d7ca51",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/hr": {
-  "hash": "3aceb9e8a44defc371b6186859bbfa6f",
+  "hash": "b392f01cc61e2a303d693ef2ba90a0c8",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/recruiting": {
-  "hash": "de60776bf0d7a8dce173526e85493d04",
+  "hash": "ff86e1a52449f049eb3c658f2aaa11dd",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/legal": {
-  "hash": "229226a69bb56c0fffd05e4a0c4712b4",
+  "hash": "49e936fe4468dfd39145e71f8613ba15",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/research": {
-  "hash": "13324f6045ef3c268834e35a5f041457",
+  "hash": "345e9425d8060e763cd5f9cc1a444007",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/video-editing": {
-  "hash": "79004020dda486efc805acf8ea57dd94",
+  "hash": "4729141cf1eb2f758d9f04d294eafb07",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/audio-production": {
-  "hash": "17b87bdb71594304526b951f0d21f175",
+  "hash": "ac571bef1b8d2f60fece21825ad86abd",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/presentations": {
-  "hash": "4b7ab508141223d2e1a3f9f2510e33a4",
+  "hash": "0717868ec73de720a4e6aa74af7f0d28",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/surveys": {
-  "hash": "cd706a9f6be5cadfcd919233f4b473d1",
+  "hash": "836abbdd30bcc4039aa7f37b78b024fe",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/monitoring": {
-  "hash": "1c1738f7e6ed1b9096c9547879c0e721",
+  "hash": "fd4b86bddcab2ae955cfc2fb82e61923",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/email": {
-  "hash": "ccd68eea1c203faddd7066bcff8db8be",
+  "hash": "fb30fed6562fa35df4be969c0c267d5c",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/business-intelligence": {
-  "hash": "ca3b7ee38dbff450e6b49cfea7cc3e0a",
+  "hash": "6c8e90833d33a4827170e8bc76b4ca1f",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/content-management": {
-  "hash": "1c1e1a004bdbb230977a0b662b9b5048",
+  "hash": "e6dc313bcd3a70fd55d5a77174f98524",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/spreadsheets": {
-  "hash": "258001c183d6a99e19b0b0fe71500ea7",
+  "hash": "c608ececfeeaaeb3a38cee9ebf5c2300",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/3d-gaming": {
-  "hash": "c1aa848df01e65f72144da90d472daa8",
+  "hash": "7ca86d6ab68cc320ae505480c3ec2d53",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/community": {
-  "hash": "54e91f98fcf859b9a94ca70a79513ec5",
+  "hash": "70ed2da68b93d0c20f35e55c653fcebe",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/events": {
-  "hash": "17b1a8ad940934c7cd42ab559f8b3a7d",
+  "hash": "0e1313197b309c97b498d9732570e47e",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/pdf-documents": {
-  "hash": "b76e75ee6004336bb6ed71737f5860e1",
+  "hash": "b958284eb77074911d0d6cc72eb9da22",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/customer-feedback": {
-  "hash": "bb5b46e2f4a4b87d9098becc597c4662",
+  "hash": "a0d6dbb24beb86d98854c61b17d4a0ef",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/website-testing": {
-  "hash": "7d37d6eda75e7570cbe5d00c4245cbfb",
+  "hash": "f3aea6511644157baa87613cb35f2dbd",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/localisation": {
-  "hash": "f0c6072d2c0e13c4f0eef280860e8c76",
+  "hash": "5755006fc9edfbaba9a4900b4b0cd590",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-agents": {
-  "hash": "30d8fc3cb259aa732f113aa461dbe3a4",
+  "hash": "8ab7e4f3c519d856a9f0d4713eb7f7dc",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-coworkers": {
-  "hash": "2a3024cf5f4eafa7f83ba1179cd57f6d",
+  "hash": "61316b3b218b5c90f18f31c306c4ab81",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-chatbots": {
-  "hash": "d139cf797ae3fc3aa534d593b9f5b2a9",
+  "hash": "4d4c3dca60381927c3d8170e77b94b2e",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-browser-agents": {
-  "hash": "143422606c70fb11030bd439a6f2330e",
+  "hash": "c33fcb47e0fc7c3487dc7c9cb7248e8a",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-agent-frameworks": {
-  "hash": "a6bd938483dce826fb0c55e6549f3d5d",
+  "hash": "ecdde8eef14355c7704a4dd9acd9e330",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-agent-builders": {
-  "hash": "7a4c4f813c207fb0d7c99acb4a418bb9",
+  "hash": "c71fb0cfe5de117f89feb90c9b419af4",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-model-platforms": {
-  "hash": "6d022df93676d9157983ea155c90969d",
+  "hash": "f159be2737b8e771e3ed1222b49d2ec2",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-search-research": {
-  "hash": "ca2e09808413e3cb89280eac7790ef49",
+  "hash": "b8d8c01599f2eb684dffd2d33892ab95",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-data-analysis": {
-  "hash": "040e83af1ec6a1c5634771b566f24e31",
+  "hash": "91516d6708ef22ce8d5777c67e1bf691",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-sales-support": {
-  "hash": "bc5078c3d2eaacb42b961dbcc2005348",
+  "hash": "650b8f50d4a8582804405c8e110d2178",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-voice-agents": {
-  "hash": "484cb86c236c18b1ad07cefff63e5efc",
+  "hash": "5e94b968b706dd66af688a886de76c30",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-design": {
-  "hash": "06742d8c36eba589095d6918b83737f1",
+  "hash": "cd21803a648bcfdd519c6a13af430445",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-productivity": {
-  "hash": "68e7db9a88d8a78fba707d0e325f9a85",
+  "hash": "d1f6215a6f7855f28ecc68b97c467e38",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-evaluation": {
-  "hash": "aaed34ba1291eb3edcea5e81aa4b983a",
+  "hash": "588d75c8e2406d5e01767d039ca8094a",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-memory": {
-  "hash": "06bafdaa8f05020f5b33d1ea314eab43",
+  "hash": "45190796017cbf6795d30532c0c1d460",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-medical": {
-  "hash": "0ce3995ea328d531e9bc937af2d3fb15",
+  "hash": "f4b6e53965ed71474eece4382efe89d2",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-legal": {
-  "hash": "b0f35f3c3b9ee6b0a6ed6d9323b7ad6a",
+  "hash": "f880103cc60e2ffac1c9c45394754f5d",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-security": {
-  "hash": "56f7e6ffce83cc5091ce2dea53d48992",
+  "hash": "eb9a7edacc8ec78f8ecae7d242934770",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-3d": {
-  "hash": "749e30df76b404811da639abf16c8f7f",
+  "hash": "2fc2110a27be63d05914e4519f793a3b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-education": {
-  "hash": "767fbe5209dd8263063eb5cdab47174e",
+  "hash": "dd68a917ad99a4343f299328501b7e58",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-translation": {
-  "hash": "36cb746063bc0a36732d9aaffb9630f1",
+  "hash": "7da936b07d77a07c37888b0fa3cfaf41",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/ai-finance": {
-  "hash": "d3ff825fc1a97e01c4e19a372cc27a0b",
+  "hash": "3255e055b3da308af79415e0312fda7b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/healthcare": {
-  "hash": "338d317608f0a4abd00b7d923798a4d9",
+  "hash": "28cd74235634ac6b9335b6c4537a3ae3",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/logistics": {
-  "hash": "6b27de2474ba7298bf24d747ab9455eb",
+  "hash": "ee8159ec9e6da3750cd71ed691d7518b",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/personal-finance": {
-  "hash": "cd1c7b716567c4e604903e85e783336a",
+  "hash": "1bb8ec2ecf41ee7c5bc97ae2ac707981",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/categories/bookmarking": {
-  "hash": "3f502c328b4471d15b8969395c04490e",
+  "hash": "41d7c8979f2b0b1b1bf63bdbdce2d673",
   "fingerprintVersion": 2,
-  "modified": "2026-10-08T16:04:55.459Z"
+  "modified": "2026-10-12T00:14:42.466Z"
  },
  "/guides/choosing-local-listings-software": {
   "hash": "fd770089599e38f657c7d23f975034e8",

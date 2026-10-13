@@ -66,7 +66,7 @@ export function relatedTools(page:ContentPage):Tool[]{
  const category=page.tool?.category||page.guide?.category||page.category?.slug;
  return category?tools.filter(t=>t.category===category&&t.slug!==page.tool?.slug):[];
 }
-// This data is fingerprinted at build time; dates never change just because a crawler requests a file.
+// Fingerprints and revision dates are committed with content edits; builds only verify them.
 export function contentRevision(page:ContentPage){
  const related=relatedTools(page);
  const stableAnswer=(answer:CommunityAnswer)=>({slug:answer.slug,category:answer.category,question:answer.question,answer:answer.answer,toolSlugs:answer.toolSlugs,steps:answer.steps,checks:answer.checks,pitfall:answer.pitfall,publishedAt:answer.publishedAt});
