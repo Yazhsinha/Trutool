@@ -763,6 +763,9 @@ main :is(.prose,.article-content,.tool-profile-content,.answer-block,.compare-ta
 .cms-guide .cms-prose .cms-table-wrap{max-width:100%;overflow:auto;border:1px solid #e0e6dd;border-radius:10px}
 .cms-guide .cms-prose table th,.cms-guide .cms-prose table td{padding:13px 16px;text-align:left;border-bottom:1px solid #e1e7df;vertical-align:top}
 .cms-guide .cms-prose table th{background:#f2f6ec;color:#405839}
+.cms-prose .cms-figure{margin:8px 0 22px}
+.cms-prose .cms-figure img{display:block;width:100%;max-width:100%;height:auto;border-radius:12px}
+.cms-prose p img{display:inline-block;width:auto;max-width:100%;height:auto;vertical-align:middle;border-radius:8px}
 .cms-guide .cms-guide-author-section{scroll-margin-top:110px}
 .cms-guide .cms-guide-author-section .author-profile{max-width:760px}
 .cms-guide .cms-guide-author-section .text-link{display:inline-flex;margin-top:8px}

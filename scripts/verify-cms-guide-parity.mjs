@@ -25,13 +25,16 @@ try {
     }).outputText);
   };
   transpile('lib/cms-types.ts', 'cms-types.cjs');
+  transpile('lib/cms-jsonld.ts', 'cms-jsonld.cjs');
   transpile('lib/cms-markdown-structure.ts', 'cms-structure.cjs');
   transpile('components/cms-markdown.tsx', 'cms-markdown.cjs', [
     ["from '@/lib/cms-types'", "from './cms-types.cjs'"],
     ["from '@/lib/cms-markdown-structure'", "from './cms-structure.cjs'"],
   ]);
-  const { cmsHeadings, cmsListMarker } = require(path.join(tmp, 'cms-structure.cjs'));
+  const { cmsHeadings, cmsListMarker, cmsImageDimensions } = require(path.join(tmp, 'cms-structure.cjs'));
   const { CmsMarkdown } = require(path.join(tmp, 'cms-markdown.cjs'));
+  const { guideAuthorHeading } = require(path.join(tmp, 'cms-types.cjs'));
+  const { parseCmsJsonLd, cmsJsonLdMarkup } = require(path.join(tmp, 'cms-jsonld.cjs'));
   const React = require('react');
   const { renderToStaticMarkup } = require('react-dom/server');
 
@@ -100,7 +103,71 @@ try {
   assert.ok(sitemap.includes("dynamic='force-dynamic'") && sitemap.includes('publicPages()'), 'Sitemap must incorporate current published CMS URLs');
   assert.ok(category.includes("getPublished()") && category.includes("item.kind==='guide'&&item.category===slug") && category.includes("href={'/guides/'+item.slug}"), 'Every CMS guide must gain a relevant category referring page automatically');
   assert.ok(index.includes('groupSiteIndex(await publicPages())') && index.includes('href={item.path ||'), 'All published CMS URLs must remain linked from HTML site index');
-  console.log('PASS: CMS guide hero, TOC, author, unified cards, fresh sitemap, Unicode bullets, table links, numbering and inline Markdown.');
+
+  const glanceAlt = 'At a glance table of Claude vs ChatGPT winners: coding, writing, images, price, free plan and long documents, verified 16 Oct 2026';
+  const pricingAlt = 'Pricing ladder bar chart of monthly prices for Claude (Free, Pro, Max) and ChatGPT (Free, Go, Plus, Pro), verified 16 Oct 2026';
+  const imageHtml = renderToStaticMarkup(React.createElement(CmsMarkdown, { body: [
+    'Intro',
+    '',
+    '![' + glanceAlt + '](/media/c03801d1-5bec-41cf-8e53-0e337c9ea6ee.webp "1600x900")',
+    '',
+    'See ![inline chart](https://cdn.example/chart.webp "800x450") here.',
+    '',
+    '![' + pricingAlt + '](/media/211b8171-8455-45a3-a844-8a9b90ca0e45.webp){width=1600 height=900}',
+    '',
+    '![default ratio](/images/guides/chart.webp)',
+    '',
+    '![bad](javascript:alert(1))',
+    '',
+    '![plain http](http://evil.example/a.png)',
+    '',
+    '![protocol relative](//evil.example/a.png)',
+    '',
+    '![markup](/media/x.webp "1600x900")',
+  ].join('\n').replace('![markup](/media/x.webp "1600x900")', '![a <script>alert(1)</script>](/media/x.webp "1600x900")') }));
+  assert.equal((imageHtml.match(/<img /g) || []).length, 5, 'Allowed images render; javascript, http, and protocol-relative sources do not');
+  assert.ok(imageHtml.includes('alt="' + glanceAlt + '"') && imageHtml.includes('src="/media/c03801d1-5bec-41cf-8e53-0e337c9ea6ee.webp"'));
+  assert.ok(imageHtml.includes('alt="' + pricingAlt + '"') && imageHtml.includes('src="/media/211b8171-8455-45a3-a844-8a9b90ca0e45.webp"'));
+  assert.ok(imageHtml.includes('width="1600"') && imageHtml.includes('height="900"') && imageHtml.includes('loading="lazy"') && imageHtml.includes('decoding="async"'));
+  assert.ok(imageHtml.includes('width="800"') && imageHtml.includes('height="450"') && imageHtml.includes('src="https://cdn.example/chart.webp"'));
+  assert.ok(imageHtml.includes('<figure class="cms-figure">') && !imageHtml.includes('<figcaption'));
+  assert.ok(!imageHtml.includes('javascript:') && !imageHtml.includes('http://evil') && !imageHtml.includes('//evil') && !imageHtml.includes('![') && !imageHtml.includes('!<a'));
+  assert.ok(imageHtml.includes('&lt;script&gt;') && !imageHtml.includes('<script>alert'), 'Image alt text stays escaped');
+  assert.deepEqual(cmsImageDimensions('1600x900'), { width: 1600, height: 900 });
+  assert.deepEqual(cmsImageDimensions('width=1200 height=675'), { width: 1200, height: 675 });
+  assert.deepEqual(cmsImageDimensions('a caption'), { width: 1600, height: 900 });
+
+  assert.equal(guideAuthorHeading({ sourceUrl: '', sourceLabel: '', toolSlugs: [] }), 'Author');
+  assert.equal(guideAuthorHeading({ sourceUrl: '   ', sourceLabel: '', toolSlugs: [] }), 'Author');
+  assert.equal(guideAuthorHeading({ sourceUrl: 'https://example.com', sourceLabel: '', toolSlugs: [] }), 'Author & sources');
+  assert.equal(guideAuthorHeading({ sourceUrl: '', sourceLabel: 'Official page', toolSlugs: [] }), 'Author & sources');
+  assert.equal(guideAuthorHeading({ sourceUrl: '', sourceLabel: '', toolSlugs: ['claude'] }), 'Author & sources');
+  assert.ok(article.includes('guideAuthorHeading(c)') && article.includes('{authorHeading}'), 'Guide author heading follows whether sources exist');
+  assert.ok(article.includes('extraJsonLd && <script type="application/ld+json"'), 'Optional JSON-LD is emitted on the page, including draft preview');
+  assert.ok(fs.readFileSync('lib/cms-public.ts', 'utf8').includes("c.kind==='guide'?'Buying guides'"), 'Guide breadcrumb position 2 is Buying guides');
+  assert.ok(fs.readFileSync('components/admin-workspace.tsx', 'utf8').includes('Structured data (JSON-LD)'), 'Search & sharing tab has the JSON-LD field');
+  assert.ok(fs.readFileSync('lib/cms-validation.ts', 'utf8').includes('parseCmsJsonLd'), 'JSON-LD is validated on save');
+  assert.ok(css.includes('.cms-prose .cms-figure img') && css.includes('max-width:100%'));
+
+  const faqPath = 'scripts/fixtures/schema-faq-only.json';
+  const faqText = fs.readFileSync(faqPath, 'utf8');
+  const faq = JSON.parse(faqText);
+  const faqMarkup = cmsJsonLdMarkup(faqText);
+  assert.deepEqual(JSON.parse(faqMarkup), faq, 'FAQPage JSON-LD round-trips without changing the FAQ text');
+  assert.equal(faq.mainEntity.length, 8);
+  assert.equal(parseCmsJsonLd('').ok, true);
+  assert.equal(cmsJsonLdMarkup('   '), null);
+  assert.equal(parseCmsJsonLd('[ {"@type":"Thing"} ]').ok, true);
+  const invalid = parseCmsJsonLd('{not json');
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.error, /valid JSON/);
+  const scalar = parseCmsJsonLd('"just a string"');
+  assert.equal(scalar.ok, false);
+  assert.match(scalar.error, /object or an array/);
+  const injected = cmsJsonLdMarkup('{"name":"</script><script>alert(1)</script>"}');
+  assert.ok(injected && !injected.includes('</script>') && injected.includes('\\u003c'));
+
+  console.log('PASS: CMS guide hero, TOC, author, unified cards, fresh sitemap, Unicode bullets, table links, numbering, images, and JSON-LD.');
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

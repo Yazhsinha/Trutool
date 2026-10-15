@@ -51,8 +51,8 @@ export function AdminEnquiryInbox({ onlyTools = false }: { onlyTools?: boolean }
 
   useEffect(() => {
     const controller = new AbortController();
-    void refresh(controller.signal);
-    return () => controller.abort();
+    const timer = window.setTimeout(() => { void refresh(controller.signal); }, 0);
+    return () => { window.clearTimeout(timer); controller.abort(); };
   }, [refresh]);
 
   const filtered = useMemo(() => {
