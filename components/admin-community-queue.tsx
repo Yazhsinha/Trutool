@@ -36,8 +36,8 @@ export function AdminCommunityQueue({ onCreateAnswer }: { onCreateAnswer: (submi
   }, []);
   useEffect(() => {
     const controller = new AbortController();
-    void refresh(controller.signal);
-    return () => controller.abort();
+    const timer = window.setTimeout(() => { void refresh(controller.signal); }, 0);
+    return () => { window.clearTimeout(timer); controller.abort(); };
   }, [refresh]);
 
   return <section className="studio-panel studio-community-queue">

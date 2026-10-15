@@ -1,0 +1,71 @@
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://trutool.co/guides/claude-vs-chatgpt#faq",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is Claude better than ChatGPT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not across the board. The top Claude models rank higher on the LMArena text board, Claude Code scored higher on coding-agent quality, and Claude has a larger context window. ChatGPT generates images, has an $8 Go plan and offers voice with video. The better choice depends on your main task."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is Claude better than ChatGPT for coding?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On quality, yes in one independent test. Artificial Analysis scored Claude Code 68 and Codex 63 on 16 Oct 2026. Codex cost $1.04 per task against $14.19 for Claude Code at API rates. In chat coding rankings on LMArena, the best Claude and OpenAI entries are 8 points apart, which is close to a tie."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which is cheaper, Claude Pro or ChatGPT Plus?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Claude Pro and ChatGPT Plus both cost $20 a month. ChatGPT is cheaper to start, with Go at $8 a month, which may show ads. Claude Pro costs $17 a month if you pay $200 a year up front. Higher tiers begin at $100 a month for Claude Max and ChatGPT Pro."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can Claude generate images like ChatGPT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Anthropic's help center says Claude has no native image generation. It can build charts, diagrams and HTML or SVG graphics, and it can read images you upload. ChatGPT generates images with ChatGPT Images 2.5 on every plan, including Free, with limits."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do Claude and ChatGPT both have a free plan?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Claude Free and ChatGPT Free both cost $0 and include web search. Neither publishes a fixed message limit. Claude limits usage by five-hour session windows. ChatGPT Free promises unlimited everyday text chats under abuse safeguards, adds image generation with caps, and can show ads in the US."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do Claude and ChatGPT use my data for training?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "ChatGPT personal plans may use your chats for training unless you turn off \"Improve the model for everyone\" in Data controls. Claude has a training toggle, but we could not confirm its default. On both, Business, Team and Enterprise plans do not train on your data by default."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which has the bigger context window, Claude or ChatGPT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Claude. Anthropic lists up to 1M tokens in chat on paid plans for its four current models. ChatGPT's pricing page lists 256K tokens for reasoning on Go and Plus and 400K on Pro. ChatGPT's figures are listed under generic Instant and Reasoning labels, so they may change."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between Claude AI and ChatGPT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Claude AI is made by Anthropic and runs on Fable, Opus, Sonnet and Haiku models. ChatGPT is made by OpenAI and runs mainly on the GPT-6 family (GPT-5.6 Sol is still selectable). The main practical differences are image generation, which only ChatGPT has, and context size, where Claude is larger."
+   }
+  }
+ ]
+}

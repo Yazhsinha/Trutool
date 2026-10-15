@@ -1,3 +1,4 @@
+import {serializeJsonLd} from './cms-jsonld';
 import {absolute,getContentPage,contentAuthor,modifiedFor,relatedTools,type ContentPage} from './content-index';
 import {brandAssets} from './brand-assets';
 import {categoryOf} from './catalog';
@@ -34,4 +35,4 @@ export function pageStructuredData(path:string,override?:ContentPage){
  return {'@context':'https://schema.org','@graph':graph};
 }
 function breadcrumbName(page:ContentPage){return page.kind==='tool'?page.tool!.name:page.kind==='alternatives'?page.tool!.name+' alternatives':page.kind==='author'?page.author!.name:page.title}
-export function serializeSchema(value:unknown){return JSON.stringify(value).replace(/</g,'\\u003c')}
+export function serializeSchema(value:unknown){return serializeJsonLd(value)}

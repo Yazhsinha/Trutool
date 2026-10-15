@@ -4,7 +4,8 @@ import { SITE, categories } from '@/lib/catalog';
 import { cmsAuthorName, cmsSchema, publicTools } from '@/lib/cms-public';
 import { cmsHeadings } from '@/lib/cms-markdown-structure';
 import { getPublished } from '@/lib/cms-store';
-import { contentPath, type CmsContent } from '@/lib/cms-types';
+import { cmsJsonLdMarkup } from '@/lib/cms-jsonld';
+import { contentPath, guideAuthorHeading, type CmsContent } from '@/lib/cms-types';
 import { coverFor, coverAlt } from '@/lib/covers';
 import { serializeSchema } from '@/lib/structured-data';
 import Link from 'next/link';
@@ -24,7 +25,9 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
   const readMinutes = Math.max(1, Math.ceil(c.body.trim().split(/\s+/).length / 220));
   const headings = cmsHeadings(c.body);
   const tocHeadings = headings.some(h => h.level === 2) ? headings.filter(h => h.level === 2) : headings;
-  const toc = [...tocHeadings.map(h => ({ id: h.id, label: h.label })), { id: 'cms-author-and-sources', label: 'Author & sources' }];
+  const authorHeading = guideAuthorHeading(c);
+  const extraJsonLd = cmsJsonLdMarkup(c.jsonLd);
+  const toc = [...tocHeadings.map(h => ({ id: h.id, label: h.label })), { id: 'cms-author-and-sources', label: authorHeading }];
 
   const articleBody = <>
     {c.kind === 'tool' && c.tool && <div className="cms-tool-facts">
@@ -40,9 +43,9 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
       <div className="cms-related-tools">{related.map(tool => <Link key={tool.slug} href={'/tools/' + tool.slug}><strong>{tool.name}</strong><p>{tool.summary}</p></Link>)}</div>
     </section>}
     {isGuide && <section id="cms-author-and-sources" className="cms-guide-author-section">
-      <h2>Author & sources</h2>
+      <h2>{authorHeading}</h2>
       <AuthorProfile author={author}/>
-      {c.sourceUrl && <p>Original reference: <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer">{c.sourceLabel || c.sourceUrl}</a></p>}
+      {c.sourceUrl?.trim() && <p>Original reference: <a href={c.sourceUrl.trim()} target="_blank" rel="noopener noreferrer">{c.sourceLabel?.trim() || c.sourceUrl.trim()}</a></p>}
       <p className="editor-note"><Link href="/editorial-policy">Read our editorial policy.</Link> This guide presents editorial evaluation criteria, not independently verified product-performance claims.</p>
       <Link className="text-link" href="/contact?topic=correction">Suggest a correction</Link>
     </section>}
@@ -116,6 +119,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
         </aside>
       </div>
     </>}
+    {extraJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: extraJsonLd }}/>}
     {!preview && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeSchema(cmsSchema(c)) }}/>}
     <link rel="alternate" type="text/markdown" href={SITE + contentPath(c) + '.md'}/>
   </main>;

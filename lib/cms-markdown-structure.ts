@@ -2,6 +2,27 @@
 export type CmsHeading = { line: number; level: number; id: string; label: string };
 export type CmsListMarker = { type: 'ol' | 'ul'; text: string; start?: number };
 
+export const cmsImageFallbackSize = { width: 1600, height: 900 };
+
+// Pixel size from a Markdown title ("1600x900") or trailing attributes
+// ({width=1600 height=900}). Anything else keeps the 16:9 editorial default
+// so the image still reserves space.
+export function cmsImageDimensions(hint?: string) {
+  const text = hint || '';
+  const pair = text.match(/(\d{2,5})\s*[x×]\s*(\d{2,5})/i);
+  const width = pair?.[1] ?? text.match(/\bwidth\s*=\s*"?(\d{2,5})/i)?.[1];
+  const height = pair?.[2] ?? text.match(/\bheight\s*=\s*"?(\d{2,5})/i)?.[1];
+  if (!width || !height) return cmsImageFallbackSize;
+  const limit = (value: string) => Math.min(8000, Math.max(1, Math.round(Number(value))));
+  return { width: limit(width), height: limit(height) };
+}
+
+export function cmsStandaloneImage(line: string) {
+  const match = line.match(/^\s{0,3}!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)(?:\{([^}]*)\})?\s*$/);
+  if (!match) return;
+  return { alt: match[1], src: match[2], hint: [match[3], match[4]].filter(Boolean).join(' ') };
+}
+
 export function cmsListMarker(line: string): CmsListMarker | undefined {
   const numbered = line.match(/^\s{0,3}(\d{1,4})[.)]\s+(.+)$/);
   if (numbered) return { type: 'ol', start: Number(numbered[1]), text: numbered[2] };

@@ -1,25 +1,38 @@
+/* eslint-disable @next/next/no-img-element -- Editorial images use dynamic /media and HTTPS URLs. */
 import { safeHref } from '@/lib/cms-types';
-import { cmsHeadings, cmsListMarker } from '@/lib/cms-markdown-structure';
+import { cmsHeadings, cmsImageDimensions, cmsListMarker, cmsStandaloneImage } from '@/lib/cms-markdown-structure';
 import React from 'react';
+
+function CmsBodyImage({ alt, src, hint, block = false }: { alt: string; src: string; hint?: string; block?: boolean }) {
+  const href = safeHref(src);
+  if (!href) return null;
+  const size = cmsImageDimensions(hint);
+  const img = <img src={href} alt={alt} width={size.width} height={size.height} loading="lazy" decoding="async"/>;
+  return block ? <figure className="cms-figure">{img}</figure> : img;
+}
 
 // Markdown-safe inline formatting; links are parsed before emphasis so
 // [**Name**](url) becomes an accessible link with bold text, not literal stars.
+// Images are parsed before links so ![alt](url) is an image, not "!" plus a link.
 function inline(value: string): React.ReactNode[] {
-  const pattern = /(\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)|\*\*([^*]+)\*\*|__([^_]+)__|\x60([^\x60]+)\x60|(?<!\*)\*([^*\n]+)\*(?!\*))/g;
+  const pattern = /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)(?:\{([^}]*)\})?|\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)|\*\*([^*]+)\*\*|__([^_]+)__|\x60([^\x60]+)\x60|(?<!\*)\*([^*\n]+)\*(?!\*)/g;
   const result: React.ReactNode[] = [];
   let cursor = 0, n = 0;
   for (const match of value.matchAll(pattern)) {
     const index = match.index;
     if (index > cursor) result.push(value.slice(cursor, index));
-    if (match[2] !== undefined) {
-      const url = safeHref(match[3]);
-      result.push(url ? <a key={n++} href={url} {...(url.startsWith('https:') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{inline(match[2])}</a> : match[0]);
-    } else if (match[4] !== undefined || match[5] !== undefined) {
-      result.push(<strong key={n++}>{inline(match[4] ?? match[5])}</strong>);
-    } else if (match[6] !== undefined) {
-      result.push(<code key={n++}>{match[6]}</code>);
-    } else if (match[7] !== undefined) {
-      result.push(<em key={n++}>{inline(match[7])}</em>);
+    if (match[0].startsWith('![')) {
+      const image = <CmsBodyImage key={n++} alt={match[1] ?? ''} src={match[2] ?? ''} hint={[match[3], match[4]].filter(Boolean).join(' ')}/>;
+      if (image) result.push(image);
+    } else if (match[5] !== undefined) {
+      const url = safeHref(match[6]);
+      result.push(url ? <a key={n++} href={url} {...(url.startsWith('https:') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{inline(match[5])}</a> : match[0]);
+    } else if (match[7] !== undefined || match[8] !== undefined) {
+      result.push(<strong key={n++}>{inline(match[7] ?? match[8])}</strong>);
+    } else if (match[9] !== undefined) {
+      result.push(<code key={n++}>{match[9]}</code>);
+    } else if (match[10] !== undefined) {
+      result.push(<em key={n++}>{inline(match[10])}</em>);
     }
     cursor = index + match[0].length;
   }
@@ -32,7 +45,7 @@ const fence = /^\s{0,3}(?:\x60{3}|~{3})/;
 const tableDivider = /^\s*\|?\s*:?-{3,}:?\s*\|/;
 const tableCells = (value: string) => value.trim().replace(/^\||\|$/g, '').split('|').map(cell => cell.trim());
 const startsBlock = (value: string) => Boolean(headingLine.test(value) || fence.test(value) ||
-  cmsListMarker(value) || /^\s{0,3}>/.test(value) || /^\s*\|/.test(value) || /^\s{0,3}(?:-{3,}|\*{3,})\s*$/.test(value));
+  cmsListMarker(value) || cmsStandaloneImage(value) || /^\s{0,3}>/.test(value) || /^\s*\|/.test(value) || /^\s{0,3}(?:-{3,}|\*{3,})\s*$/.test(value));
 
 export function CmsMarkdown({ body }: { body: string }) {
   const lines = body.replace(/\r\n?/g, '\n').split('\n');
@@ -55,6 +68,12 @@ export function CmsMarkdown({ body }: { body: string }) {
       const depth = heading[1].length;
       const Heading = depth <= 2 ? 'h2' : depth === 3 ? 'h3' : 'h4';
       nodes.push(<Heading key={i} id={headings.get(i)}>{inline(heading[2])}</Heading>);
+      continue;
+    }
+
+    const image = cmsStandaloneImage(raw);
+    if (image) {
+      nodes.push(<CmsBodyImage key={i} alt={image.alt} src={image.src} hint={image.hint} block/>);
       continue;
     }
 
