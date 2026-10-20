@@ -1,3 +1,4 @@
+import '@/app/styles/about.css';
 import { AuthorCards } from '@/components/author-card';
 import { CmsList } from '@/components/cms-list';
 import { PageStructuredData } from '@/components/page-structured-data';

@@ -1,3 +1,4 @@
+import '@/app/styles/about.css';
 import type {CSSProperties} from 'react';
 import {ArrowUpRight} from 'lucide-react';
 import Link from '@/components/site-link';

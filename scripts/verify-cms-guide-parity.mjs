@@ -96,7 +96,7 @@ try {
   assert.ok(cmsGuideHeader.includes('<p>{c.description}</p>'), 'CMS guide must preserve answer-first summary in its TLDR');
   assert.ok(!cmsGuideHeader.includes('className="article-deck"'), 'Do not repeat the answer-first summary beneath the CMS guide title');
   const toc = fs.readFileSync('components/article-toc.tsx', 'utf8');
-  const css = fs.readFileSync('app/globals.css', 'utf8');
+  const css = fs.readFileSync('app/globals.css', 'utf8') + fs.readFileSync('app/styles/article.css', 'utf8');
   assert.ok(toc.includes("data-section-id={item.id}") && toc.includes('nav.scrollTo('), 'TOC must scroll its own panel to the active heading');
   assert.ok(toc.includes("window.addEventListener('scroll', queue"), 'TOC must follow the reader while scrolling');
   assert.ok(css.includes('max-height:calc(100dvh - 112px)') && css.includes('overflow-y:auto'), 'Desktop TOC must stay inside viewport and remain scrollable');

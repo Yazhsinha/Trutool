@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/community.css';
+
 import {useState} from 'react';
 import {MessageCircle,Send,CheckCircle2} from 'lucide-react';
 import Link from './site-link';

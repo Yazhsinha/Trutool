@@ -1,3 +1,4 @@
+import '@/app/styles/about.css';
 import { AuthorProfile } from '@/components/author-profile';
 import { CmsArticle } from '@/components/cms-article';
 import { CmsList } from '@/components/cms-list';

@@ -1,3 +1,5 @@
+import '@/app/styles/article.css';
+import '@/app/styles/community.css';
 import { CmsList } from '@/components/cms-list';
 import { CommunityCompose } from '@/components/community-compose';
 import { CommunityQuestions } from '@/components/community-questions';

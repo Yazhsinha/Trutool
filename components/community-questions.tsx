@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/community.css';
+
 import {useDeferredValue,useMemo,useState} from 'react';
 import {Search} from 'lucide-react';
 import Link from './site-link';

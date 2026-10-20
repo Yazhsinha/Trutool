@@ -1,3 +1,4 @@
+import '@/app/styles/about.css';
 import {PageStructuredData} from '@/components/page-structured-data';
 import {MotionSymbol} from '@/components/motion-symbol';
 import Image from 'next/image';

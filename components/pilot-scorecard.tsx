@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/diagnostic.css';
+
 import {pilotCriteria,pilotScore,type PilotScores} from '@/lib/diagnostic';
 import {Monogram} from './tool-card';
 import type {Tool} from '@/lib/catalog';

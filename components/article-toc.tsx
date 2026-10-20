@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/article.css';
+
 import { MotionSymbol } from './motion-symbol';
 import { useEffect, useRef, useState } from 'react';
 

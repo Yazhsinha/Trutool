@@ -1,3 +1,5 @@
+import '@/app/styles/article.css';
+import '@/app/styles/community.css';
 import { ArticleToc } from '@/components/article-toc';
 import { AuthorProfile } from '@/components/author-profile';
 import { CmsArticle } from '@/components/cms-article';

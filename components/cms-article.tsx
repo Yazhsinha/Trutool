@@ -1,4 +1,5 @@
-/* eslint-disable @next/next/no-img-element -- User-uploaded covers are resized on upload. */
+import '@/app/styles/article.css';
+import { ResponsiveCover } from './responsive-cover';
 import { authors, authorFor } from '@/lib/authors';
 import { SITE, categories } from '@/lib/catalog';
 import { cmsAuthorName, cmsSchema, publicTools } from '@/lib/cms-public';
@@ -83,7 +84,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
             </div>
           </div>
           <figure className="tt-article-hero-media">
-            <img src={c.image || coverFor(c.category)} alt={c.image ? c.imageAlt?.trim() || c.title + ' cover image' : coverAlt(c.category)}/>
+            <ResponsiveCover sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image || coverFor(c.category)} alt={c.image ? c.imageAlt?.trim() || c.title + ' cover image' : coverAlt(c.category)}/>
           </figure>
         </div>
       </header>
@@ -102,7 +103,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
             {edited && <span>Updated {editedLabel}</span>}
           </div>
         </div>
-        {c.image && <figure className="cms-cover tt-article-hero-media"><img src={c.image} alt={c.imageAlt?.trim() || c.title + ' cover image'}/></figure>}
+        {c.image && <figure className="cms-cover tt-article-hero-media"><ResponsiveCover sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image} alt={c.imageAlt?.trim() || c.title + ' cover image'}/></figure>}
       </header>
       <div className="cms-article-columns">
         <article>{articleBody}</article>

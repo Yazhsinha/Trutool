@@ -3,7 +3,7 @@ import fs from 'node:fs';
 
 const guide=fs.readFileSync('app/guides/[slug]/page.tsx','utf8');
 const cms=fs.readFileSync('components/cms-article.tsx','utf8');
-const css=fs.readFileSync('app/globals.css','utf8');
+const css=fs.readFileSync('app/globals.css','utf8') + fs.readFileSync('app/styles/article.css','utf8');
 
 assert.ok(guide.includes('className="article-header tt-guide-header"'));
 assert.ok(guide.includes('className="tt-article-hero"'));
@@ -17,7 +17,7 @@ assert.ok(cms.includes('tt-cms-hero'));
 assert.ok(cms.includes('tt-cms-hero-copy'));
 assert.ok(cms.includes('className="cms-cover tt-article-hero-media"'));
 assert.ok(cms.indexOf('className="cms-cover tt-article-hero-media"') < cms.indexOf('className="cms-article-columns"'));
-assert.equal((cms.match(/<img src={c.image}/g)||[]).length,1,'CMS covers must appear only once.');
+assert.equal((cms.match(/<ResponsiveCover[^>]*src={c.image}/g)||[]).length,1,'CMS covers must appear only once.');
 assert.ok(cms.includes('c.imageAlt?.trim() || c.title'),'CMS cover alt text must remain.');
 
 assert.ok(css.includes('.tt-article-hero,') && css.includes('grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)'));

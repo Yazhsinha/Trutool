@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/diagnostic.css';
+
 import {capacityScenario,type TimeInputs} from '@/lib/diagnostic';
 import {MotionSymbol} from './motion-symbol';
 const fields=[['items','Items per person per week',250],['before','Minutes per item · before',180],['after','Minutes per item · after',180],['people','People doing the workflow',100],['weeks','Working weeks per year',52],['adoption','Expected adoption · %',100]] as const;

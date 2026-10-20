@@ -1,3 +1,4 @@
+import '@/app/styles/article.css';
 import { cmsAuthorName } from '@/lib/cms-public';
 import { getPublished } from '@/lib/cms-store';
 import { contentPath,type CmsKind } from '@/lib/cms-types';

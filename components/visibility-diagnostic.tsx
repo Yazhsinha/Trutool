@@ -1,4 +1,6 @@
 'use client';
+import '@/app/styles/diagnostic.css';
+
 
 import {TimeWorksheet} from './time-worksheet';
 import {PilotScorecard} from './pilot-scorecard';
