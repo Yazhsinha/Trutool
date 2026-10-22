@@ -11,5 +11,5 @@ export function loadContent(){
   else if(file.endsWith('.ts'))fs.writeFileSync(path.join(tmp,file.replace(/\.ts$/,'.js')),ts.transpileModule(fs.readFileSync(path.join('lib',file),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  }
  const require=createRequire(import.meta.url);
- return {index:require(path.join(tmp,'content-index.js')),discovery:require(path.join(tmp,'discovery.js')),schema:require(path.join(tmp,'structured-data.js')),cleanup:()=>fs.rmSync(tmp,{recursive:true,force:true})};
+ return {index:require(path.join(tmp,'content-index.js')),sitemap:require(path.join(tmp,'sitemap-inventory.js')),discovery:require(path.join(tmp,'discovery.js')),schema:require(path.join(tmp,'structured-data.js')),cleanup:()=>fs.rmSync(tmp,{recursive:true,force:true})};
 }
