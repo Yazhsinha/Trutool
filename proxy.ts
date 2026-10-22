@@ -16,7 +16,22 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  return changed ? NextResponse.redirect(url, 307) : NextResponse.next();
+  // Canonical category pages already carry the slug in their path.
+  // Normalize old directory links rather than exposing /categories/x?category=x.
+  const categoryPath=url.pathname.match(/^\/categories\/([a-z0-9-]+)\/?$/);
+  const selected=url.searchParams.get('category');
+  if(categoryPath&&selected===categoryPath[1]){url.searchParams.delete('category');changed=true}
+  if((url.pathname==='/tools'||url.pathname==='/everything-ai')&&selected&&/^[a-z0-9-]{2,80}$/.test(selected)){
+    url.pathname='/categories/'+selected;
+    url.searchParams.delete('category');
+    changed=true;
+  }
+  if(url.pathname==='/tools'||url.pathname==='/everything-ai'||categoryPath){
+    for(const [key,value] of [['page','1'],['sort','relevance'],['discovery','all'],['q','']]){
+      if(url.searchParams.get(key)===value){url.searchParams.delete(key);changed=true}
+    }
+  }
+  return changed ? NextResponse.redirect(url, 308) : NextResponse.next();
 }
 
 export const config = {
