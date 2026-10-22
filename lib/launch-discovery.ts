@@ -36,12 +36,40 @@ async function fetchFeed(url:string){
  if(text.length>1500000)throw Error('Launch feed too large');
  return text;
 }
+
+export function parseShowHNLaunches(data:unknown,now=Date.now()):AIShelfTool[]{
+ if(!data||typeof data!=='object'||!('hits' in data)||!Array.isArray(data.hits))return [];
+ const selected:AIShelfTool[]=[];
+ for(const hit of data.hits.slice(0,100) as Record<string,unknown>[]){
+  if(typeof hit.title!=='string'||typeof hit.objectID!=='string'||!/^\d+$/.test(hit.objectID))continue;
+  const title=hit.title.trim();
+  if(!/^Show HN:\s+/i.test(title)||/chatgpt/i.test(title)||!aiWords.test(title))continue;
+  const date=Date.parse(typeof hit.created_at==='string'?hit.created_at:'');
+  if(!Number.isFinite(date)||date>now||date<now-14*DAY)continue;
+  if(typeof hit.points!=='number'||hit.points<8||typeof hit.num_comments!=='number'||hit.num_comments<2)continue;
+  const description=title.replace(/^Show HN:\s+/i,'').slice(0,170);
+  const name=description.split(/\s+[—–:-]\s+/)[0].trim().slice(0,65);
+  if(!name||name.length<2||name.length>65)continue;
+  const summary=description===name?'New AI project discussed by the Hacker News community.':description.slice(name.length).replace(/^[\s—–:-]+/,'').trim().slice(0,145);
+  selected.push({slug:'hn-'+hit.objectID,name,initial:name.charAt(0).toUpperCase(),category:'ai',categoryLabel:'Hacker News launch',format:'Community launch',summary,useCase:summary,launchedAt:new Date(date).toISOString().slice(0,10),launchStatus:'Show HN discussion',externalUrl:'https://news.ycombinator.com/item?id='+hit.objectID});
+ }
+ return selected.sort((a,b)=>(b.launchedAt||'').localeCompare(a.launchedAt||'')).slice(0,10);
+}
+async function getShowHNLaunches(now:number):Promise<AIShelfTool[]>{
+ const url='https://hn.algolia.com/api/v1/search_by_date?query=Show%20HN&tags=story&hitsPerPage=100';
+ const response=await fetch(url,{signal:AbortSignal.timeout(5000),redirect:'error',next:{revalidate:LAUNCH_REFRESH_SECONDS,tags:['ai-launches']},headers:{Accept:'application/json'}});
+ if(!response.ok||Number(response.headers.get('content-length'))>900000)throw Error('Community launch feed unavailable');
+ const raw=await response.text();
+ if(raw.length>900000)throw Error('Community launch feed too large');
+ return parseShowHNLaunches(JSON.parse(raw),now);
+}
 export async function getAIProductLaunches(now=Date.now()):Promise<AIShelfTool[]>{
  const feeds:[string,boolean][]=[['https://www.producthunt.com/feed?category=artificial-intelligence',true],['https://www.producthunt.com/feed',false]];
  // Prefer the official AI category feed; use the general feed only if the category is inaccessible.
  const result=await Promise.allSettled(feeds.map(async([url,categoryFiltered])=>parseProductHuntLaunches(await fetchFeed(url),now,categoryFiltered)));
  const verified=result.flatMap(x=>x.status==='fulfilled'?x.value:[]);
+ const community=await getShowHNLaunches(now).catch(()=>[] as AIShelfTool[]);
  const unique=new Map<string,AIShelfTool>();
- for(const card of verified)if(!unique.has(card.externalUrl||card.slug))unique.set(card.externalUrl||card.slug,card);
+ for(const card of [...verified,...community])if(!unique.has(card.externalUrl||card.slug))unique.set(card.externalUrl||card.slug,card);
  return [...unique.values()].sort((a,b)=>(b.launchedAt||'').localeCompare(a.launchedAt||'')).slice(0,6);
 }
