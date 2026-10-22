@@ -1,0 +1,799 @@
+{
+  "tools": [
+    {
+      "slug": "imgkits",
+      "name": "Imgkits",
+      "category": "ai-image",
+      "url": "https://imgkits.com/",
+      "summary": "Browser-based AI image and video tools for editing, enhancement, restoration and generation.",
+      "fit": "Creators, small businesses and marketers who need several visual-editing jobs in one browser workspace.",
+      "features": [
+        "AI background and object removal",
+        "Photo restoration and upscaling",
+        "AI image generation and filters",
+        "Image-to-video and text-to-video tools"
+      ],
+      "caution": "Export quality, trial credits and access to advanced tools vary. Test fine edges, typography and realistic details before publishing.",
+      "color": "#8a80cf",
+      "initial": "I",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "image editing background removal photo restoration upscaling ai visual effects",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Imgkits groups common image-production tasks—clean-up, restoration, background changes, stylised effects and generation—rather than concentrating on a single editor. It can be useful when a team handles many small visual requests and does not want to install specialist software for each one.",
+        "useCases": [
+          "Prepare product photos by removing distracting backgrounds.",
+          "Restore or upscale older images for digital use.",
+          "Create variations and short visual experiments for campaigns."
+        ],
+        "workflow": [
+          "Upload or select an image and choose a task-specific tool.",
+          "Adjust the prompt or available settings; compare with the original.",
+          "Inspect edges, faces and text at full size before exporting."
+        ],
+        "checks": [
+          "Test real images with hair, transparent objects and packaging labels.",
+          "Compare output resolutions and credit consumption across jobs.",
+          "Review usage permissions before using generated material in client work."
+        ],
+        "notIdeal": "Not a replacement for a fully editable, layered design workflow when precise retouching or print-ready output is essential.",
+        "faqs": [
+          {
+            "question": "Can Imgkits remove backgrounds and restore photos?",
+            "answer": "Its browser tools include background removal, photo restoration and enhancement. Results depend on image quality and the selected tool."
+          },
+          {
+            "question": "Is Imgkits suited to professional image production?",
+            "answer": "It can accelerate common edits, but teams should test difficult assets, export size and consistency before relying on it for final production."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "transmonkey",
+      "name": "TransMonkey",
+      "category": "ai-translation",
+      "url": "https://www.transmonkey.ai/",
+      "summary": "AI-powered document, image and video translation for multilingual content workflows.",
+      "fit": "International teams, researchers, educators and creators converting material across languages and formats.",
+      "features": [
+        "Document translation",
+        "Image text translation",
+        "Video translation",
+        "Multilingual content conversion"
+      ],
+      "caution": "Accuracy can vary with language pairs, technical jargon and document layout. Human review is essential for regulated or legally significant material.",
+      "color": "#8a80cf",
+      "initial": "T",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "document image video translator multilingual subtitles localization",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "TransMonkey is designed for translating content that is more complex than a plain text passage. Document, image and video workflows reduce the need to manually copy text between tools, though preserving layout and meaning needs careful review.",
+        "useCases": [
+          "Translate documents for internal reading or research.",
+          "Localise image-based assets containing written text.",
+          "Prepare translated video materials for a new-language audience."
+        ],
+        "workflow": [
+          "Choose the file type and source and target languages.",
+          "Upload the content and process it with the appropriate translation workflow.",
+          "Check names, numbers, layout, subtitles and tone with a fluent reviewer."
+        ],
+        "checks": [
+          "Trial a file containing tables, technical terms and mixed formatting.",
+          "Test the accuracy of names, speaker timing and embedded text.",
+          "Review privacy, file retention and permissible content types."
+        ],
+        "notIdeal": "Not a substitute for certified translation or expert localisation of legal, medical and safety-critical documents.",
+        "faqs": [
+          {
+            "question": "What content can TransMonkey translate?",
+            "answer": "The submitted product description identifies documents, images and videos as its principal translation workflows."
+          },
+          {
+            "question": "Should AI translations be published without review?",
+            "answer": "No. Fluency does not guarantee correct meaning, especially for specialist terms, brand tone or legally important wording."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "teachany",
+      "name": "TeachAny",
+      "category": "ai-education",
+      "url": "https://www.teachany.com/",
+      "summary": "AI teaching assistant for lesson plans, quizzes, worksheets and learning activities.",
+      "fit": "Teachers, tutors and education teams preparing differentiated classroom resources.",
+      "features": [
+        "Lesson and activity planning",
+        "Quiz and assessment drafts",
+        "Worksheet generation",
+        "Learning support materials"
+      ],
+      "caution": "Educators should check curriculum alignment, accuracy, age appropriateness and accessibility before using generated material with students.",
+      "color": "#8a80cf",
+      "initial": "T",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai teacher lesson plan generator quiz worksheet assessment education",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "TeachAny brings routine lesson-preparation tasks into a single education-focused platform. It is best treated as a first-draft assistant for instructors, not an authority on pedagogy or student assessment.",
+        "useCases": [
+          "Draft a lesson outline aligned to a specific learning objective.",
+          "Create quiz variants and practice exercises for different levels.",
+          "Prepare supplementary worksheets and revision materials."
+        ],
+        "workflow": [
+          "Enter the subject, age group, learning goal and expected level.",
+          "Generate a lesson or assessment and adapt examples to the class.",
+          "Validate answers, reading level and accommodations before distributing."
+        ],
+        "checks": [
+          "Check factual accuracy and answer keys against teaching materials.",
+          "Review student-data policies before entering identifiable information.",
+          "Compare free-tool limits with any subscription features."
+        ],
+        "notIdeal": "Not suitable for issuing final grades or replacing teacher judgement without oversight.",
+        "faqs": [
+          {
+            "question": "Can TeachAny create quizzes and lesson plans?",
+            "answer": "Yes. Lesson, assessment and worksheet generation are central workflows described on the provider's website."
+          },
+          {
+            "question": "Does TeachAny replace a teacher's review?",
+            "answer": "No. Teachers remain responsible for learning outcomes, correct answer keys and adapting generated content to their learners."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "markany",
+      "name": "MarkAny",
+      "category": "pdf-documents",
+      "url": "https://markany.ai/",
+      "summary": "Batch file-to-Markdown and Markdown-to-document conversion with OCR for scanned inputs.",
+      "fit": "Technical writers, knowledge-base maintainers and teams preparing documents for structured text workflows.",
+      "features": [
+        "PDF and Office files to Markdown",
+        "Batch conversion across file types",
+        "OCR for scanned pages and images",
+        "Markdown export to documents and images"
+      ],
+      "caution": "OCR and formatting preservation are not perfect. Check tables, equations, multi-column layouts and complex pagination after conversion.",
+      "color": "#8a80cf",
+      "initial": "M",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "pdf to markdown office files batch conversion ocr markdown to docx pptx xlsx",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": false,
+      "profile": {
+        "overview": "MarkAny focuses on the difficult handoff between common file formats and editable Markdown. That makes it potentially useful for moving material into documentation systems, content repositories or retrieval pipelines where text structure matters.",
+        "useCases": [
+          "Turn PDFs and office documents into Markdown for editing.",
+          "Extract text from scanned pages using OCR.",
+          "Convert finished Markdown into shareable document formats."
+        ],
+        "workflow": [
+          "Select source files and the target conversion direction.",
+          "Run batch conversion or OCR as appropriate.",
+          "Proofread tables, headings, code blocks and page structure before reusing outputs."
+        ],
+        "checks": [
+          "Test mixed PDFs containing tables, images and scanned pages.",
+          "Compare output structure with the source rather than just text volume.",
+          "Review document confidentiality before uploading files."
+        ],
+        "notIdeal": "Not a substitute for a specialist publishing or PDF prepress application when exact visual fidelity is required.",
+        "faqs": [
+          {
+            "question": "Can MarkAny convert PDFs into Markdown?",
+            "answer": "The product submission describes PDF, Word, Excel, PowerPoint, HTML, EPUB and image-to-Markdown conversion, including OCR for scans."
+          },
+          {
+            "question": "Does MarkAny preserve every document layout?",
+            "answer": "Do not assume pixel-perfect fidelity. Complex diagrams, tables and page layouts should be reviewed after conversion."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "ai-music-generator",
+      "name": "AI Music Generator",
+      "category": "ai-audio",
+      "url": "https://musicgeneratorai.io/",
+      "summary": "Generate songs, instrumentals and lyrics from prompts with AI-assisted music workflows.",
+      "fit": "Independent creators, podcasters, producers and video teams exploring draft soundtrack material.",
+      "features": [
+        "Text-prompt song generation",
+        "Instrumental and lyric creation",
+        "Music variations and covers",
+        "Audio download and export"
+      ],
+      "caution": "Licensing and rights depend on the provider's terms and selected plan. Review ownership claims, resemblance to existing works and distribution permissions.",
+      "color": "#8a80cf",
+      "initial": "A",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "music song generator text to music instrumental lyrics podcast soundtrack",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "AI Music Generator is aimed at people who need to hear an idea quickly. A prompt can define a mood, genre or use case, providing a starting track to evaluate before further editing or production.",
+        "useCases": [
+          "Explore background music for a short-form video.",
+          "Generate a rough musical direction for a pitch.",
+          "Create instrumental concepts and lyric-led song drafts."
+        ],
+        "workflow": [
+          "Describe the intended mood, length, style and instrumentation.",
+          "Generate candidates and compare structure, vocals and mixing.",
+          "Check the relevant licensing terms before publishing or monetising."
+        ],
+        "checks": [
+          "Check whether downloadable files include a commercial-use license.",
+          "Listen for artifacts, unwanted vocals and inconsistent transitions.",
+          "Compare pricing by credits, duration or generation limits."
+        ],
+        "notIdeal": "Not a guaranteed source of exclusive or copyright-clear music for campaigns without a separate rights review.",
+        "faqs": [
+          {
+            "question": "Can AI Music Generator create an instrumental from a prompt?",
+            "answer": "Prompt-driven music composition, including styles and instruments, is part of the service described in its terms."
+          },
+          {
+            "question": "Are AI-generated tracks automatically royalty-free?",
+            "answer": "Do not assume so. Confirm the specific plan's licensing, rights and distribution provisions for your use case."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "ai-image-editor",
+      "name": "AI Image Editor",
+      "category": "ai-image",
+      "url": "https://ai-img-editor.com/",
+      "summary": "AI image and video editor for background removal, effects, visual generation and upscaling.",
+      "fit": "Designers, ecommerce teams and creators preparing polished visual assets.",
+      "features": [
+        "AI image generation and edits",
+        "Background removal",
+        "Upscaling and enhancement",
+        "Image and video effects"
+      ],
+      "caution": "AI may change small product details or lettering. Inspect source fidelity and export quality before using edited visuals in commerce.",
+      "color": "#8a80cf",
+      "initial": "A",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai image editor remove background upscale generate ecommerce photos",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "AI Image Editor offers several popular visual-production tools through a web interface. Its value is the ability to switch between generation, cleanup and enhancement instead of treating them as separate tasks.",
+        "useCases": [
+          "Remove distracting product photo backgrounds.",
+          "Try alternate campaign visuals or visual styles.",
+          "Upscale selected assets for larger digital placements."
+        ],
+        "workflow": [
+          "Upload existing media or start with a text prompt.",
+          "Apply an editing or generation workflow and create variations.",
+          "Check proportions, identity, brand marks and details before export."
+        ],
+        "checks": [
+          "Test fine edges and reflective surfaces in background removal.",
+          "Review whether outputs remain faithful to original product photography.",
+          "Confirm available formats, usage credits and commercial-use terms."
+        ],
+        "notIdeal": "Not ideal for compliance-sensitive product imagery where every pictured detail must exactly match the real product.",
+        "faqs": [
+          {
+            "question": "What does AI Image Editor do?",
+            "answer": "Its submitted capabilities include visual generation, editing effects, background removal and upscaling."
+          },
+          {
+            "question": "Can AI image edits change product details?",
+            "answer": "Yes. Generated or transformed imagery can alter text, packaging and dimensions; final assets should be checked carefully."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "curbora",
+      "name": "Curbora",
+      "category": "ai-image",
+      "url": "https://curbora.com/",
+      "summary": "AI real-estate photo preparation for enhancement, virtual staging and listing-ready exports.",
+      "fit": "Real estate agents, property photographers and brokerages preparing marketing photography.",
+      "features": [
+        "Virtual staging",
+        "Room decluttering",
+        "Day-to-dusk transformations",
+        "Listing-ready image enhancements"
+      ],
+      "caution": "Real estate advertising may require disclosure of virtual alterations. Preserve originals and follow local listing rules and truthful-advertising standards.",
+      "color": "#8a80cf",
+      "initial": "C",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "real estate virtual staging photos property listing declutter day to dusk",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Curbora focuses on the specific visual needs of real estate listings. Instead of general AI art, it targets room presentation: tidying scenes, staging furnishings and improving photography for property marketing.",
+        "useCases": [
+          "Show a vacant room with clearly disclosed virtual furnishings.",
+          "Prepare consistent photography across a property portfolio.",
+          "Explore day-to-dusk variations for a listing presentation."
+        ],
+        "workflow": [
+          "Upload property photos and select the desired enhancement.",
+          "Review generated versions against the actual property.",
+          "Export with appropriate disclosure and retain the original images."
+        ],
+        "checks": [
+          "Look for altered windows, walls and permanent fixtures.",
+          "Confirm how virtual staging disclosures are handled.",
+          "Check batch workflow, output size and photographer rights."
+        ],
+        "notIdeal": "Not appropriate for silently altering permanent property features or presenting fictional features as real.",
+        "faqs": [
+          {
+            "question": "Does Curbora support virtual staging?",
+            "answer": "The submitted description lists virtual staging, decluttering and day-to-dusk edits among its core capabilities."
+          },
+          {
+            "question": "Should virtually staged photos be disclosed?",
+            "answer": "Follow the rules of the listing platform and relevant market. Make sure imagery does not misrepresent permanent property characteristics."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "advelum",
+      "name": "Advelum",
+      "category": "marketing",
+      "url": "https://advelum.com/",
+      "summary": "AI ad creative generator for product image ads and short video ads.",
+      "fit": "Independent stores and small marketing teams producing product-led campaign creatives.",
+      "features": [
+        "Image ads from product photographs",
+        "Short AI video ad generation",
+        "Visual style references",
+        "Multiple aspect ratios and downloadable files"
+      ],
+      "caution": "Advelum creates ad assets; it does not replace campaign management. Review product accuracy, claims, brand usage and final platform dimensions.",
+      "color": "#8a80cf",
+      "initial": "A",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai advertising ad creative product photo image video ads marketing",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": false,
+      "profile": {
+        "overview": "Advelum is designed around a small store's recurring need for fresh creative. Users can start from their own product photos, a written direction or a reference style, then produce images and short videos for use in ad platforms.",
+        "useCases": [
+          "Create product launch image advertisements.",
+          "Test different seasonal visuals with one product.",
+          "Draft short product-motion clips for social campaigns."
+        ],
+        "workflow": [
+          "Upload product imagery and optionally a visual reference.",
+          "Describe the offer and choose image or video format.",
+          "Review the generated result, then download and publish separately."
+        ],
+        "checks": [
+          "Check product labels, colors and geometry in each output.",
+          "Compare aspect ratios and rendering costs for different placements.",
+          "Confirm that claims and creative rights comply with the target ad platform."
+        ],
+        "notIdeal": "Not an ad buying platform, analytics suite or guaranteed performance optimisation service.",
+        "faqs": [
+          {
+            "question": "Does Advelum run advertising campaigns?",
+            "answer": "No. Its website describes generating image and short video ad assets; publishing and managing campaigns remain separate."
+          },
+          {
+            "question": "Can a product photograph guide the generated ad?",
+            "answer": "Yes. Advelum describes workflows using uploaded product photos and optional image or video references."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "image-2",
+      "name": "Image 2",
+      "category": "ai-image",
+      "url": "https://imagev2.org/",
+      "summary": "Multi-model AI image generator and editor for design, ads and commerce visuals.",
+      "fit": "Creative teams and marketers experimenting with text-to-image and reference-guided visual variations.",
+      "features": [
+        "Text-to-image generation",
+        "Reference-based image editing",
+        "Poster and campaign visual drafts",
+        "Product and ecommerce image concepts"
+      ],
+      "caution": "Model choice, source-image fidelity and output rights should be confirmed on the live service before production use.",
+      "color": "#8a80cf",
+      "initial": "I",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "image 2 imagev2 ai image generator multi-model reference editing",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Image 2 positions itself as a creative workspace for both generating images from written ideas and modifying images with references. It can support early creative exploration, but its results should be reviewed as drafts until verified.",
+        "useCases": [
+          "Generate visual concepts from a campaign brief.",
+          "Edit reference assets into alternate visual directions.",
+          "Explore mockups and ecommerce creative treatments."
+        ],
+        "workflow": [
+          "Choose a generation or editing model and add a prompt.",
+          "Provide reference imagery when subject continuity matters.",
+          "Review text, proportions, visual consistency and export dimensions."
+        ],
+        "checks": [
+          "Compare the same input on different available models.",
+          "Look for distortions in text and product marks.",
+          "Review credits and commercial-use conditions."
+        ],
+        "notIdeal": "Not ideal for required photographic truth or technical illustrations that must be exact.",
+        "faqs": [
+          {
+            "question": "Can Image 2 work from reference images?",
+            "answer": "Its submitted description includes reference editing alongside text-to-image generation."
+          },
+          {
+            "question": "Should brands publish every generated image directly?",
+            "answer": "No. Check brand elements, commercial permissions and whether the pictured details accurately reflect the product."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "flux-2",
+      "name": "Flux 2",
+      "category": "ai-image",
+      "url": "https://flux2pro.org/",
+      "summary": "AI image generation and editing workspace for photorealistic, marketing and product visuals.",
+      "fit": "Designers and marketing teams seeking AI-produced creative concepts and image variants.",
+      "features": [
+        "Photorealistic image generation",
+        "Image editing",
+        "Marketing visual concepts",
+        "Product image experiments"
+      ],
+      "caution": "The submitted product name is not evidence of affiliation with a similarly named underlying model. Verify model provenance, terms and output rights with the provider.",
+      "color": "#8a80cf",
+      "initial": "F",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "flux 2 ai image generation editing photorealistic product marketing",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Flux 2 presents image generation and editing for campaign and product visuals. It is most useful at the exploration stage, where teams can compare multiple generated concepts against a creative brief.",
+        "useCases": [
+          "Explore photorealistic concept imagery.",
+          "Draft product and campaign visual directions.",
+          "Test iterations of prompts for consistent visual themes."
+        ],
+        "workflow": [
+          "Set a clear subject, composition and intended output.",
+          "Generate multiple versions and adjust the instruction.",
+          "Review realism, text and brand-specific details before publication."
+        ],
+        "checks": [
+          "Confirm which model or models the platform actually uses.",
+          "Check generation limits, export resolutions and pricing.",
+          "Evaluate commercial rights and third-party content policies."
+        ],
+        "notIdeal": "Not a verified official model provider or a substitute for licensed commercial photography.",
+        "faqs": [
+          {
+            "question": "Is Flux 2 a model or an image service?",
+            "answer": "This listing describes the submitted website as an image generation and editing service; its relationship to similarly named models is not verified."
+          },
+          {
+            "question": "Can it prepare marketing images?",
+            "answer": "It is presented for marketing and product imagery, subject to human quality review and rights checks."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "isrc-finder",
+      "name": "ISRC Finder",
+      "category": "ai",
+      "url": "https://isrcfinder.org/",
+      "summary": "Free online lookup for International Standard Recording Codes by track and artist.",
+      "fit": "Musicians, labels, music librarians and rights teams identifying specific sound recordings.",
+      "features": [
+        "Search by song title and artist",
+        "Compare recording and release details",
+        "Copy available ISRC codes",
+        "Keep a source reference with copied results"
+      ],
+      "caution": "An ISRC identifies a particular recording, not a song in general. Confirm the recording version and reference source before using a code in distribution.",
+      "color": "#8a80cf",
+      "initial": "I",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "isrc identifier recording code song track artist music metadata finder",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "ISRC Finder is a focused lookup utility rather than a general AI chatbot. It helps people find recording identifiers and compare versions with similar titles before copying a code into a workflow.",
+        "useCases": [
+          "Look up a track's recording identifier.",
+          "Distinguish live, remastered and alternate releases.",
+          "Keep recording metadata alongside a copied code."
+        ],
+        "workflow": [
+          "Search using the artist and track title.",
+          "Compare version, album, duration and other available metadata.",
+          "Copy the matching code with its source, then verify when stakes are high."
+        ],
+        "checks": [
+          "Check whether the result matches the exact master recording.",
+          "Look for missing or conflicting records from different data sources.",
+          "Confirm the data provenance for metadata used in distribution."
+        ],
+        "notIdeal": "Not a registrar that issues new ISRCs and not a substitute for master-rights verification.",
+        "faqs": [
+          {
+            "question": "Does ISRC Finder create ISRC codes?",
+            "answer": "No. The submitted description identifies it as a lookup tool for existing ISRCs."
+          },
+          {
+            "question": "Why might one song have multiple ISRC codes?",
+            "answer": "Different sound recordings, including alternate versions or recordings, can have different ISRCs. Match the specific release and recording details."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "sceneflare",
+      "name": "SceneFlare",
+      "category": "ai-image",
+      "url": "https://sceneflare.com/",
+      "summary": "Multi-model AI visual workspace for image and video generation, editing and enhancement.",
+      "fit": "Brand studios, creators and ecommerce teams working across multiple visual models.",
+      "features": [
+        "AI image and video models",
+        "Reference-controlled creation",
+        "Background removal and upscaling",
+        "Creative effects and editing"
+      ],
+      "caution": "Inputs, controls, costs and licensing can differ by selected model. Test reference consistency and confirm model-specific terms.",
+      "color": "#8a80cf",
+      "initial": "S",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai image video creative editor image reference model sceneflare",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "SceneFlare connects visual creation and finishing tasks in one interface. Rather than committing to a single generator, teams can choose a task or model, create options from prompts and reference assets, and refine outputs with editing tools.",
+        "useCases": [
+          "Generate image concepts for campaigns.",
+          "Animate still assets into short video concepts.",
+          "Clean up, upscale and prepare finished visual assets."
+        ],
+        "workflow": [
+          "Start with a visual task or choose a preferred model.",
+          "Provide prompts, images or references supported by that model.",
+          "Compare results, edit where needed and export approved work."
+        ],
+        "checks": [
+          "Compare quality and credit consumption across models.",
+          "Check reference fidelity for consistent subjects and brand assets.",
+          "Confirm usage permissions for each selected generation workflow."
+        ],
+        "notIdeal": "Not a replacement for a controlled animation pipeline when shot-by-shot continuity or exact editable scenes are mandatory.",
+        "faqs": [
+          {
+            "question": "Does SceneFlare support both images and video?",
+            "answer": "Yes. Its website describes image and video generation, effects and finishing tools in one workspace."
+          },
+          {
+            "question": "Can users pick different AI models?",
+            "answer": "SceneFlare describes model-based and task-based entry points. Availability and controls vary by model."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "love-story-movie",
+      "name": "Love Story Movie",
+      "category": "ai-video",
+      "url": "https://lovestorymovie.org/anniversary-gift-for-wife",
+      "summary": "Personalised short cinematic videos made from photographs, text and private memories.",
+      "fit": "Couples and families creating video keepsakes for anniversaries, weddings and birthdays.",
+      "features": [
+        "Photo-to-story video creation",
+        "Personalised text and memory inputs",
+        "Short cinematic keepsake format",
+        "Occasion-based gift workflows"
+      ],
+      "caution": "Check media consent, private-image handling and whether the output feels appropriate to the recipient before sharing.",
+      "color": "#8a80cf",
+      "initial": "L",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai anniversary wedding memory video cinematic personalized gift",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Love Story Movie targets a personal use case: turning a collection of photos and memories into a short emotional video. The submitted workflow is closer to a guided gift maker than a general video editing suite.",
+        "useCases": [
+          "Build an anniversary or wedding keepsake.",
+          "Create a personalised birthday or relationship tribute.",
+          "Turn a small photo collection into a shareable story."
+        ],
+        "workflow": [
+          "Select photos and write the key moments to include.",
+          "Generate a short video and review the story order.",
+          "Check names, likenesses, soundtrack and privacy before sharing."
+        ],
+        "checks": [
+          "Confirm permitted use of other people's photographs.",
+          "Review export format and whether edits are possible.",
+          "Check storage, deletion and commercial music terms."
+        ],
+        "notIdeal": "Not built for complex professional post-production, long-form films or bulk social-video production.",
+        "faqs": [
+          {
+            "question": "How long are Love Story Movie videos?",
+            "answer": "The submitted product description mentions personalised films around 60–110 seconds, but current duration limits should be confirmed."
+          },
+          {
+            "question": "Can it use personal photographs?",
+            "answer": "The described workflow takes photos and written memories as inputs. Only upload images you are permitted to use."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "voravideo",
+      "name": "VORAvideo",
+      "category": "ai-video",
+      "url": "https://voravideo.com/",
+      "summary": "AI video generator that turns text and images into short creative clips with model and output choices.",
+      "fit": "Marketing teams, content creators, educators and concept artists drafting AI video assets.",
+      "features": [
+        "Text-to-video generation",
+        "Image-to-video animation",
+        "Multiple generation model options",
+        "Flexible output sizes and formats"
+      ],
+      "caution": "Submitted resolution claims are not independently tested. Check model-specific pricing, generation duration, motion consistency and exports.",
+      "color": "#8a80cf",
+      "initial": "V",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "ai video text to video image to video animation multiple models 4k",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "VORAvideo is positioned as an accessible video-generation environment for producing motion from either a written brief or an existing image. The workflow supports prototyping visuals without a full video shoot.",
+        "useCases": [
+          "Animate a product image for a campaign idea.",
+          "Prototype scenes for storyboards or pitches.",
+          "Generate short educational or social clips."
+        ],
+        "workflow": [
+          "Choose a text or image-based generation path.",
+          "Write clear direction for subject, motion and camera movement.",
+          "Review temporal consistency, export settings and usage rights."
+        ],
+        "checks": [
+          "Check clip duration, available resolutions and credit costs.",
+          "Review distorted hands, signage and shifting subject identities.",
+          "Validate commercial use, disclosure and music rights."
+        ],
+        "notIdeal": "Not a reliable substitute for filmed evidence or an exact-motion video-editing tool.",
+        "faqs": [
+          {
+            "question": "Can VORAvideo animate an existing image?",
+            "answer": "The submitted description includes image-to-video as well as text-to-video generation."
+          },
+          {
+            "question": "Does VORAvideo always export at 4K?",
+            "answer": "The submission claims options up to 4K; availability may depend on model and plan and should be checked on the live service."
+          }
+        ]
+      }
+    },
+    {
+      "slug": "opa-opa-ai",
+      "name": "Opa Opa AI",
+      "category": "ai-video",
+      "url": "https://opaopaai.com/",
+      "summary": "Single-portrait AI animation tool for playful selfie-style hair-motion videos.",
+      "fit": "Social creators experimenting with short portrait animations and personal clips.",
+      "features": [
+        "Portrait-to-video animation",
+        "Ready-made motion reference",
+        "Short vertical-video output",
+        "Selfie-style expression and hair movement"
+      ],
+      "caution": "Generated likeness and motion may vary. Use portraits only with permission, and confirm price, resolution and soundtrack terms before sharing.",
+      "color": "#8a80cf",
+      "initial": "O",
+      "format": "AI software",
+      "pricing": "Check current vendor pricing",
+      "keywords": "portrait image to video bouncy hair selfie animation short vertical",
+      "sourceStatus": "Product submitted for editorial listing",
+      "updatedAt": "2026-10-22",
+      "addedAt": "2026-10-22",
+      "ai": true,
+      "profile": {
+        "overview": "Opa Opa AI addresses a deliberately narrow creative task rather than general video production. A single portrait is animated to create a short vertical clip, making it a lightweight option for experimenting with motion effects.",
+        "useCases": [
+          "Turn a permitted portrait into a playful short clip.",
+          "Create a personal social-video experiment.",
+          "Try a specific motion effect without video filming."
+        ],
+        "workflow": [
+          "Upload one clear portrait with appropriate consent.",
+          "Apply the provided animation reference and generate the video.",
+          "Inspect facial likeness, motion and soundtrack before export."
+        ],
+        "checks": [
+          "Check generated clip length, size and credits before purchase.",
+          "Watch for unnatural motion and identity distortion.",
+          "Review privacy and consent requirements for uploaded photos."
+        ],
+        "notIdeal": "Not suited to general-purpose video editing, film production or projects requiring precise control over animation timing.",
+        "faqs": [
+          {
+            "question": "Does Opa Opa AI need a video upload?",
+            "answer": "The submitted workflow describes starting from one still portrait, with animation guided by a prepared motion reference."
+          },
+          {
+            "question": "Is the generated likeness guaranteed to match?",
+            "answer": "No. The provider's submission notes that facial likeness, hair motion and timing can vary between generations."
+          }
+        ]
+      }
+    }
+  ]
+}

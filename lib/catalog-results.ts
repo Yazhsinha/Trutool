@@ -10,6 +10,11 @@ export function toolResults(query='',category='',sort='relevance',page=1,limit=2
  limit=Number.isFinite(limit)?Math.min(50,Math.max(1,Math.floor(limit))):24;
  const matches=searchTools(query,category,sort==='az'?'az':'relevance',source),found=matches.filter(t=>(scope!=='ai'||isAITool(t))&&discoveryMatches(t,discovery));
  if(sort==='newest')found.sort((a,b)=>(b.addedAt||b.launchedAt||'').localeCompare(a.addedAt||a.launchedAt||''));
+ // Keep freshly accepted, non-sponsored submissions around the tenth position on an unfiltered category page.
+ else if(!query&&category&&sort==='relevance'&&discovery==='all'){
+  const submitted=found.filter(t=>Boolean(t.profile)),regular=found.filter(t=>!t.profile);
+  if(submitted.length)found.splice(0,found.length,...regular.slice(0,9),...submitted,...regular.slice(9));
+ }
  const total=found.length,pages=Math.max(1,Math.ceil(total/limit));
  page=Number.isFinite(page)?Math.min(pages,Math.max(1,Math.floor(page))):1;
  return {items:found.slice((page-1)*limit,page*limit).map(t=>({slug:t.slug,name:t.name,category:t.category,categoryLabel:t.categoryLabel!,summary:t.summary,format:t.format,initial:t.initial})),total,page,pages,limit,query,category,sort,discovery,...(scope==='ai'?{scope}: {})};

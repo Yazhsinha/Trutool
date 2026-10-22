@@ -19,6 +19,7 @@ export function pageStructuredData(path:string,override?:ContentPage){
   const t=page.tool,entityId=url+'#tool',entity:Record<string,unknown>={'@type':/software/i.test(t.format)?'SoftwareApplication':'Organization','@id':entityId,name:t.name,description:t.summary,url:t.url,sameAs:t.url,...(brandAssets[t.slug]?{image:absolute(brandAssets[t.slug])}:{})};
   if(/software/i.test(t.format))Object.assign(entity,{applicationCategory:categoryOf(t.category).name,featureList:t.features});
   node.mainEntity={'@id':entityId};node.author=author?{'@id':absolute('/authors/'+author.slug)+'#person'}:undefined;graph.push(entity);
+  if(t.profile?.faqs?.length){graph.push({'@type':'FAQPage','@id':url+'#faq',url:url+'#questions',isPartOf:{'@id':id},mainEntity:t.profile.faqs.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}))});}
  }
  if(page.kind==='comparison')node.about=page.pair?.map(t=>({'@type':'Thing',name:t.name,url:absolute('/tools/'+t.slug)}));
  // Editorial answers are Articles, not user-generated QAPages. Ratings and unverified prices are never synthesized.
