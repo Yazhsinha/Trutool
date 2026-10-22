@@ -178,6 +178,7 @@ export function searchTools(query: string, category = '', sort = 'relevance', so
   // Check the requested job, not just incidental mentions in a description.
   if (/\b(?:medical|clinical|ambient) (?:ai )?scrib(?:e|es|ing)\b/.test(q) && entry.tool.category!=='ai-medical') continue;
   if (terms.includes('medical') && !terms.includes('legal') && !['ai-medical','healthcare'].includes(entry.tool.category)) continue;
+  if (q==='video editing' && !['video-editing','ai-video'].includes(entry.tool.category)) continue;
   if (/\bai image generat(?:or|ion|e)\b/.test(q) && !['ai-image','ai-video','ai-chatbots','ai-model-platforms','ai-3d'].includes(entry.tool.category)) continue;
   if (terms.includes('image') && terms.includes('create') && entry.tool.category==='ai-3d' && /3d models? from (?:text or )?image/.test(entry.content)) continue;
   if (terms.length===1 && terms[0]==='speechsynthesis' && entry.tool.category==='ai-agent-frameworks') continue;
