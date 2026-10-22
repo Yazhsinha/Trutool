@@ -65,3 +65,26 @@ body:has(.admin-root) .site-header,body:has(.admin-root) .site-footer,body:has(.
 .studio-community-queue .studio-panel-heading,.studio-community-submission-bottom{align-items:flex-start;flex-direction:column}
 .studio-community-actions{width:100%}
 }
+
+/* Curated alternatives manager in Studio */
+.studio-featured-alts{padding:22px;margin:0 0 23px}
+.studio-featured-heading{display:flex;align-items:start;justify-content:space-between;gap:20px;margin-bottom:20px}
+.studio-featured-heading h2{font-size:22px;display:flex;align-items:center;gap:10px;margin:6px 0}
+.studio-featured-heading p{font-size:13px;line-height:1.65;color:#66736f;max-width:660px;margin:7px 0 0}
+.studio-featured-heading>a{font-size:13px;color:#45673b;text-decoration:underline;white-space:nowrap}
+.studio-featured-list{display:grid;gap:9px}
+.studio-featured-item{display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid #e0e6e0;border-radius:11px;padding:12px 14px}
+.studio-featured-item.is-featured{background:#f5f9ed;border-color:#bdd5a9}
+.studio-featured-item label{display:flex;align-items:center;gap:13px;min-width:0;cursor:pointer;flex:1}
+.studio-featured-item label input{width:18px;height:18px;flex-shrink:0;accent-color:#517b35}
+.studio-featured-item label span{display:grid;gap:4px;min-width:0}
+.studio-featured-item label strong{font-size:14px;line-height:1.3}
+.studio-featured-item label small{font-size:12px;color:#738075;overflow-wrap:anywhere}
+.studio-featured-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.studio-featured-actions button{display:grid;place-items:center;width:30px;height:30px;border:1px solid #d2ddd0;border-radius:7px;background:white;color:#2b4533;cursor:pointer}
+.studio-featured-actions button:disabled{opacity:.3;cursor:not-allowed}
+.studio-featured-position{min-width:32px;font-weight:750;color:#50753b;font-size:13px}
+.studio-featured-footer{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-top:17px;font-size:12px;color:#68776d}
+.studio-featured-status{padding:16px;display:flex;align-items:center;gap:9px;color:#637267}
+.studio-featured-notice{font-size:13px;color:#396e34;margin:12px 0 0}
+@media(max-width:640px){.studio-featured-heading,.studio-featured-footer{flex-direction:column;align-items:start}.studio-featured-item{align-items:start}}
