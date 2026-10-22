@@ -1,8 +1,9 @@
 import { publicPages } from '@/lib/cms-public';
-import { absolute,modifiedFor } from '@/lib/content-index';
-import { coverFor } from '@/lib/covers';
-import { siteIndexPaths } from '@/lib/site-index';
+import { sitemapEntries } from '@/lib/sitemap-inventory';
 import type { MetadataRoute } from 'next';
-// Generate against the current CMS inventory, rather than serving a stale static sitemap.
-export const dynamic='force-dynamic';
-export default async function sitemap():Promise<MetadataRoute.Sitemap>{const pages=await publicPages();return [...pages.map(page=>({url:absolute(page.path||'/'),...(modifiedFor(page)?{lastModified:modifiedFor(page)}:{}),...(page.cms?.image?{images:[/^https:\/\//.test(page.cms.image)?page.cms.image:absolute(page.cms.image)]}:page.guide?{images:[absolute(coverFor(page.guide.category))]}:{}),priority:page.path===''?1:page.kind==='tool'?.8:.6})),...siteIndexPaths(pages).map(path=>({url:absolute(path)}))]}
+
+// Always use the latest published CMS inventory; new public pages are included automatically.
+export const dynamic = 'force-dynamic';
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  return sitemapEntries(await publicPages());
+}
