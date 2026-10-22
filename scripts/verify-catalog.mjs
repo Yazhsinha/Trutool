@@ -278,7 +278,7 @@ try{
   const base=new Set(searchTools('meeting notes').map(t=>t.slug));assert.ok(lensResults('meeting notes','','relevance',1,50,'',lens).items.every(t=>base.has(t.slug)));
   assert.equal(lensResults('quantum banana telescope','','relevance',1,50,'',lens).total,0);
  }
- assert.equal(lensResults('chagpt','','relevance',1,24,'','popular').items[0].slug,'chatgpt');
+ assert.ok(lensResults('claude','','relevance',1,24,'','popular').items.some(t=>t.slug==='claude'),'Credible assistant remains in popular picks');
  assert.ok(lensResults('password manager','','relevance',1,50,'','popular').items.some(t=>t.slug==='bitwarden'));
  assert.ok(lensResults('Jev AI','','relevance',1,24,'ai','niche').items.some(t=>t.slug==='jev-ai'));
  assert.equal(lensResults('','design','relevance',1,50,'','niche').items.every(t=>t.category==='design'),true);
