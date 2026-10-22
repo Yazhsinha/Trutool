@@ -8,11 +8,11 @@ import {createRequire} from 'node:module';
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'trutool-catalog-'));
 try{
  fs.writeFileSync(path.join(tmp,'package.json'),'{"type":"commonjs"}');
- for(const file of ['catalog','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
+ for(const file of ['catalog','category-ranking','public-visibility','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  fs.writeFileSync(path.join(tmp,'cms-store.js'),'exports.getPublished=async()=>[];');
  fs.copyFileSync('lib/content-history.json',path.join(tmp,'content-history.json'));
  fs.copyFileSync('lib/expanded-catalog.json',path.join(tmp,'expanded-catalog.json'));
- for(const name of ['ai-catalog.json','catalog-additions.json','catalog-expansion.json','category-growth.json','submitted-tools.json','ai-news.json','ai-discussions.json'])fs.copyFileSync('lib/'+name,path.join(tmp,name));
+ for(const name of ['ai-catalog.json','catalog-additions.json','catalog-expansion.json','category-growth.json','submitted-tools.json','category-growth.json','ai-news.json','ai-discussions.json'])fs.copyFileSync('lib/'+name,path.join(tmp,name));
  fs.copyFileSync('lib/core-source-dates.json',path.join(tmp,'core-source-dates.json'));
  fs.copyFileSync('lib/community-reviews.json',path.join(tmp,'community-reviews.json'));
  const require=createRequire(import.meta.url),{tools,categories,guides}=require(path.join(tmp,'catalog.js')),{searchTools}=require(path.join(tmp,'search.js')),{workflows,validateBrief,pilotPlan,guideFor,matchTools,defaultWeights}=require(path.join(tmp,'diagnostic.js'));

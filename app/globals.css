@@ -539,3 +539,9 @@ main :is(.prose,.article-content,.tool-profile-content,.answer-block,.compare-ta
     scrollbar-width:none;
   }
 }
+
+/* Editorial positions in category results */
+.card-top-meta{display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.tool-rank{min-width:36px;text-align:center;padding:3px 7px;border:1px solid #e0e5e9;background:#f8faf9;border-radius:7px;font-size:13px;font-weight:750;color:#364659;line-height:1.35}
+.tool-rank-top{background:#ecf6d2;border-color:#d0e4aa;color:#395e20}
+@media(max-width:520px){.tool-rank{font-size:12px}}
