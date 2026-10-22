@@ -1,7 +1,7 @@
 import {discoveryMatches} from './tool-discovery';
 import {normalizeDiscovery,normalizeSort} from './discovery-options';
 import {isAITool} from './ai';
-import {categories,type Tool} from './catalog';
+import {categories,tools,type Tool} from './catalog';
 import {searchTools} from './search';
 import {rankedCategoryTools} from './category-ranking';
 import type {ToolResults} from './catalog-client';
