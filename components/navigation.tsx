@@ -13,6 +13,7 @@ type Menu = 'categories' | 'services' | null;
 
 export function Navigation({categories}:{categories:Category[]}) {
   const pathname=usePathname();
+  const alphabetical=[...categories].sort((a,b)=>a.short.localeCompare(b.short,'en',{sensitivity:'base'})||a.slug.localeCompare(b.slug));
   const current=(href:string)=>pathname===href||pathname.startsWith(href+'/');
   const navSymbols:Record<string,MotionKind>={Compare:'compare',Alternatives:'shuffle',Guides:'book',Community:'conversation'};
   const [menu, setMenu] = useState<Menu>(null);
@@ -69,7 +70,7 @@ export function Navigation({categories}:{categories:Category[]}) {
     </nav>
     {menu === 'categories' && <div className="mega-menu" id="category-mega" onPointerEnter={cancelClose}>
       <div className="mega-heading"><div><Layers size={21}/><strong>Find your next category.</strong></div><Link href="/categories" onClick={() => openMenu(null)}>Explore all categories <ArrowUpRight size={15}/></Link></div>
-      <div className="mega-categories">{categories.map(c => <Link key={c.slug} href={'/categories/'+c.slug} onClick={() => openMenu(null)}><span className="mega-dot" style={{background:c.color}}/><span>{c.short}</span><ArrowUpRight size={13}/></Link>)}</div>
+      <div className="mega-categories">{alphabetical.map(c => <Link key={c.slug} href={'/categories/'+c.slug} onClick={() => openMenu(null)}><span className="mega-dot" style={{background:c.color}}/><span>{c.short}</span><ArrowUpRight size={13}/></Link>)}</div>
     </div>}
     {menu === 'services' && <div className="mega-menu" id="services-mega" onPointerEnter={cancelClose}>
       <div className="mega-heading"><div><BriefcaseBusiness size={21}/><strong>Expertise for the next step.</strong></div><Link href="/services" onClick={() => openMenu(null)}>Explore all services <ArrowUpRight size={15}/></Link></div>
