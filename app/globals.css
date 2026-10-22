@@ -574,3 +574,12 @@ main :is(.prose,.article-content,.tool-profile-content,.answer-block,.compare-ta
 .rfp-featured-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:17px 0 25px}.rfp-featured-links>a{display:block;border:1px solid #dfe6d8;border-radius:12px;padding:17px 20px;background:#fafcf6;text-decoration:none}.rfp-featured-links strong{display:block;font-size:15px;margin:6px 0}.rfp-featured-links span{display:block;font-size:12px;color:#667478}.rfp-featured-links a:hover{border-color:#9fb77a}
 @media(max-width:900px){.rfp-alt-heading{grid-template-columns:1fr}.rfp-alt-heading h1{max-width:none}.rfp-alt-summary{margin-top:0}.rfp-alt-layout{margin-top:14px}}
 @media(max-width:640px){.rfp-alt-heading h1{font-size:clamp(33px,9vw,46px)}.rfp-alt-sources{columns:1}.rfp-featured-links{grid-template-columns:1fr}.rfp-alt-vendor-heading{gap:10px}.rfp-alt-rank-large{font-size:21px}}
+
+/* Featured alternatives are first in the hub and carry matching editorial artwork. */
+.page-intro>.rfp-featured-links{margin:22px 0 24px}
+.page-intro>.rfp-featured-links>a{background:#fff;border-color:#dee5df;padding:11px 11px 16px;overflow:hidden;box-shadow:0 8px 25px rgba(16,36,33,.035)}
+.page-intro>.rfp-featured-links .rfp-featured-art{display:block;width:100%;aspect-ratio:1.75;overflow:hidden;border-radius:8px;background:#102635;margin-bottom:14px}
+.rfp-featured-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+.page-intro>.rfp-featured-links a:hover img{transform:scale(1.025)}
+.page-intro>.rfp-featured-links>a>strong{font-size:18px;line-height:1.3;margin:6px 10px}
+.page-intro>.rfp-featured-links>a>span:not(.rfp-featured-art){margin-left:10px;margin-right:10px}
