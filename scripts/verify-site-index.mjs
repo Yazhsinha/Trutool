@@ -37,7 +37,15 @@ try {
     assert.equal(listed.length, group.count);
   }
   for (const path of paths) assert.ok(!path.startsWith('/admin') && !path.startsWith('/api/'));
-  assert.ok(fs.readFileSync('app/sitemap.ts', 'utf8').includes('...siteIndexPaths(pages)'));
+  const sitemapSource = fs.readFileSync('app/sitemap.ts', 'utf8');
+  assert.ok(sitemapSource.includes('sitemapEntries(await publicPages())'), 'XML sitemap must include published CMS pages and public inventory.');
+  const xmlPaths = content.sitemap.sitemapEntries(pages).map(entry => new URL(entry.url).pathname);
+  const expectedXmlPaths = [...pages.map(page => page.path || '/'), ...paths];
+  assert.equal(xmlPaths.length, expectedXmlPaths.length, 'Every public canonical URL must be included exactly once in the XML sitemap.');
+  assert.equal(new Set(xmlPaths).size, xmlPaths.length, 'Duplicate canonical URL in XML sitemap.');
+  assert.deepEqual(new Set(xmlPaths), new Set(expectedXmlPaths), 'Sitemap omitted an indexable public URL.');
+  assert.ok(xmlPaths.every(path => !path.startsWith('/admin') && !path.startsWith('/api/')), 'Do not submit administrative or API URLs.');
+  assert.ok(content.sitemap.sitemapEntries(pages).every(entry => !new URL(entry.url).search), 'Do not submit query or tracking URLs.');
   assert.ok(fs.readFileSync('components/shell.tsx', 'utf8').includes('href="/site-index"'));
   for (const source of ['app/site-index/page.tsx', 'app/site-index/[section]/[page]/page.tsx'])
     assert.ok(fs.readFileSync(source, 'utf8').includes('BreadcrumbList'), 'Missing structured-data breadcrumbs: ' + source);
