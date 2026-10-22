@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Record editorial page revisions
-        run: node scripts/generate-content-history.mjs --write --date 2026-10-22T18:30:00Z
+        run: node scripts/generate-content-history.mjs --write --date 2026-10-22T14:00:00Z
       - name: Check TypeScript
         run: pnpm typecheck
       - name: Commit revision record
