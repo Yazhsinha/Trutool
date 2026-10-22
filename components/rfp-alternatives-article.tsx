@@ -1,12 +1,26 @@
 import Link from '@/components/site-link';
-import {Monogram} from '@/components/tool-card';
+import {RfpBrandLogo} from '@/components/rfp-brand-logo';
+import Image from 'next/image';
 import {ArticleToc} from '@/components/article-toc';
 import {SITE,getTool} from '@/lib/catalog';
 import {authors} from '@/lib/authors';
 import {rfpAlternativePages,type RfpPage} from '@/lib/rfp-alternatives';
 import {serializeSchema} from '@/lib/structured-data';
 
-const UPDATED='2026-10-22';
+const UPDATED='2026-10-23';
+const PUBLISHED='2026-10-22';
+const quick:Record<string,{fit:string;strength:string;watch:string;price:string}>={
+ 'inventive-ai':{fit:'AI-first RFP, DDQ and security teams',strength:'Cited drafts from connected knowledge',watch:'Check approvals, access and plan limits',price:'Ask for current quote'},
+ responsive:{fit:'Enterprise proposal operations',strength:'Governed projects and contributor workflows',watch:'Administration and implementation',price:'Custom quote'},
+ loopio:{fit:'Teams with reusable proposal content',strength:'Curated answer library and collaboration',watch:'Content upkeep and integrations',price:'Custom quote'},
+ sifthub:{fit:'Presales and solutions teams',strength:'Connected deal knowledge and RFPs',watch:'Broader product scope',price:'Custom quote'},
+ 'autorfp-ai':{fit:'High-volume questionnaire teams',strength:'AI-assisted RFP and DDQ completion',watch:'Project limits and file exports',price:'Check current plans'},
+ qorusdocs:{fit:'Microsoft 365 proposal teams',strength:'Document templates and automation',watch:'Office-centric setup',price:'Custom quote'},
+ arphie:{fit:'Source-grounded response teams',strength:'Live knowledge links and citations',watch:'Approval and audit depth',price:'Request quote'},
+ qvidian:{fit:'Formal enterprise bid teams',strength:'Governed proposal assembly',watch:'Templates and change management',price:'Custom quote'},
+ tribble:{fit:'SME-heavy proposal and sales teams',strength:'Approved answers and expert routing',watch:'Project reporting breadth',price:'Per-project model; confirm'},
+ conveyor:{fit:'Security and trust review teams',strength:'Questionnaires and trust center',watch:'Narrative proposal depth',price:'Check current plans'}
+};
 const sections=[
  {id:'overview',label:'Short answer'},
  {id:'comparison',label:'At a glance'},
@@ -20,10 +34,10 @@ const sections=[
 export function rfpAlternativeSchema(slug:'loopio'|'responsive'){
  const p=rfpAlternativePages[slug],url=SITE+'/alternatives/'+slug,author=authors.find(a=>a.slug==='snehil')!;
  const graph=[
- {'@type':'Article','@id':url+'#article',headline:p.title,name:p.title,url,description:p.description,datePublished:UPDATED,dateModified:UPDATED,
+ {'@type':'Article','@id':url+'#article',headline:p.title,name:p.title,url,description:p.description,datePublished:PUBLISHED,dateModified:UPDATED,
   inLanguage:'en',mainEntityOfPage:{'@type':'WebPage','@id':url+'#webpage',url},
   author:{'@type':'Person',name:author.name,url:SITE+'/authors/'+author.slug},
-  publisher:{'@id':SITE+'/#organization'},
+  publisher:{'@type':'Organization','@id':SITE+'/#organization',name:'TruTool',url:SITE},image:{'@type':'ImageObject',url:SITE+'/covers/'+slug+'-alternatives.svg',width:1600,height:940},
   citation:[p.target==='Loopio'?'https://loopio.com/platform/':'https://www.responsive.io/',...p.entries.map(v=>v.url)],
   about:[{'@type':'Thing',name:'Request for proposal software'},{'@type':'Thing',name:p.target+' alternatives'}]},
  {'@type':'ItemList','@id':url+'#shortlist',name:p.title,numberOfItems:p.entries.length,itemListElement:p.entries.map((v,i)=>({'@type':'ListItem',position:i+1,name:v.name,url:getTool(v.slug)?SITE+'/tools/'+v.slug:v.url}))},
@@ -38,25 +52,33 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
  <header className="article-header rfp-alt-header">
   <div className="breadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/alternatives">Alternatives</Link><span>/</span><span>{p.target}</span></div>
   <div className="rfp-alt-heading">
-   <div><span className="eyebrow">TRUTOOL / RFP SOFTWARE BUYING GUIDE</span>
+   <div className="rfp-alt-hero-copy"><span className="eyebrow">TRUTOOL / RFP SOFTWARE BUYING GUIDE</span>
     <h1>{p.headline}</h1>
-    <p className="article-deck">{p.intro}</p>
-    <div className="rfp-alt-byline"><span className="rfp-alt-avatar">S</span><span>By <Link href="/authors/snehil">{author.name}</Link> · Updated <time dateTime={UPDATED}>22 October 2026</time><small>Vendor-source comparison · approximately 10-minute read</small></span></div>
+    <p className="article-deck">{slug==='loopio'?'A practical comparison of AI-first RFP tools, proposal platforms and questionnaire software. See what each option does well, where it may fall short and what to test before switching.':'Compare AI-powered RFP response tools, proposal platforms and RFPIO competitors by real buying criteria—not marketing promises.'}</p>
+    <div className="rfp-alt-byline"><span className="rfp-alt-avatar" aria-hidden="true">S</span><div className="rfp-alt-byline-info"><span>By <Link href="/authors/snehil">{author.name}</Link><span className="rfp-alt-dot" aria-hidden="true">·</span>Updated <time dateTime={UPDATED}>23 October 2026</time></span><small>Editorial vendor-source comparison · 10-minute read</small></div></div>
    </div>
-   <aside className="rfp-alt-summary"><span className="eyebrow">THE SHORT ANSWER</span><p>{p.answer}</p><a href="#comparison" className="button dark">Compare all 8 platforms ↘</a></aside>
+   <figure className="rfp-alt-cover"><Image src={'/covers/'+slug+'-alternatives.svg'} alt={slug==='loopio'?'Illustration of source-backed RFP responses, verified documents and AI-assisted proposal workflow':'Illustration of an organised proposal response workflow with review boards and automated document approvals'} width={1600} height={940} priority unoptimized sizes="(max-width: 900px) 100vw, 48vw"/></figure>
   </div>
+  <aside className="rfp-alt-summary"><div><span className="eyebrow">THE SHORT ANSWER</span><p>{p.answer}</p></div><a href="#comparison" className="button dark">Compare all 8 platforms ↘</a></aside>
  </header>
  <div className="article-layout rfp-alt-layout"><aside><ArticleToc items={sections}/></aside>
  <article className="article-content rfp-alt-content">
   <section id="overview"><span className="eyebrow">THE DECISION IN ONE MINUTE</span><h2>Which {p.target} alternative should you shortlist?</h2>
+   <p>{p.intro}</p>
    <p>{p.answer}</p>
    <p><strong>Important distinction:</strong> a better AI draft, a faster content search and a stronger enterprise approval workflow are three different buying outcomes. No vendor wins all three for every team. Before switching, test the same RFP and security questionnaire in your actual systems.</p>
    <div className="article-callout"><strong>Keep the incumbent on your shortlist.</strong><p>{p.target} is a credible established response platform. This is a vendor-sourced editorial comparison, not a hands-on performance benchmark or a claim that the incumbent lacks modern AI features.</p></div>
   </section>
   <section id="comparison"><h2>{p.target} alternatives compared at a glance</h2>
    <p>These eight options are ordered by suitability for teams comparing source-grounded drafting, content governance and collaboration. The order is editorial; prices and capabilities require confirmation with vendors.</p>
-   <div className="article-table-wrap"><table className="article-table rfp-alt-table"><thead><tr><th>Rank</th><th>Platform</th><th>Best for</th><th>Standout focus</th><th>Watch out for</th><th>Pricing</th></tr></thead><tbody>
-    {p.entries.map((v,i)=><tr key={v.slug}><td><span className="rfp-alt-rank">#{i+1}</span></td><td>{getTool(v.slug)?<Link href={'/tools/'+v.slug}><strong>{v.name}</strong></Link>:<a href={v.url} target="_blank" rel="noopener noreferrer"><strong>{v.name}</strong></a>}</td><td>{v.bestFor}</td><td>{v.keyStrength}</td><td>{v.tradeoff}</td><td>{v.pricing}</td></tr>)}
+   <div className="article-table-wrap rfp-alt-table-wrap"><table className="article-table rfp-alt-table">
+   <colgroup><col className="rfp-col-no"/><col className="rfp-col-brand"/><col className="rfp-col-fit"/><col className="rfp-col-strength"/><col className="rfp-col-watch"/><col className="rfp-col-price"/></colgroup>
+   <thead><tr><th scope="col">No.</th><th scope="col">Platform</th><th scope="col">Best for</th><th scope="col">Strength</th><th scope="col">Consideration</th><th scope="col">Pricing</th></tr></thead><tbody>
+    {p.entries.map((v,i)=><tr key={v.slug}>
+      <td className="rfp-alt-position"><span className="rfp-alt-rank">{i+1}</span></td>
+      <td className="rfp-alt-platform"><div className="rfp-alt-brand-cell"><RfpBrandLogo slug={v.slug} name={v.name}/>{getTool(v.slug)?<Link href={'/tools/'+v.slug}><strong>{v.name}</strong></Link>:<a href={v.url} target="_blank" rel="noopener noreferrer"><strong>{v.name}</strong></a>}</div></td>
+      <td>{quick[v.slug].fit}</td><td>{quick[v.slug].strength}</td><td>{quick[v.slug].watch}</td><td>{quick[v.slug].price}</td>
+    </tr>)}
    </tbody></table></div>
    <p className="editor-note">Pricing approaches are descriptive, not a quote. Request the current plan sheet, minimum commitment, implementation costs and included usage before budgeting.</p>
   </section>
@@ -66,7 +88,7 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
   </section>
   <section id="shortlist"><h2>The 8 best {p.target} alternatives to evaluate</h2><p>Each profile explains where the product has a plausible edge, what could make it a poor fit, and what to ask in a real demo.</p>
   {p.entries.map((v,i)=>{const t=getTool(v.slug);return <section className="rfp-alt-vendor" key={v.slug} id={'option-'+v.slug}>
-   <div className="rfp-alt-vendor-heading"><span className="rfp-alt-rank-large">{String(i+1).padStart(2,'0')}</span>{t&&<Monogram tool={t}/>}<div><h3>{v.name}</h3><span>{v.bestFor}</span></div></div>
+   <div className="rfp-alt-vendor-heading"><span className="rfp-alt-rank-large">{String(i+1).padStart(2,'0')}</span><RfpBrandLogo slug={v.slug} name={v.name}/><div><h3>{v.name}</h3><span>{v.bestFor}</span></div></div>
    <p>{v.overview}</p>
    <p><strong>Where it can work especially well:</strong></p>
    <ul>{v.capabilities.map(s=><li key={s}>{s}</li>)}</ul>
@@ -99,7 +121,7 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
   </section>
   <section id="faq"><h2>Frequently asked questions about {p.target} alternatives</h2><div className="article-faq">{p.faqs.map(f=><div key={f.question}><h3>{f.question}</h3><p>{f.answer}</p></div>)}</div></section>
   <section id="sources"><h2>Sources and editorial methodology</h2>
-   <p><strong>Updated 22 October 2026.</strong> This comparison uses current publicly available vendor product pages and editorial evaluation criteria. We did not conduct a controlled hands-on benchmark, independently validate vendors’ performance statistics, or guarantee pricing. The first-listed product is an editorial recommendation for a defined use case, not a universal winner.</p>
+   <p><strong>Updated 23 October 2026.</strong> This comparison uses current publicly available vendor product pages and editorial evaluation criteria. We did not conduct a controlled hands-on benchmark, independently validate vendors’ performance statistics, or guarantee pricing. The first-listed product is an editorial recommendation for a defined use case, not a universal winner.</p>
    <p>We considered suitability for RFPs and questionnaires, answer provenance, review controls, document formats, connected knowledge, governance and total implementation effort. We deliberately describe the circumstances in which other vendors—or retaining {p.target}—make more sense.</p>
    <ul className="rfp-alt-sources"><li><a href={p.slug==='loopio'?'https://loopio.com/platform/':'https://www.responsive.io/'} target="_blank" rel="noopener noreferrer">{p.target} official product information ↗</a></li>{p.entries.map(v=><li key={v.slug}><a href={v.url} target="_blank" rel="noopener noreferrer">{v.name} official product information ↗</a></li>)}</ul>
    <p>For edits or factual corrections, <Link href="/contact?topic=correction">contact the editorial team</Link>. Read our <Link href="/editorial-policy">editorial policy</Link>.</p>
