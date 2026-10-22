@@ -8,7 +8,7 @@ import {createRequire} from 'node:module';
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'trutool-catalog-'));
 try{
  fs.writeFileSync(path.join(tmp,'package.json'),'{"type":"commonjs"}');
- for(const file of ['catalog','category-ranking','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers','sitemap-inventory'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
+ for(const file of ['catalog','category-ranking','category-crosslist','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers','sitemap-inventory'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  fs.writeFileSync(path.join(tmp,'cms-store.js'),'exports.getPublished=async()=>[];');
  fs.copyFileSync('lib/content-history.json',path.join(tmp,'content-history.json'));
  fs.copyFileSync('lib/expanded-catalog.json',path.join(tmp,'expanded-catalog.json'));
@@ -156,9 +156,10 @@ try{
  assert.equal(new Set(guides.map(g=>g.slug)).size,guides.length);
  for(const g of guides){assert.ok(categories.some(c=>c.slug===g.category),g.slug);for(const field of ['publishedAt','updatedAt'])if(g[field])assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(g[field])&&!Number.isNaN(Date.parse(g[field])),g.slug+' '+field)}
  const {pairs,catalogueTotals,categoryCounts}=require(path.join(tmp,'catalog.js'));
+ const {inCategory}=require(path.join(tmp,'category-crosslist.js'));
  for(const [a,b] of pairs)assert.ok(a!==b&&tools.some(t=>t.slug===a)&&tools.some(t=>t.slug===b),'Comparison: '+a+' vs '+b);
  assert.equal(catalogueTotals.tools,tools.length);assert.equal(catalogueTotals.categories,categories.length);assert.equal(catalogueTotals.guides,guides.length);
- for(const c of categories)assert.equal(categoryCounts[c.slug],tools.filter(t=>t.category===c.slug).length);
+ for(const c of categories)assert.equal(categoryCounts[c.slug],tools.filter(t=>inCategory(t,c.slug)).length);
  const {toolResults}=require(path.join(tmp,'catalog-results.js'));
  const first=toolResults(),second=toolResults('','','relevance',2);
  assert.equal(first.total,tools.length);assert.equal(first.items.length,24);assert.equal(second.page,2);assert.ok(!first.items.some(t=>second.items.some(x=>x.slug===t.slug)));

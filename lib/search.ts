@@ -1,4 +1,5 @@
 import {tools, categories, type Tool} from './catalog';
+import {inCategory} from './category-crosslist';
 import {discoveryMatches} from './tool-discovery';
 
 export const discoveryQueries = ['AI research assistants', 'Meeting notes', 'Remove image backgrounds', 'Project management', 'No-code app builders', 'SEO tools', 'Local listings management', 'RFP response software'];
@@ -155,7 +156,7 @@ export function searchTools(query: string, category = '', sort = 'relevance', so
  if (cached) return cached;
  const terms = [...new Set(tokens(q).filter(word => !stop.has(word)))];
  const compact = q.replace(/ /g, '');
- const eligible = index.filter(entry => !category || entry.tool.category === category);
+ const eligible = index.filter(entry => !category || inCategory(entry.tool,category));
  const exact = eligible.filter(entry => entry.compact === compact || entry.slugCompact === compact);
  const alternativeQuery = /\balternatives?\b/.test(q);
  const namedAlternative = alternativeQuery ? index.find(entry => (' ' + q + ' ').includes(' ' + entry.name + ' ') || (' ' + q + ' ').includes(' ' + normalize(entry.tool.slug) + ' ')) : undefined;

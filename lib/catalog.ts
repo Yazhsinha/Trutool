@@ -6,6 +6,7 @@ import additions from './catalog-additions.json';
 import expansion from './catalog-expansion.json';
 import submitted from './submitted-tools.json';
 import categoryGrowth from './category-growth.json';
+import {inCategory} from './category-crosslist';
 export const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://trutool.co';
 const coreCategories = [
  {slug:'local-listings',name:'Local listings management',short:'Local marketing',description:'Keep business information accurate across search, maps, and directories.',icon:'MapPin',color:'#e9eaeb',question:'How do I choose local listings management software?',answer:'Start with your locations, priority directories, data ownership, and update workflow. Compare listings distribution, duplicate handling, reviews, reporting, and the work your team still needs to do.'},
@@ -50,7 +51,7 @@ export const tools:Tool[]=[...coreTools.map(t=>({...t,sourceChecked:(coreSourceD
 const toolMap=new Map(tools.map(t=>[t.slug,t]));
 export const getTool=(slug:string)=>toolMap.get(slug);
 export const categoryCounts:Record<string,number>=Object.fromEntries(categories.map(c=>[c.slug,0]));
-for(const t of tools)categoryCounts[t.category]=(categoryCounts[t.category]||0)+1;
+for(const c of categories)categoryCounts[c.slug]=tools.filter(t=>inCategory(t,c.slug)).length;
 export const catalogueStats={tools:tools.length,categories:categories.length};
 const coreGuides=[
 {slug:'choosing-local-listings-software',category:'local-listings',title:'Choose local listings software by workflow, not directory count.',intro:'The right platform covers your important publishers and gives your team a reliable way to maintain accurate location data. Directory count alone does not establish coverage, update speed, or business value.',checks:['Create a list of priority maps, directories, and industry publishers for each market.','Run a pilot using a real location change, holiday hours, and a duplicate listing.','Confirm who owns business profiles and what access remains after cancellation.','Separate license fees, onboarding, citation services, and ongoing operational work.'],question:'Does a larger publisher network always mean better coverage?',answer:'No. Evaluate the publishers your customers use and the markets you operate in. Confirm eligibility for each location, update mechanisms, and exception handling rather than comparing headline counts.'},
