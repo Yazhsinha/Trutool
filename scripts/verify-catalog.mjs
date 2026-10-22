@@ -8,7 +8,7 @@ import {createRequire} from 'node:module';
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'trutool-catalog-'));
 try{
  fs.writeFileSync(path.join(tmp,'package.json'),'{"type":"commonjs"}');
- for(const file of ['catalog','category-ranking','category-crosslist','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','rfp-alternatives','content-index','covers','sitemap-inventory'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
+ for(const file of ['catalog','category-ranking','category-crosslist','launch-discovery','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','rfp-alternatives','content-index','covers','sitemap-inventory'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  fs.writeFileSync(path.join(tmp,'cms-store.js'),'exports.getPublished=async()=>[];');
  fs.copyFileSync('lib/content-history.json',path.join(tmp,'content-history.json'));
  fs.copyFileSync('lib/expanded-catalog.json',path.join(tmp,'expanded-catalog.json'));
@@ -235,7 +235,9 @@ try{
  assert.ok(searchTools('medical scribe').every(t=>t.category==='ai-medical'),'Medical scribe search excludes generic meeting recorders');
  assert.ok(!searchTools('AI contract review').some(t=>t.slug==='chatgpt'),'Contract review search requires documented legal capability');
  console.log('PASS: 2,000+ unique profiles, source records, specialist searches, automatic counts and categories.');
- const shelves=getAIShelves(newsNow);assert.equal(shelves.length,3);assert.ok(shelves.every(s=>s.tools.length===6));assert.ok(!shelves[1].tools.some(t=>t.slug==='devin'));assert.ok(shelves[1].tools.every(t=>t.launchedAt&&t.launchStatus));assert.equal(freshAITools(Date.parse('2027-01-01')).length,0);
+ const shelves=getAIShelves(newsNow);assert.equal(shelves.length,3);assert.ok(shelves.every(s=>s.tools.length>=1&&s.tools.length<=6));assert.ok(!shelves[1].tools.some(t=>t.slug==='devin'||/chatgpt/i.test(t.name)));
+ assert.ok(!shelves[0].tools.some(t=>/chatgpt/i.test(t.name)));
+ assert.ok(getAIShelves(newsNow,[{slug:'launch-model',name:'Model Studio',category:'ai',categoryLabel:'Product Hunt launch',format:'New discovery',summary:'New AI design studio',initial:'M',useCase:'New AI design studio',launchedAt:'2026-10-06',launchStatus:'Product Hunt listing',externalUrl:'https://www.producthunt.com/posts/model-studio'}])[1].tools.some(t=>t.externalUrl),'Verified source cards take precedence');assert.ok(shelves[1].tools.every(t=>t.launchedAt&&t.launchStatus));assert.equal(freshAITools(Date.parse('2027-01-01')).length,0);
  assert.ok(shelves[2].tools.some(t=>t.slug==='wispr-flow'));assert.ok(shelves[0].tools.some(t=>t.slug==='notebooklm'));
  console.log('PASS: '+aiCatalogue.tools.length+' added AI profiles, scoped search, source diversity, original article covers, 24-hour caching, discussion relevance, launch freshness, and feed fallback.');
  // Simulate publication in an isolated catalogue: never add QA content to the site.
@@ -260,6 +262,15 @@ try{
  assert.ok(guides.every(g=>getAuthor(authorFor(g).slug)));
  assert.equal(authorFor({category:'ai',authorSlug:'asmit'}).slug,'asmit');assert.equal(getAuthor('missing'),undefined);
  const lensResults=require(path.join(tmp,'catalog-results.js')).toolResults;
+
+ const {parseProductHuntLaunches}=require(path.join(tmp,'launch-discovery.js'));
+ const post='<item><title><![CDATA[Atlas AI Builder]]></title><link>https://www.producthunt.com/posts/atlas-ai-builder</link><pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate><description>AI development assistant for applications</description></item>';
+ const unsafe=post.replace('www.producthunt.com','untrusted.example');
+ const future=post.replace('Tue, 20 Oct 2026','Sat, 20 Oct 2029');
+ const sample='<rss><channel>'+post+unsafe+future+'</channel></rss>';
+ const launches=parseProductHuntLaunches(sample,Date.parse('2026-10-23T12:00:00Z'),true);
+ assert.equal(launches.length,1);assert.equal(launches[0].name,'Atlas AI Builder');assert.ok(launches[0].externalUrl.includes('/posts/atlas-ai-builder'));
+ console.log('PASS: sourced launch dates and hosts validated; external launches stay separate from vetted directory profiles.');
  const {discoveryMatches}=require(path.join(tmp,'tool-discovery.js'));
  for(const lens of ['popular','useful','niche']){
   const out=lensResults('','','relevance',1,50,'',lens);assert.ok(out.total>10);assert.ok(out.items.every(t=>discoveryMatches(t,lens)));assert.equal(out.discovery,lens);
