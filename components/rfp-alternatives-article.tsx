@@ -26,7 +26,7 @@ export function rfpAlternativeSchema(slug:'loopio'|'responsive'){
   publisher:{'@id':SITE+'/#organization'},
   citation:[p.target==='Loopio'?'https://loopio.com/platform/':'https://www.responsive.io/',...p.entries.map(v=>v.url)],
   about:[{'@type':'Thing',name:'Request for proposal software'},{'@type':'Thing',name:p.target+' alternatives'}]},
- {'@type':'ItemList','@id':url+'#shortlist',name:p.title,numberOfItems:p.entries.length,itemListElement:p.entries.map((v,i)=>({'@type':'ListItem',position:i+1,name:v.name,url:SITE+'/tools/'+v.slug}))},
+ {'@type':'ItemList','@id':url+'#shortlist',name:p.title,numberOfItems:p.entries.length,itemListElement:p.entries.map((v,i)=>({'@type':'ListItem',position:i+1,name:v.name,url:getTool(v.slug)?SITE+'/tools/'+v.slug:v.url}))},
  {'@type':'FAQPage','@id':url+'#faq',mainEntity:p.faqs.map(f=>({'@type':'Question',name:f.question,acceptedAnswer:{'@type':'Answer',text:f.answer}}))},
  {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:SITE},{'@type':'ListItem',position:2,name:'Alternatives',item:SITE+'/alternatives'},{'@type':'ListItem',position:3,name:p.target+' alternatives',item:url}]},
  ];
@@ -56,7 +56,7 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
   <section id="comparison"><h2>{p.target} alternatives compared at a glance</h2>
    <p>These eight options are ordered by suitability for teams comparing source-grounded drafting, content governance and collaboration. The order is editorial; prices and capabilities require confirmation with vendors.</p>
    <div className="article-table-wrap"><table className="article-table rfp-alt-table"><thead><tr><th>Rank</th><th>Platform</th><th>Best for</th><th>Standout focus</th><th>Watch out for</th><th>Pricing</th></tr></thead><tbody>
-    {p.entries.map((v,i)=><tr key={v.slug}><td><span className="rfp-alt-rank">#{i+1}</span></td><td><Link href={'/tools/'+v.slug}><strong>{v.name}</strong></Link></td><td>{v.bestFor}</td><td>{v.keyStrength}</td><td>{v.tradeoff}</td><td>{v.pricing}</td></tr>)}
+    {p.entries.map((v,i)=><tr key={v.slug}><td><span className="rfp-alt-rank">#{i+1}</span></td><td>{getTool(v.slug)?<Link href={'/tools/'+v.slug}><strong>{v.name}</strong></Link>:<a href={v.url} target="_blank" rel="noopener noreferrer"><strong>{v.name}</strong></a>}</td><td>{v.bestFor}</td><td>{v.keyStrength}</td><td>{v.tradeoff}</td><td>{v.pricing}</td></tr>)}
    </tbody></table></div>
    <p className="editor-note">Pricing approaches are descriptive, not a quote. Request the current plan sheet, minimum commitment, implementation costs and included usage before budgeting.</p>
   </section>
@@ -72,7 +72,7 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
    <ul>{v.capabilities.map(s=><li key={s}>{s}</li>)}</ul>
    <p><strong>What to consider:</strong> {v.consider}</p>
    <div className="rfp-alt-test"><strong>Ask in the demo</strong><p>{v.pilot}</p></div>
-   <div className="rfp-alt-vendor-links"><Link className="text-link" href={'/tools/'+v.slug}>Read the {v.name} profile →</Link><a className="text-link" href={v.url} target="_blank" rel="noopener noreferrer">Official vendor website ↗</a></div>
+   <div className="rfp-alt-vendor-links">{t&&<Link className="text-link" href={'/tools/'+v.slug}>Read the {v.name} profile →</Link>}<a className="text-link" href={v.url} target="_blank" rel="noopener noreferrer">Official vendor website ↗</a></div>
   </section>})}
   </section>
   <section id="evaluate"><h2>How to choose an RFP response platform fairly</h2>
