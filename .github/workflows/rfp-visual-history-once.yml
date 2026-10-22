@@ -1,4 +1,5 @@
 name: RFP visual refresh content history
+# Recompute only the modified public fingerprints after UTC date correction.
 on:
   push:
     branches: [main]
