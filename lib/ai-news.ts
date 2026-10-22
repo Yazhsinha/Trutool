@@ -3,7 +3,7 @@ import {contentPath} from './cms-types';
 import {SITE} from './catalog';
 import curated from './ai-news.json';
 import conversations from './ai-discussions.json';
-export const AI_REFRESH_SECONDS=86400;
+export const AI_REFRESH_SECONDS=14400;
 export type AINews={id:string;title:string;summary:string;publisher:string;publishedAt:string;url:string;toolSlug?:string;topic:string;image?:string;imageSource?:string};
 export type AIDiscussion={id:string;title:string;summary:string;platform:string;publishedAt:string;url:string;topic:string};
 export const officialFeeds=[
