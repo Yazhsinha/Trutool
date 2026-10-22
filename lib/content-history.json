@@ -20,9 +20,9 @@
   "modified": "2026-10-22T13:00:00.000Z"
  },
  "/alternatives": {
-  "hash": "12848450ea2e09f2784f72a91fe7edd9",
+  "hash": "3814b0b5aabe53783a86f62c253c9a17",
   "fingerprintVersion": 2,
-  "modified": "2026-10-22T13:00:00.000Z"
+  "modified": "2026-10-22T18:58:58.776Z"
  },
  "/guides": {
   "hash": "874ba7f1b996ca24e7b227ebcb286497",
@@ -240,9 +240,9 @@
   "modified": "2026-10-08T16:04:55.459Z"
  },
  "/alternatives/loopio": {
-  "hash": "41e2ec16e74f091821029fc72463f7bb",
+  "hash": "71e2ec964ca54a686abff137d8fdad3c",
   "fingerprintVersion": 2,
-  "modified": "2026-10-22T14:00:00.000Z"
+  "modified": "2026-10-22T18:58:58.776Z"
  },
  "/tools/responsive": {
   "hash": "44097e25fa449c638a3a940a325fafef",
@@ -250,9 +250,9 @@
   "modified": "2026-10-08T16:04:55.459Z"
  },
  "/alternatives/responsive": {
-  "hash": "ee7801a99259506cdc0334d7c3b305bb",
+  "hash": "0f7a39883b8a93952612680d77aad2ed",
   "fingerprintVersion": 2,
-  "modified": "2026-10-22T14:00:00.000Z"
+  "modified": "2026-10-22T18:58:58.776Z"
  },
  "/tools/sifthub": {
   "hash": "d04177c7506023b9e5fb451e50b2c8e7",
