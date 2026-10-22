@@ -17,12 +17,16 @@ export function sitemapEntries(pages: readonly ContentPage[]): MetadataRoute.Sit
     if (included.has(url)) continue;
     included.add(url);
     const lastModified = modifiedFor(page);
+    // Long-form RFP alternatives have their own original editorial cover assets.
+    const rfpCover = page.path === '/alternatives/loopio' ? '/covers/loopio-alternatives.svg'
+      : page.path === '/alternatives/responsive' ? '/covers/responsive-alternatives.svg' : undefined;
     entries.push({
       url,
       ...(lastModified ? { lastModified } : {}),
-      ...(page.cms?.image ? { images: [/^https:\/\//.test(page.cms.image) ? page.cms.image : absolute(page.cms.image)] }
+      ...(rfpCover ? { images: [absolute(rfpCover)] }
+        : page.cms?.image ? { images: [/^https:\/\//.test(page.cms.image) ? page.cms.image : absolute(page.cms.image)] }
         : page.guide ? { images: [absolute(coverFor(page.guide.category))] } : {}),
-      priority: page.path === '' ? 1 : page.kind === 'tool' ? 0.8 : 0.6,
+      priority: page.path === '' ? 1 : rfpCover ? 0.85 : page.kind === 'tool' ? 0.8 : 0.6,
     });
   }
 
