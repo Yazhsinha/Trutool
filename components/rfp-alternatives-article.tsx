@@ -7,7 +7,7 @@ import {authors} from '@/lib/authors';
 import {rfpAlternativePages,type RfpPage} from '@/lib/rfp-alternatives';
 import {serializeSchema} from '@/lib/structured-data';
 
-const UPDATED='2026-10-23';
+const UPDATED='2026-10-22';
 const PUBLISHED='2026-10-22';
 const quick:Record<string,{fit:string;strength:string;watch:string;price:string}>={
  'inventive-ai':{fit:'AI-first RFP, DDQ and security teams',strength:'Cited drafts from connected knowledge',watch:'Check approvals, access and plan limits',price:'Ask for current quote'},
@@ -55,7 +55,7 @@ export function RfpAlternativesArticle({slug}:{slug:'loopio'|'responsive'}){
    <div className="rfp-alt-hero-copy"><span className="eyebrow">TRUTOOL / RFP SOFTWARE BUYING GUIDE</span>
     <h1>{p.headline}</h1>
     <p className="article-deck">{slug==='loopio'?'A practical comparison of AI-first RFP tools, proposal platforms and questionnaire software. See what each option does well, where it may fall short and what to test before switching.':'Compare AI-powered RFP response tools, proposal platforms and RFPIO competitors by real buying criteria—not marketing promises.'}</p>
-    <div className="rfp-alt-byline"><span className="rfp-alt-avatar" aria-hidden="true">S</span><div className="rfp-alt-byline-info"><span>By <Link href="/authors/snehil">{author.name}</Link><span className="rfp-alt-dot" aria-hidden="true">·</span>Updated <time dateTime={UPDATED}>23 October 2026</time></span><small>Editorial vendor-source comparison · 10-minute read</small></div></div>
+    <div className="rfp-alt-byline"><span className="rfp-alt-avatar" aria-hidden="true">S</span><div className="rfp-alt-byline-info"><span>By <Link href="/authors/snehil">{author.name}</Link><span className="rfp-alt-dot" aria-hidden="true">·</span>Updated <time dateTime={UPDATED}>22 October 2026</time></span><small>Editorial vendor-source comparison · 10-minute read</small></div></div>
    </div>
    <figure className="rfp-alt-cover"><Image src={'/covers/'+slug+'-alternatives.svg'} alt={slug==='loopio'?'Illustration of source-backed RFP responses, verified documents and AI-assisted proposal workflow':'Illustration of an organised proposal response workflow with review boards and automated document approvals'} width={1600} height={940} priority unoptimized sizes="(max-width: 900px) 100vw, 48vw"/></figure>
   </div>
