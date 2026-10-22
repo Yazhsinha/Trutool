@@ -1,3 +1,4 @@
+import '@/app/styles/article.css';
 import Link from '@/components/site-link';
 import Image from 'next/image';
 export function RfpFeaturedLinks({context}:{context:'hub'|'category'|'profile'}){

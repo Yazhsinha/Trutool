@@ -127,3 +127,42 @@
 .rfp-alt-page .rfp-alt-reason{grid-template-columns:36px 1fr}
 @media(max-width:980px){.rfp-alt-page .rfp-alt-layout{grid-template-columns:1fr}.rfp-alt-page .rfp-alt-layout>aside{display:none}.rfp-alt-content table.rfp-alt-table{min-width:920px}}
 @media(max-width:760px){.rfp-alt-header .rfp-alt-heading{grid-template-columns:1fr;gap:20px}.rfp-alt-header .rfp-alt-heading h1{font-size:clamp(32px,8vw,47px);line-height:1.11}.rfp-alt-cover{aspect-ratio:1.72}.rfp-alt-page .rfp-alt-summary{display:block;padding:19px}.rfp-alt-page .rfp-alt-summary>.button{display:inline-flex;margin-top:15px;max-width:100%}.rfp-alt-page .rfp-alt-byline{margin:16px 0 0}.rfp-alt-content table.rfp-alt-table{min-width:880px}}
+
+/* Route-only editorial RFP styles, removed from root CSS to protect homepage performance. */
+/* Evidence-led RFP alternatives articles */
+.rfp-alt-page{--rfp-ink:#192b30;--rfp-muted:#53616b;color:var(--rfp-ink)}
+.rfp-alt-header{padding-bottom:27px}
+.rfp-alt-heading{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.75fr);gap:clamp(22px,4vw,62px);align-items:start;padding-top:18px}
+.rfp-alt-heading h1{font-size:clamp(37px,5.2vw,68px);line-height:1.08;letter-spacing:-.045em;max-width:850px;margin:15px 0 22px}
+.rfp-alt-heading .article-deck{font-size:17px;line-height:1.75;max-width:760px}
+.rfp-alt-byline{display:flex;align-items:center;gap:12px;margin-top:22px;font-size:13px;color:var(--rfp-muted)}
+.rfp-alt-byline span:last-child{display:grid;gap:4px}.rfp-alt-byline small{color:#79858c}
+.rfp-alt-avatar{width:39px;height:39px;border-radius:50%;background:#e5e0fa;color:#453391;display:grid;place-items:center;font-weight:750;font-size:17px}
+.rfp-alt-summary{border:1px solid #dce3db;background:#f8faf5;border-radius:14px;padding:clamp(19px,3vw,30px);margin-top:17px}
+.rfp-alt-summary p{font-size:15px;line-height:1.85;color:#263839;margin:12px 0 22px}
+.rfp-alt-layout{margin-top:28px}.rfp-alt-content>section{scroll-margin-top:112px}
+.rfp-alt-content h2{letter-spacing:-.027em}.rfp-alt-content h3{letter-spacing:-.017em}
+.rfp-alt-table{min-width:1050px}.rfp-alt-table td,.rfp-alt-table th{vertical-align:top;font-size:13px;line-height:1.65}.rfp-alt-table td:nth-child(3){min-width:180px}
+.rfp-alt-rank{display:inline-block;font-weight:800;color:#35551f;background:#edf6dc;border-radius:6px;padding:3px 8px}
+.rfp-alt-reason{display:grid;grid-template-columns:45px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid #e6eae7}
+.rfp-alt-reason>span{font-size:16px;color:#88a16c;font-weight:800}.rfp-alt-reason h3{margin:0 0 8px}.rfp-alt-reason p{margin:0}
+.rfp-alt-vendor{padding:29px 0;border-bottom:1px solid #e3e7e5;scroll-margin-top:112px}
+.rfp-alt-vendor-heading{display:flex;align-items:center;gap:13px;margin-bottom:15px}.rfp-alt-vendor-heading h3{margin:0 0 4px!important;font-size:clamp(22px,3vw,27px)}
+.rfp-alt-vendor-heading>div:last-child>span{font-size:13px;color:#6d787e}.rfp-alt-rank-large{font-size:25px;letter-spacing:-.04em;color:#79934d;font-weight:850;min-width:34px}
+.rfp-alt-vendor ul{padding-left:21px}.rfp-alt-vendor li{margin:7px 0;line-height:1.7}
+.rfp-alt-test{border-left:3px solid #93b469;background:#f7f9f4;padding:12px 16px;margin:16px 0}.rfp-alt-test strong{font-size:12px;text-transform:uppercase;letter-spacing:.08em}.rfp-alt-test p{margin:5px 0 0}
+.rfp-alt-vendor-links{display:flex;gap:17px;flex-wrap:wrap;margin-top:14px;font-size:13px}
+.rfp-alt-sources{columns:2;padding-left:18px}.rfp-alt-sources li{break-inside:avoid;margin:7px 0}
+.rfp-alt-related{border-top:1px solid #dde5dc;margin-top:20px;padding-top:20px;display:flex;flex-wrap:wrap;gap:10px 21px;align-items:center}.rfp-alt-related strong{width:100%}.rfp-alt-related a{color:#456b27;text-decoration:underline;text-underline-offset:3px}
+.rfp-featured-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:17px 0 25px}.rfp-featured-links>a{display:block;border:1px solid #dfe6d8;border-radius:12px;padding:17px 20px;background:#fafcf6;text-decoration:none}.rfp-featured-links strong{display:block;font-size:15px;margin:6px 0}.rfp-featured-links span{display:block;font-size:12px;color:#667478}.rfp-featured-links a:hover{border-color:#9fb77a}
+@media(max-width:900px){.rfp-alt-heading{grid-template-columns:1fr}.rfp-alt-heading h1{max-width:none}.rfp-alt-summary{margin-top:0}.rfp-alt-layout{margin-top:14px}}
+@media(max-width:640px){.rfp-alt-heading h1{font-size:clamp(33px,9vw,46px)}.rfp-alt-sources{columns:1}.rfp-featured-links{grid-template-columns:1fr}.rfp-alt-vendor-heading{gap:10px}.rfp-alt-rank-large{font-size:21px}}
+
+/* Featured alternatives are first in the hub and carry matching editorial artwork. */
+.page-intro>.rfp-featured-links{margin:22px 0 24px}
+.page-intro>.rfp-featured-links>a{background:#fff;border-color:#dee5df;padding:11px 11px 16px;overflow:hidden;box-shadow:0 8px 25px rgba(16,36,33,.035)}
+.page-intro>.rfp-featured-links .rfp-featured-art{display:block;width:100%;aspect-ratio:1.75;overflow:hidden;border-radius:8px;background:#102635;margin-bottom:14px}
+.rfp-featured-art img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+.page-intro>.rfp-featured-links a:hover img{transform:scale(1.025)}
+.page-intro>.rfp-featured-links>a>strong{font-size:18px;line-height:1.3;margin:6px 10px}
+.page-intro>.rfp-featured-links>a>span:not(.rfp-featured-art){margin-left:10px;margin-right:10px}
