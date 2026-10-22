@@ -49,7 +49,7 @@ export function parseShowHNLaunches(data:unknown,now=Date.now()):AIShelfTool[]{
   if(typeof hit.points!=='number'||hit.points<8||typeof hit.num_comments!=='number'||hit.num_comments<2)continue;
   const description=title.replace(/^Show HN:\s+/i,'').slice(0,170);
   const name=description.split(/\s+[—–:-]\s+/)[0].trim().slice(0,65);
-  if(!name||name.length<2||name.length>65)continue;
+  if(!name||name.length<2||name.length>65||name.split(/\s+/).length>4||description===name)continue;
   const summary=description===name?'New AI project discussed by the Hacker News community.':description.slice(name.length).replace(/^[\s—–:-]+/,'').trim().slice(0,145);
   selected.push({slug:'hn-'+hit.objectID,name,initial:name.charAt(0).toUpperCase(),category:'ai',categoryLabel:'Hacker News launch',format:'Community launch',summary,useCase:summary,launchedAt:new Date(date).toISOString().slice(0,10),launchStatus:'Show HN discussion',externalUrl:'https://news.ycombinator.com/item?id='+hit.objectID});
  }

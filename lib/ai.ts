@@ -1,5 +1,6 @@
 import {categories,tools,type Tool} from './catalog';
 import type {DirectoryTool} from './catalog-client';
+import {discoveryMatches} from './tool-discovery';
 const related=new Set(['lovable','bolt','gamma','beautiful-ai','lindy','relevance-ai','bardeen','elicit','otter','fireflies','granola','mem','reclaim','motion','researchrabbit','zed']);
 export const isAITool=(tool:Pick<Tool,'slug'|'category'|'ai'>)=>Boolean(tool.ai||tool.category==='ai'||tool.category.startsWith('ai-')||related.has(tool.slug));
 export const aiTools=tools.filter(isAITool);
@@ -23,11 +24,11 @@ export function getAIShelves(now=Date.now(),discovered:AIShelfTool[]=[]){
   seen.add(t.slug);
   return true;
  }).slice(0,6);
- const specialistsNew=aiTools.filter(t=>specialists.includes(t.slug)&&t.addedAt&&Date.parse(t.addedAt)<=now).sort((a,b)=>(b.addedAt||'').localeCompare(a.addedAt||''));
- const specialistSlugs=[...specialists.filter(s=>specialistsNew.some(t=>t.slug===s)),...specialists].filter((s,i,a)=>a.indexOf(s)===i).slice(0,6);
+ const recentSpecialists=aiTools.filter(t=>discoveryMatches(t,'niche')&&Boolean(t.sourceChecked||t.sourceStatus?.includes('consulted'))&&t.addedAt&&Date.parse(t.addedAt)<=now&&Date.parse(t.addedAt)>=now-30*86400000).sort((a,b)=>(b.addedAt||'').localeCompare(a.addedAt||'')).map(t=>t.slug);
+ const specialistSlugs=[...specialists.slice(0,3),...recentSpecialists,...specialists].filter((s,i,a)=>a.indexOf(s)===i).slice(0,6);
  return [
   {id:'popular',label:'Familiar favourites',description:'Established, recognisable tools selected for different real-world tasks. Not a user-count ranking.',tools:compactAI(favorites)},
-  {id:'added',label:'Just added',description:discovered.length?'Newly posted AI launches from Product Hunt, with source dates. External cards are discoveries, not vetted TruTool profiles.':'Recent dated releases already in the directory. Launch-feed discoveries return automatically when the public source is available.',tools:newOnMarket},
+  {id:'added',label:'Just added',description:discovered.length?'New AI product announcements sourced from Product Hunt and Show HN, with publication dates. External cards are discoveries, not vetted TruTool profiles.':'Recent dated releases already in the directory. Launch-feed discoveries return automatically when the public source is available.',tools:newOnMarket},
   {id:'specialist',label:'Under the radar',description:'Specialist picks for narrower workflows; no artificial ratings or popularity claims.',tools:compactAI(specialistSlugs)}
  ];
 }
