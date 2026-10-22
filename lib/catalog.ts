@@ -5,6 +5,7 @@ import aiCatalog from './ai-catalog.json';
 import additions from './catalog-additions.json';
 import expansion from './catalog-expansion.json';
 import submitted from './submitted-tools.json';
+import categoryGrowth from './category-growth.json';
 export const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'https://trutool.co';
 const coreCategories = [
  {slug:'local-listings',name:'Local listings management',short:'Local marketing',description:'Keep business information accurate across search, maps, and directories.',icon:'MapPin',color:'#e9eaeb',question:'How do I choose local listings management software?',answer:'Start with your locations, priority directories, data ownership, and update workflow. Compare listings distribution, duplicate handling, reviews, reporting, and the work your team still needs to do.'},
@@ -45,7 +46,7 @@ make('edx','edX','edtech','Explore online courses, certificates, and degree path
 ];
 const categoryMap=new Map(categories.map(c=>[c.slug,c]));
 export const categoryOf=(slug:string)=>categoryMap.get(slug)!;
-export const tools:Tool[]=[...coreTools.map(t=>({...t,sourceChecked:(coreSourceDates as Record<string,string>)[t.slug]||null,sourceStatus:(coreSourceDates as Record<string,string>)[t.slug]?'Vendor source consulted':'Confirm directly with vendor'})),...expanded.tools,...aiCatalog.tools,...additions.tools,...expansion.tools,...submitted.tools].map(t=>({...t,categoryLabel:categoryOf(t.category)?.short||t.category}));
+export const tools:Tool[]=[...coreTools.map(t=>({...t,sourceChecked:(coreSourceDates as Record<string,string>)[t.slug]||null,sourceStatus:(coreSourceDates as Record<string,string>)[t.slug]?'Vendor source consulted':'Confirm directly with vendor'})),...expanded.tools,...aiCatalog.tools,...additions.tools,...expansion.tools,...submitted.tools,...categoryGrowth.tools.filter(t=>![...coreTools,...expanded.tools,...aiCatalog.tools,...additions.tools,...expansion.tools,...submitted.tools].some(x=>x.slug===t.slug))].map(t=>({...t,categoryLabel:categoryOf(t.category)?.short||t.category}));
 const toolMap=new Map(tools.map(t=>[t.slug,t]));
 export const getTool=(slug:string)=>toolMap.get(slug);
 export const categoryCounts:Record<string,number>=Object.fromEntries(categories.map(c=>[c.slug,0]));
