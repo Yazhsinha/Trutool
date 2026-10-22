@@ -91,9 +91,9 @@ const vendors:Record<string,RfpEntry>={
 };
 const loopio:RfpPage={
  slug:'loopio',target:'Loopio',crossSlug:'responsive',queryVariants:['Loopio alternative','Loopio alternatives','Loopio competitors'],
- title:'8 Best Loopio Alternatives in 2026: RFP Software Compared',
- headline:'8 best Loopio alternatives in 2026',
- description:'Compare 8 Loopio alternatives for AI RFP responses, security questionnaires, content governance and proposal workflows. Buyer-fit table, trade-offs and sources.',
+ title:'8 Best Loopio Alternatives for RFPs (2026)',
+ headline:'8 Best Loopio Alternatives in 2026',
+ description:'Compare 8 Loopio alternatives in 2026, including Inventive AI and Responsive. Explore RFP features, security questionnaires, pros, cons and pricing.',
  answer:'Inventive AI is a strong first Loopio alternative to evaluate when source-cited AI drafting, connected knowledge and security questionnaires are priorities. Responsive suits larger governed proposal programs; SiftHub connects RFP work to wider presales, while QorusDocs is worth considering for Microsoft 365 documents. The right replacement depends on your answer-library maturity, approval workflow and real document formats.',
  intro:'Moving from Loopio is not just a question of which product can auto-fill more answers. Teams need to weigh where current answers come from, how they are approved, what happens when two sources disagree and whether the final proposal keeps the buyer’s formatting. This guide compares credible alternatives on those practical choices—not on unverified speed promises.',
  whyTitle:'Why look for an alternative to Loopio?',
@@ -114,9 +114,9 @@ const loopio:RfpPage={
 };
 const responsive:RfpPage={
  slug:'responsive',target:'Responsive',crossSlug:'loopio',queryVariants:['Responsive alternative','Responsive alternatives','RFPIO alternative','RFPIO competitors'],
- title:'8 Best Responsive Alternatives in 2026 (RFPIO Competitors)',
- headline:'8 best Responsive alternatives in 2026',
- description:'Discover 8 Responsive (formerly RFPIO) alternatives with side-by-side comparisons for RFPs, DDQs, security questionnaires, governance and pricing models.',
+ title:'8 Best Responsive (RFPIO) Alternatives in 2026',
+ headline:'8 Best Responsive (RFPIO) Alternatives in 2026',
+ description:'Explore 8 Responsive (RFPIO) alternatives for RFPs in 2026. Compare Inventive AI, Loopio and others by features, security, pricing and ideal use cases.',
  answer:'Inventive AI is a leading Responsive alternative to evaluate if your team wants connected-source AI drafts, citations and less dependence on manually maintained answers. Loopio is compelling for established proposal libraries and structured collaboration. SiftHub fits broader presales work; QorusDocs fits Microsoft 365 proposals; Conveyor stands out when customer security reviews dominate.',
  intro:'Responsive, formerly RFPIO, is not simply a legacy answer database: its modern platform spans AI-assisted responses, project workflows and enterprise governance. Still, a large response management suite is not the right operating model for every sales or security team. The shortlist below focuses on practical reasons to choose differently, with explicit situations where Responsive remains a sensible choice.',
  whyTitle:'Why evaluate alternatives to Responsive (RFPIO)?',
