@@ -8,7 +8,7 @@ import {createRequire} from 'node:module';
 const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'trutool-catalog-'));
 try{
  fs.writeFileSync(path.join(tmp,'package.json'),'{"type":"commonjs"}');
- for(const file of ['catalog','public-visibility','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
+ for(const file of ['catalog','guides','search','diagnostic','catalog-results','tool-discovery','discovery-options','authors','ai','ai-news','cms-types','demo','demo-reviews','reviews','pricing','community-answers','content-index','covers'])fs.writeFileSync(path.join(tmp,file+'.js'),ts.transpileModule(fs.readFileSync('lib/'+file+'.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText);
  fs.writeFileSync(path.join(tmp,'cms-store.js'),'exports.getPublished=async()=>[];');
  fs.copyFileSync('lib/content-history.json',path.join(tmp,'content-history.json'));
  fs.copyFileSync('lib/expanded-catalog.json',path.join(tmp,'expanded-catalog.json'));
@@ -161,10 +161,10 @@ try{
  for(const c of categories)assert.equal(categoryCounts[c.slug],tools.filter(t=>t.category===c.slug).length);
  const {toolResults}=require(path.join(tmp,'catalog-results.js'));
  const first=toolResults(),second=toolResults('','','relevance',2);
- assert.equal(first.total,tools.filter(t=>!require(path.join(tmp,'public-visibility.js')).excludedTool(t)).length);assert.equal(first.items.length,24);assert.equal(second.page,2);assert.ok(!first.items.some(t=>second.items.some(x=>x.slug===t.slug)));
+ assert.equal(first.total,tools.length);assert.equal(first.items.length,24);assert.equal(second.page,2);assert.ok(!first.items.some(t=>second.items.some(x=>x.slug===t.slug)));
  assert.ok(first.items.every(t=>t.categoryLabel&&!('fit' in t)&&!('features' in t)),'Compact search responses');
  assert.equal(toolResults('','','',Infinity,Infinity).limit,24);assert.equal(toolResults('','','',999999).page,first.pages);
- assert.equal(toolResults('','nonexistent-category').total,0);assert.ok(!toolResults('chagpt','','',1,6).items.some(t=>t.slug==='chatgpt'),'Excluded brand must not appear in public search results');
+ assert.equal(toolResults('','nonexistent-category').total,0);assert.ok(toolResults('chagpt','','',1,6).items.some(t=>t.slug==='chatgpt'));
  const aiCatalogue=JSON.parse(fs.readFileSync('lib/ai-catalog.json','utf8'));
  const {aiTools,aiCategories,aiStats,isAITool,freshAITools,getAIShelves}=require(path.join(tmp,'ai.js'));
  assert.ok(aiCatalogue.tools.length>100);assert.ok(aiCategories.length>=19);
@@ -234,7 +234,7 @@ try{
  assert.ok(searchTools('medical scribe').every(t=>t.category==='ai-medical'),'Medical scribe search excludes generic meeting recorders');
  assert.ok(!searchTools('AI contract review').some(t=>t.slug==='chatgpt'),'Contract review search requires documented legal capability');
  console.log('PASS: 2,000+ unique profiles, source records, specialist searches, automatic counts and categories.');
- const shelves=getAIShelves(newsNow);assert.equal(shelves.length,3);assert.ok(shelves.every(s=>s.tools.length>=4&&s.tools.length<=6),'Shelves only contain eligible public tools');assert.ok(!shelves[1].tools.some(t=>t.slug==='devin'));assert.ok(shelves[1].tools.every(t=>t.launchedAt&&t.launchStatus));assert.equal(freshAITools(Date.parse('2027-01-01')).length,0);
+ const shelves=getAIShelves(newsNow);assert.equal(shelves.length,3);assert.ok(shelves.every(s=>s.tools.length===6));assert.ok(!shelves[1].tools.some(t=>t.slug==='devin'));assert.ok(shelves[1].tools.every(t=>t.launchedAt&&t.launchStatus));assert.equal(freshAITools(Date.parse('2027-01-01')).length,0);
  assert.ok(shelves[2].tools.some(t=>t.slug==='wispr-flow'));assert.ok(shelves[0].tools.some(t=>t.slug==='notebooklm'));
  console.log('PASS: '+aiCatalogue.tools.length+' added AI profiles, scoped search, source diversity, original article covers, 24-hour caching, discussion relevance, launch freshness, and feed fallback.');
  // Simulate publication in an isolated catalogue: never add QA content to the site.
@@ -266,7 +266,7 @@ try{
   const base=new Set(searchTools('meeting notes').map(t=>t.slug));assert.ok(lensResults('meeting notes','','relevance',1,50,'',lens).items.every(t=>base.has(t.slug)));
   assert.equal(lensResults('quantum banana telescope','','relevance',1,50,'',lens).total,0);
  }
- assert.equal(lensResults('chagpt','','relevance',1,24,'','popular').items.length,0,'Excluded brand is not shown in public discovery');
+ assert.equal(lensResults('chagpt','','relevance',1,24,'','popular').items[0].slug,'chatgpt');
  assert.ok(lensResults('password manager','','relevance',1,50,'','popular').items.some(t=>t.slug==='bitwarden'));
  assert.ok(lensResults('Jev AI','','relevance',1,24,'ai','niche').items.some(t=>t.slug==='jev-ai'));
  assert.equal(lensResults('','design','relevance',1,50,'','niche').items.every(t=>t.category==='design'),true);
