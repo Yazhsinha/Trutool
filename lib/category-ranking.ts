@@ -16,7 +16,7 @@ export function rankedCategoryTools(category:string,all:Tool[]):Tool[]{
  };
  const eligible=all.filter(t=>inCategory(t,category));
  const regular=eligible.filter(t=>!t.profile).sort(compare);
- const submissions=eligible.filter(t=>Boolean(t.profile)).sort((a,b)=>a.name.localeCompare(b.name,'en',{sensitivity:'base'}));
+ const submissions=eligible.filter(t=>Boolean(t.profile)).sort((a,b)=>{if(category==='ai-video'){if(a.slug==='ai-bulin-47')return -1;if(b.slug==='ai-bulin-47')return 1;}return a.name.localeCompare(b.name,'en',{sensitivity:'base'});});
  // New, free submissions enter around position ten; paid placements will be clearly labelled separately.
  return submissions.length?[...regular.slice(0,9),...submissions,...regular.slice(9)]:regular;
 }
