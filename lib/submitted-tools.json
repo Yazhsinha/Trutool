@@ -794,6 +794,95 @@
           }
         ]
       }
+    },
+    {
+      "slug": "ai-bulin-47",
+      "name": "AI Bulin 47",
+      "category": "ai-video",
+      "url": "https://ai-bulin-47.org/",
+      "summary": "Create a personalized 15-second, 720p vertical AI dance video from one approved portrait, with a prepared soundtrack and MP4 download.",
+      "fit": "Creators making short, consent-based dance recreation videos for personal sharing and social content.",
+      "features": [
+        "Single-photo portrait-to-video creation",
+        "Fixed 15-second, 720p, 9:16 MP4 format",
+        "Prepared dance reference and accompanying audio",
+        "Browser-based video history and downloads",
+        "One-time credit packs with no subscription",
+        "No site watermark on finished videos"
+      ],
+      "caution": "Results vary in appearance and movement. Upload only photos you have permission to use, and review media rights and disclosure requirements before sharing.",
+      "color": "#7865ef",
+      "initial": "A",
+      "format": "AI software",
+      "pricing": "One-time credit packs starting at $9.90; ten credits per video",
+      "pricingUrl": "https://ai-bulin-47.org/es/pricing",
+      "keywords": "AI Bulin 47 video generator portrait dance 15 second 720p vertical MP4 photo animation",
+      "sourceStatus": "Official provider documentation consulted",
+      "sourceUrl": "https://ai-bulin-47.org/about",
+      "sourceChecked": "2026-10-23",
+      "addedAt": "2026-10-23",
+      "updatedAt": "2026-10-23",
+      "ai": true,
+      "profile": {
+        "overview": "AI Bulin 47 is a focused photo-to-video generator built around one prepared freestyle dance reference. A single portrait supplies the appearance of the main performer, while the prepared reference guides the choreography, surrounding scene and soundtrack. The service targets people who want a short vertical recreation without writing prompts, uploading a source video or learning to edit timelines. It is intentionally narrower than a general-purpose AI video studio: the duration and scene are fixed. Generated appearance, motion and scene details are not guaranteed to match the source precisely. Review each finished result before saving or sharing.",
+        "useCases": [
+          "Turn your own portrait into a short dance recreation.",
+          "Prepare a consent-based celebratory video for a friend.",
+          "Experiment with portrait-led vertical videos without editing a timeline.",
+          "Create a private short-form video to review before choosing where to share it."
+        ],
+        "workflow": [
+          "Choose a well-lit JPEG, PNG or WebP image showing one adult subject who has approved this use.",
+          "Visit the official website, sign in and review the available credit packs.",
+          "Submit the portrait using the prepared dance reference; each new request currently uses 10 credits.",
+          "Open the account video history to check processing and download the completed MP4.",
+          "Review appearance, timing, sound and the entire scene before sharing. Save the MP4 locally."
+        ],
+        "checks": [
+          "Fixed 15-second output at 720p, portrait 9:16 aspect ratio.",
+          "No custom dance, alternate scene, manual prompt or longer video option in this template.",
+          "Review the vendor's current rules on permitted images, consent and account access.",
+          "Compare credit costs and the conditions for returned credits if processing fails.",
+          "Check whether the soundtrack and source material are licensed for your intended use.",
+          "Evaluate actual results; facial details, clothing and background elements may change.",
+          "Review the provider's current privacy information about photo retention and completed files."
+        ],
+        "notIdeal": "Not suitable for long-form editing, custom choreography, film production, or projects requiring precise identity and motion preservation.",
+        "faqs": [
+          {
+            "question": "What does AI Bulin 47 do?",
+            "answer": "It turns one approved portrait into a short AI recreation using a prepared freestyle dance reference. The intended output is a 15-second vertical video."
+          },
+          {
+            "question": "What video format does AI Bulin 47 export?",
+            "answer": "The provider specifies a 720p, 9:16 MP4 lasting 15 seconds with reference audio and no additional website watermark."
+          },
+          {
+            "question": "How much does AI Bulin 47 cost?",
+            "answer": "The provider lists one-time packs: Starter $9.90 for 20 credits, Plus $19.90 for 60 and Pro $39.90 for 200. Each new video currently uses 10 credits. Confirm pricing at checkout."
+          },
+          {
+            "question": "Is a subscription required?",
+            "answer": "The provider describes one-time credit purchases and says purchased credits do not expire."
+          },
+          {
+            "question": "Can I make the video from one photo?",
+            "answer": "Yes. Use a clear portrait of an adult who has agreed to the use. The dance reference is already prepared."
+          },
+          {
+            "question": "Can I change the dance or make a longer clip?",
+            "answer": "Not through the currently described template. Its reference, duration and frame are fixed rather than user-selectable."
+          },
+          {
+            "question": "What if video generation fails?",
+            "answer": "The vendor says confirmed technical failures return the reserved task credits. A completed render with imperfect visual details is not necessarily a technical failure."
+          },
+          {
+            "question": "Can I upload someone else's picture?",
+            "answer": "Use a photograph only with the rights and consent required for that specific creative use. Review applicable platform policies before sharing any synthetic clip."
+          }
+        ]
+      }
     }
   ]
 }
