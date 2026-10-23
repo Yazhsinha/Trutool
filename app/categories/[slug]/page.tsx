@@ -8,11 +8,11 @@ import { categoryOptions,toolResults } from '@/lib/catalog-results';
 import { publicTools } from '@/lib/cms-public';
 import {inCategory} from '@/lib/category-crosslist';
 import { getPublished, hiddenPaths } from '@/lib/cms-store';
-import { pageMetadata } from '@/lib/seo';
+import { pageMetadata,categoryMetaDescription } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 export const revalidate=30;
 export function generateStaticParams(){return categories.map(c=>({slug:c.slug}))}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params,c=categories.find(x=>x.slug===slug);return c?pageMetadata({title:c.name+' — Tools & Comparisons',description:c.answer,alternates:{canonical:SITE+'/categories/'+slug}}):{title:'Category not found'}}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params,c=categories.find(x=>x.slug===slug);return c?pageMetadata({title:c.name+' — Tools & Comparisons',description:categoryMetaDescription(c),alternates:{canonical:SITE+'/categories/'+slug}}):{title:'Category not found'}}
 export default async function Page({params,searchParams}:{params:Promise<{slug:string}>;searchParams:Promise<DirectoryParams>}){const {slug}=await params,c=categories.find(x=>x.slug===slug);if(!c)notFound();const filters=await searchParams;
  const [published,hidden]=await Promise.all([getPublished(),hiddenPaths()]);
  const publishedGuides=published.filter(item=>item.kind==='guide'&&item.category===slug&&!hidden.has('/guides/'+item.slug))
