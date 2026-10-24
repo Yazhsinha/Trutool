@@ -18,11 +18,25 @@ jobs:
       - run: corepack enable && corepack prepare pnpm@11.25.0 --activate
       - run: pnpm install --frozen-lockfile
       - run: node scripts/generate-content-history.mjs --write --date 2026-10-23T18:43:34Z
+      - name: Record tool and category metadata revision
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const file = 'lib/content-history.json';
+          const history = JSON.parse(fs.readFileSync(file, 'utf8'));
+          const modified = '2026-10-23T18:43:34.000Z';
+          for (const [route, entry] of Object.entries(history)) {
+            if (route.startsWith('/tools/') || route.startsWith('/categories/')) {
+              entry.modified = modified;
+            }
+          }
+          fs.writeFileSync(file, JSON.stringify(history, null, 1) + '\n');
+          NODE
       - run: |
           git config user.name "TruTool Content Bot"
           git config user.email "content-history@users.noreply.github.com"
           git add lib/content-history.json
           if ! git diff --cached --quiet; then
-            git commit -m "Reconcile sitemap revision dates with published changes"
+            git commit -m "Record tool and category metadata revision dates"
             git push origin HEAD:main
           fi
