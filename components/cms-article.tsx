@@ -13,7 +13,6 @@ import Link from 'next/link';
 import { ArticleToc } from './article-toc';
 import { AuthorProfile } from './author-profile';
 import { CmsMarkdown } from './cms-markdown';
-import { cmsMediaSize, withCmsMediaSizes } from '@/lib/cms-media-size';
 
 export async function CmsArticle({ content: c, preview = false }: { content: CmsContent; preview?: boolean }) {
   const author = authorFor({ authorSlug: c.authorSlug, category: c.category });
@@ -29,7 +28,6 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
   const tocHeadings = headings.some(h => h.level === 2) ? headings.filter(h => h.level === 2) : headings;
   const authorHeading = guideAuthorHeading(c);
   const extraJsonLd = cmsJsonLdMarkup(c.jsonLd);
-  const [renderBody, coverSize] = await Promise.all([withCmsMediaSizes(c.body), cmsMediaSize(c.image)]);
   const toc = [...tocHeadings.map(h => ({ id: h.id, label: h.label })), { id: 'cms-author-and-sources', label: authorHeading }];
 
   const articleBody = <>
@@ -40,7 +38,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
       <h2>Pricing</h2><p>{c.tool.pricing}</p>
       <a className="button dark" href={c.tool.pricingUrl || c.tool.url} target="_blank" rel="noopener noreferrer">Check vendor pricing</a>
     </div>}
-    <CmsMarkdown body={renderBody}/>
+    <CmsMarkdown body={c.body}/>
     {related.length > 0 && <section>
       <h2>Tools mentioned</h2>
       <div className="cms-related-tools">{related.map(tool => <Link key={tool.slug} href={'/tools/' + tool.slug}><strong>{tool.name}</strong><p>{tool.summary}</p></Link>)}</div>
@@ -86,7 +84,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
             </div>
           </div>
           <figure className="tt-article-hero-media">
-            <ResponsiveCover {...coverSize} sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image || coverFor(c.category)} alt={c.image ? c.imageAlt?.trim() || c.title + ' cover image' : coverAlt(c.category)}/>
+            <ResponsiveCover sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image || coverFor(c.category)} alt={c.image ? c.imageAlt?.trim() || c.title + ' cover image' : coverAlt(c.category)}/>
           </figure>
         </div>
       </header>
@@ -105,7 +103,7 @@ export async function CmsArticle({ content: c, preview = false }: { content: Cms
             {edited && <span>Updated {editedLabel}</span>}
           </div>
         </div>
-        {c.image && <figure className="cms-cover tt-article-hero-media"><ResponsiveCover {...coverSize} sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image} alt={c.imageAlt?.trim() || c.title + ' cover image'}/></figure>}
+        {c.image && <figure className="cms-cover tt-article-hero-media"><ResponsiveCover sizes="(max-width: 760px) calc(100vw - 40px), 52vw" loading="eager" fetchPriority="high" src={c.image} alt={c.imageAlt?.trim() || c.title + ' cover image'}/></figure>}
       </header>
       <div className="cms-article-columns">
         <article>{articleBody}</article>
