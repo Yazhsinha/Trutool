@@ -1,6 +1,8 @@
 import {categories} from '@/lib/catalog';
 import {createHash,randomUUID} from 'node:crypto';
 import {list,put,usingSupabaseStorage} from '@/lib/private-storage';
+import {normalizeProductUrl} from '@/lib/product-submission-url';
+import {productConfirmationId,deliverPendingProductConfirmation} from '@/lib/product-submission-confirmation';
 export const runtime='nodejs';
 export async function POST(request:Request){
  if(request.headers.get('origin')!==new URL(request.url).origin)return Response.json({error:'Please submit this form from the website.'},{status:403});
@@ -19,9 +21,9 @@ export async function POST(request:Request){
   const productUrl=typeof x.product.url==='string'?x.product.url.trim():'';
   const category=typeof x.product.category==='string'?x.product.category:'';
   if(productName.length<2||productName.length>100||productUrl.length>2048||!(category==='other'||categories.some(c=>c.slug===category)))return Response.json({error:'Check your product name, website, and category.'},{status:400});
-  let url:URL;try{url=new URL(productUrl);}catch{return Response.json({error:'Enter a valid official website starting with https:// or http://.'},{status:400});}
-  if(!['https:','http:'].includes(url.protocol)||!url.hostname||url.username||url.password)return Response.json({error:'Enter a valid official website starting with https:// or http://.'},{status:400});
-  product={name:productName,url:url.href,category};
+  const normalizedUrl=normalizeProductUrl(productUrl);
+  if(!normalizedUrl)return Response.json({error:'Enter a valid website, such as yourproduct.com or https://yourproduct.com.'},{status:400});
+  product={name:productName,url:normalizedUrl,category};
  }
  if(!usingSupabaseStorage()&&!process.env.BLOB_READ_WRITE_TOKEN)throw new Error('Contact inbox is not configured');
  const rateLimitSecret=process.env.ADMIN_SESSION_SECRET||process.env.BLOB_READ_WRITE_TOKEN;
@@ -29,7 +31,13 @@ export async function POST(request:Request){
  const hour=new Date().toISOString().slice(0,13);const key=createHash('sha256').update(email+rateLimitSecret).digest('hex');const prefix=`enquiries/${hour}/${key}/`;
  const recent=await list({prefix,limit:5});if(recent.blobs.length>=5)return Response.json({error:'You have sent several messages recently. Please try again later.'},{status:429});
  const id=randomUUID(),createdAt=new Date().toISOString();
- await put(prefix+id+'.json',JSON.stringify({id,name,email,topic,message,createdAt,...(product?{product}:{})}),{access:'private',contentType:'application/json',addRandomSuffix:false});
- return Response.json({ok:true,id});
+ const recordPath=prefix+id+'.json';
+ await put(recordPath,JSON.stringify({id,name,email,topic,message,createdAt,...(product?{product,confirmationEventId:productConfirmationId(id)}:{})}),{access:'private',contentType:'application/json',addRandomSuffix:false});
+ let confirmationEmail:'sent'|'pending'|undefined;
+ if(product){
+  try{const delivery=await deliverPendingProductConfirmation(recordPath);confirmationEmail=delivery==='sent'?'sent':'pending';}
+  catch{console.error('Product receipt could not be sent immediately');confirmationEmail='pending';}
+ }
+ return Response.json({ok:true,id,...(product?{confirmationEmail}:{})});
  }catch{console.error('Contact submission could not be saved');return Response.json({error:'We could not save your message. Your text is still here; please try again.'},{status:503});}
 }
