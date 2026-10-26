@@ -42,9 +42,16 @@ export async function put(path,body) { globalThis.testSubmittedPath=path;globalT
     ["from '@/lib/admin-auth'", "from './auth.mjs'"],
     ["from '@/lib/private-storage'", "from './storage.mjs'"],
   ]);
+  compile('lib/product-submission-url.ts','product-url.mjs',[]);
+  write('product-confirmation.mjs', `
+export function productConfirmationId(id) { return 'test-receipt-'+id; }
+export async function deliverPendingProductConfirmation(path) { globalThis.testConfirmationPath=path; return 'pending'; }
+`);
   compile('app/api/contact/route.ts', 'contact.mjs', [
     ["from '@/lib/catalog'", "from './catalog.mjs'"],
     ["from '@/lib/private-storage'", "from './storage.mjs'"],
+    ["from '@/lib/product-submission-url'", "from './product-url.mjs'"],
+    ["from '@/lib/product-submission-confirmation'", "from './product-confirmation.mjs'"],
   ]);
   globalThis.testInboxMessages = incoming;
   globalThis.testInboxAuth = false;
@@ -86,6 +93,20 @@ export async function put(path,body) { globalThis.testSubmittedPath=path;globalT
     assert.equal((await stored.json()).ok, true);
     assert.ok(globalThis.testSubmittedPath.startsWith('enquiries/'));
     assert.equal(globalThis.testSubmittedRecord.message, 'This question is long enough to be accepted.');
+    const domainOnly = new Request('https://trutool.co/api/contact', {
+      method:'POST',headers:{origin:'https://trutool.co','Content-Type':'application/json'},
+      body:JSON.stringify({name:'Example Submitter',email:'submitter@example.test',topic:'suggestion',
+        message:'A test product that supports useful work.',website:'',
+        product:{name:'Example Product',url:'miidasu.co',category:'other'}}),
+    });
+    const productResponse=await contact.POST(domainOnly);
+    assert.equal(productResponse.status,200,'Bare official domain must be accepted');
+    const productResult=await productResponse.json();
+    assert.equal(productResult.confirmationEmail,'pending');
+    assert.equal(globalThis.testSubmittedRecord.product.url,'https://miidasu.co/');
+    assert.equal(globalThis.testSubmittedRecord.confirmationEventId,'test-receipt-'+productResult.id);
+    assert.ok(globalThis.testConfirmationPath.startsWith('enquiries/'));
+
   } finally {
     if(savedToken === undefined)delete process.env.BLOB_READ_WRITE_TOKEN;
     else process.env.BLOB_READ_WRITE_TOKEN = savedToken;
