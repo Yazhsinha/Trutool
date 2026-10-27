@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/preview.mjs",
-    "build": "next build",
+    "build": "TRUTOOL_BUILD_MODE=1 next build",
     "start": "next start",
     "lint": "eslint . --ignore-pattern .next",
     "typecheck": "tsc --noEmit",
