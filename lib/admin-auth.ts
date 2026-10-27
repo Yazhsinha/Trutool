@@ -1,4 +1,6 @@
-import { BlobNotFoundError,BlobPreconditionFailedError,get,head,put } from './private-storage';
+// Keep security rate-limit counters in the original independent Blob store.
+// Primary CMS storage can become unavailable without blocking password verification.
+import { BlobNotFoundError,BlobPreconditionFailedError,get,head,put } from '@vercel/blob';
 import { cookies } from 'next/headers';
 import { createHmac,randomUUID,scryptSync,timingSafeEqual } from 'node:crypto';
 import 'server-only';
