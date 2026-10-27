@@ -10,7 +10,16 @@ const local=()=>!process.env.VERCEL&&process.env.CMS_TEST_STORE;
 export async function readStore():Promise<{store:CmsStore;etag?:string}>{
  if(local()){const fs=await import('node:fs/promises');try{return {store:JSON.parse(await fs.readFile(local() as string,'utf8'))}}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')return {store:emptyStore()};throw e;}}
  if(!process.env.BLOB_READ_WRITE_TOKEN){if(process.env.VERCEL)throw new Error('Content storage unavailable');return {store:emptyStore()};}
- let metadata;try{metadata=await head(pathname);}catch(e){if(e instanceof BlobNotFoundError)return {store:emptyStore()};throw e;}
+ let metadata;try{metadata=await head(pathname);}catch(e){
+  if(e instanceof BlobNotFoundError)return {store:emptyStore()};
+  // The website must remain buildable while Supabase temporarily restricts its REST API.
+  // This applies only to the Next.js build process, not runtime requests or Studio writes.
+  if(process.env.TRUTOOL_BUILD_MODE==='1' && e instanceof Error && /private storage read failed: 402/.test(e.message)) {
+    console.warn('TruTool: CMS read restricted (HTTP 402); using built-in public pages for prerender only.');
+    return {store:emptyStore()};
+  }
+  throw e;
+}
  const response=await get(metadata.url,{access:'private',useCache:false});
  if(!response)return {store:emptyStore()};if(response.statusCode!==200)throw new Error('Content storage unavailable');
  const store=await new Response(response.stream).json() as CmsStore;
