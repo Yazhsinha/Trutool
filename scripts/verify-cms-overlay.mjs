@@ -28,14 +28,20 @@ const blob={
  async get(key,{access}) {
   assert.equal(access,'private');
   const item=blobs.get(key);
-  return item?{statusCode:200,stream:new Response(item.body).body,blob:{etag:item.etag}}:null;
+  if(!item)return null;
+  return {statusCode:200,stream:new Response(item.body).body,blob:{etag:item.httpEtag||item.etag}};
+ },
+ async head(key) {
+  const item=blobs.get(key);
+  if(!item)throw new blob.BlobNotFoundError();
+  return {etag:item.headEtag||item.etag,pathname:key};
  },
  async put(key,body,opts) {
   assert.equal(opts.access,'private');
   const item=blobs.get(key);
-  if(item && (!opts.allowOverwrite || !opts.ifMatch || item.etag!==opts.ifMatch))
-   throw new blob.BlobPreconditionFailedError();
   if(!item&&opts.ifMatch)throw new blob.BlobPreconditionFailedError();
+  if(item&&opts.allowOverwrite!==true)throw new blob.BlobPreconditionFailedError();
+  if(item&&opts.ifMatch&&item.etag!==opts.ifMatch)throw new blob.BlobPreconditionFailedError();
   const etag=String(++revision);
   blobs.set(key,{etag,body:String(body)});
   return {pathname:key,etag};
@@ -73,12 +79,26 @@ try{
  };
  const cms=require(path.join(temp,'cms-store.js'));
  const backup=JSON.parse(fs.readFileSync('lib/recovered-published-guides.json','utf8'));
- assert.equal(backup.length,12,'All previously published CMS guides must be backed up');
- assert.equal(new Set(backup.map(r=>r.slug)).size,12,'Guide slugs must be unique');
+ assert.equal(backup.length,13,'All previously published CMS guides plus the force-published Slack guide must be backed up');
+ assert.equal(new Set(backup.map(r=>r.slug)).size,13,'Guide slugs must be unique');
  assert.ok(backup.every(r=>r.kind==='guide'&&r.publishedAt&&r.body.length>1000));
+ const slack=backup.find(r=>r.slug==='slack-alternatives-for-internal-communications');
+ assert.ok(slack,'Slack alternatives guide must be in the recovered public snapshot');
+ assert.equal(slack.id,'/guides/slack-alternatives-for-internal-communications');
+ assert.equal(slack.kind,'guide');
+ assert.equal(slack.category,'communication');
+ assert.equal(slack.authorSlug,'yash');
+ assert.equal(slack.image,'');
+ assert.equal(slack.title,'Slack Alternatives for Internal Communications in 2026: 6 Purpose-Built Platforms Compared');
+ assert.ok(slack.description.startsWith('Most organisations searching for Slack alternatives'));
+ assert.ok(slack.body.includes('## Quick answer'));
+ assert.ok(slack.body.includes('HubEngage'));
+ assert.equal(slack.publishedAt,'2026-10-30T00:00:00.000Z');
+ assert.equal(slack.updatedAt,'2026-10-30T00:00:00.000Z');
  const recovered=await cms.getPublished();
- assert.equal(recovered.filter(r=>r.kind==='guide').length,12,'Public guide list must restore all published source records during 402');
+ assert.equal(recovered.filter(r=>r.kind==='guide').length,13,'Public guide list must restore every published source record during 402');
  assert.ok(recovered.some(g=>g.slug==='claude-vs-chatgpt'));
+ assert.ok(recovered.some(g=>g.slug==='slack-alternatives-for-internal-communications'&&g.title===slack.title));
  assert.ok(recovered.filter(g=>g.image.startsWith('/media/')).length===0,'Unavailable old covers must use safe category images');
  const first=await cms.readStore();
  assert.equal(first.legacyUnavailable,true);
@@ -99,6 +119,35 @@ try{
  second.store.records[0].draft.title='Stale edit';
  await assert.rejects(()=>cms.writeStore(second.store,second.etag),blob.BlobPreconditionFailedError,
   'Conflicting edits must not silently overwrite');
+ const overlayMod=require(path.join(temp,'cms-overlay.js'));
+ assert.equal(overlayMod.normalizeBlobEtag('W/"abc123"'),'"abc123"');
+ assert.equal(overlayMod.normalizeBlobEtag('"abc123"'),'"abc123"');
+ assert.equal(overlayMod.normalizeBlobEtag('1'),'1');
+ assert.equal(overlayMod.normalizeBlobEtag(''),undefined);
+ const overlayKey='cms/independent-publishing-v1.json';
+ const stuckRow=blobs.get(overlayKey);
+ stuckRow.etag='s3-strong-etag';
+ stuckRow.httpEtag='W/"cdn-etag-not-s3"';
+ stuckRow.headEtag='s3-strong-etag';
+ const viaHead=await cms.readStore();
+ viaHead.store.records[0].draft.title='Published with canonical etag';
+ await cms.writeStore(viaHead.store,viaHead.etag);
+ assert.equal((await cms.readStore()).store.records[0].draft.title,'Published with canonical etag');
+ assert.equal(blobs.get(overlayKey).etag!=='s3-strong-etag',true);
+ const forced=blobs.get(overlayKey);
+ forced.httpEtag='W/"still-not-s3"';
+ forced.headEtag='W/"still-not-s3"';
+ const viaForce=await cms.readStore();
+ viaForce.store.records[0].draft.title='Published without ifMatch';
+ await cms.writeStore(viaForce.store,viaForce.etag);
+ assert.equal((await cms.readStore()).store.records[0].draft.title,'Published without ifMatch');
+ const conflictAgain=await cms.readStore();
+ const raced=await cms.readStore();
+ conflictAgain.store.records[0].draft.title='Winning edit';
+ await cms.writeStore(conflictAgain.store,conflictAgain.etag);
+ raced.store.records[0].draft.title='Losing edit';
+ await assert.rejects(()=>cms.writeStore(raced.store,raced.etag),blob.BlobPreconditionFailedError,
+  'A later ETag mismatch must still reject a real concurrent edit');
  restricted=false;
  const liveGuides=await cms.getPublished();
  assert.equal(liveGuides.filter(g=>g.kind==='guide').length,2,'Recovered guide snapshots must not override live Supabase records');
@@ -122,7 +171,7 @@ try{
  assert.equal(collision.store.records.filter(r=>r.draft.slug==='legacy-guide').length,1);
  assert.equal(collision.store.records.find(r=>r.draft.slug==='legacy-guide').id,'legacy-1');
  assert.equal(JSON.stringify(original),sourceSnapshot);
- console.log('PASS: 402-safe independent CMS writes, ETag collision rejection, recovered legacy union, preserved Supabase, and canonical URL collision isolation.');
+ console.log('PASS: 402-safe independent CMS writes, ETag collision rejection, weak-ETag recovery, recovered legacy union, preserved Supabase, and canonical URL collision isolation.');
 }finally{
  Module._load=originalLoad;
  for(const [k,v] of Object.entries({BLOB_READ_WRITE_TOKEN:originalEnv.blob,TRUTOOL_STORAGE_BACKEND:originalEnv.backend,VERCEL:originalEnv.vercel})){
