@@ -106,7 +106,21 @@ try {
   assert.ok(bodyWithoutImages.includes('<table>') && bodyWithoutImages.includes('Still a real paragraph.'), 'Tables and body copy must remain');
   const restored = JSON.parse(fs.readFileSync('lib/recovered-published-guides.json', 'utf8'));
   assert.equal(restored.length, 13, 'Recovered public guides include the force-published Slack alternatives guide');
-  assert.ok(restored.some(guide => guide.slug === 'slack-alternatives-for-internal-communications' && guide.image === ''), 'Slack alternatives guide is published without a private media cover');
+  const slack = restored.find(guide => guide.slug === 'slack-alternatives-for-internal-communications');
+  assert.ok(slack && slack.image === '', 'Slack alternatives guide is published without a private media cover');
+  assert.equal(slack.metaTitle, 'Slack Alternatives for Internal Comms (2026): 6 Platforms Compared | TruTool');
+  assert.ok(slack.metaDescription.length <= 155 && slack.metaDescription.includes('HubEngage') && slack.metaDescription.includes('Unily'));
+  assert.equal((slack.body.match(/https:\/\/www\.hubengage\.com\/pricing\/?/g) || []).length, 0, 'Retired HubEngage pricing URL must not remain');
+  assert.equal((slack.body.match(/https:\/\/www\.hubengage\.com\/employee-intranet\/intranet-pricing\//g) || []).length, 1);
+  const slackHtml = renderToStaticMarkup(React.createElement(CmsMarkdown, { body: slack.body, showImages: false }));
+  const slackFaq = JSON.parse(slack.jsonLd);
+  assert.equal(slackFaq['@type'], 'FAQPage');
+  assert.equal(slackFaq.mainEntity.length, 6);
+  const faqHtml = slackHtml.slice(slackHtml.indexOf('id="frequently-asked-questions"'));
+  slackFaq.mainEntity.forEach((item, index) => {
+    const visible = '>' + item.name + '</h3><p>' + item.acceptedAnswer.text + '</p>';
+    assert.ok(faqHtml.includes(visible), 'FAQ question and answer are not visible under the FAQ heading: ' + index);
+  });
   let removedFromGuideBodies = 0;
   for (const guide of restored) {
     const rawImages = (guide.body.match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
