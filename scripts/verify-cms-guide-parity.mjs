@@ -105,7 +105,8 @@ try {
   assert.ok(!bodyWithoutImages.includes('<p></p>'), 'Removing standalone images must not leave blank paragraphs');
   assert.ok(bodyWithoutImages.includes('<table>') && bodyWithoutImages.includes('Still a real paragraph.'), 'Tables and body copy must remain');
   const restored = JSON.parse(fs.readFileSync('lib/recovered-published-guides.json', 'utf8'));
-  assert.equal(restored.length, 12, 'All 12 original published guides are present');
+  assert.equal(restored.length, 13, 'Recovered public guides include the force-published Slack alternatives guide');
+  assert.ok(restored.some(guide => guide.slug === 'slack-alternatives-for-internal-communications' && guide.image === ''), 'Slack alternatives guide is published without a private media cover');
   let removedFromGuideBodies = 0;
   for (const guide of restored) {
     const rawImages = (guide.body.match(/!\[[^\]]*\]\([^)]+\)/g) || []).length;
