@@ -10,7 +10,7 @@ const pathname='cms/content-v1.json';
 export const emptyStore=():CmsStore=>({version:1,revision:0,records:[],activity:[]});
 const local=()=>!process.env.VERCEL&&process.env.CMS_TEST_STORE;
 type CmsRead = {store:CmsStore;etag?:string;legacyUnavailable?:boolean;collisionPaths?:string[]};
-type Snapshot = {sourceHashes:Map<string,string>;overlayIds:Set<string>;overlayStore:CmsStore};
+type Snapshot = {sourceHashes:Map<string,string>;overlayIds:Set<string>;overlayStore:CmsStore;overlayJson:string};
 const snapshots = new WeakMap<CmsStore,Snapshot>();
 const isRestricted=(error:unknown)=>error instanceof Error && /private storage read failed: 402/.test(error.message);
 
@@ -93,7 +93,7 @@ export async function readStore():Promise<CmsRead>{
     {featuredAlternativeSlugs:overlay.store.featuredAlternativeSlugs}:{}),
   ...(overlay.store.visibility?{visibility:overlay.store.visibility}:{}),
  };
- snapshots.set(store,{sourceHashes,overlayIds,overlayStore:overlay.store});
+ snapshots.set(store,{sourceHashes,overlayIds,overlayStore:overlay.store,overlayJson:JSON.stringify(overlay.store)});
  return {store,etag:overlay.etag,legacyUnavailable,collisionPaths};
 }
 
@@ -128,8 +128,10 @@ export async function writeStore(store:CmsStore,etag?:string){
     {featuredAlternativeSlugs:store.featuredAlternativeSlugs}:{}),
  };
  // Conditional private Blob write: concurrent editors cannot silently
- // overwrite each other. This NEVER writes to original Supabase.
- await writeCmsOverlay(next,etag);
+ // overwrite each other. A precondition failure whose blob bytes still
+ // match this read is an ETag format mismatch, not another editor.
+ // This NEVER writes to original Supabase or cms/content-v1.json.
+ await writeCmsOverlay(next,etag,ctx.overlayJson);
 }
 // No timed revalidation or repeated Supabase 402 attempts. Content is
 // refreshed only by explicit Studio publishing/invalidateDiscovery().
